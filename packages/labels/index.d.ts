@@ -3,25 +3,25 @@
  * Hand-written to keep the package build-step-free.
  */
 export declare const ASSET_STATUS_LABELS: {
-  readonly AVAILABLE: "Available";
-  readonly IN_CUSTODY: "In custody";
-  readonly CHECKED_OUT: "Checked out";
+  readonly AVAILABLE: "Sẵn sàng";
+  readonly IN_CUSTODY: "Đang bàn giao";
+  readonly CHECKED_OUT: "Đã xuất";
 };
 
 export declare const ASSET_QTY_STATUS_LABELS: {
-  readonly AVAILABLE: "Available";
-  readonly IN_CUSTODY: "In custody";
-  readonly PARTIAL_CUSTODY: "Partial custody";
-  readonly CHECKED_OUT: "Checked out";
-  readonly PARTIALLY_CHECKED_OUT: "Partially checked out";
-  readonly RESERVED: "Reserved";
-  readonly PARTIALLY_RESERVED: "Partially reserved";
+  readonly AVAILABLE: "Sẵn sàng";
+  readonly IN_CUSTODY: "Đang bàn giao";
+  readonly PARTIAL_CUSTODY: "Bàn giao một phần";
+  readonly CHECKED_OUT: "Đã xuất";
+  readonly PARTIALLY_CHECKED_OUT: "Đã xuất một phần";
+  readonly RESERVED: "Đã đặt trước";
+  readonly PARTIALLY_RESERVED: "Đặt trước một phần";
 };
 
 export declare const ASSET_BOOKING_PSEUDO_STATUS_LABELS: {
-  readonly ALREADY_CHECKED_IN: "Already checked in";
-  readonly PARTIALLY_CHECKED_IN: "Partially checked in";
-  readonly PARTIALLY_CHECKED_OUT: "Partially checked out";
+  readonly ALREADY_CHECKED_IN: "Đã nhận lại";
+  readonly PARTIALLY_CHECKED_IN: "Đã nhận lại một phần";
+  readonly PARTIALLY_CHECKED_OUT: "Đã xuất một phần";
 };
 
 /**
@@ -37,29 +37,29 @@ export declare const ASSET_BOOKING_PSEUDO_STATUS_LABELS: {
  * tracking `KitStatus` alone.
  */
 export declare const KIT_STATUS_LABELS: {
-  readonly AVAILABLE: "Available";
-  readonly IN_CUSTODY: "In custody";
-  readonly CHECKED_OUT: "Checked out";
+  readonly AVAILABLE: "Sẵn sàng";
+  readonly IN_CUSTODY: "Đang bàn giao";
+  readonly CHECKED_OUT: "Đã xuất";
   readonly PARTIALLY_CHECKED_IN: "Already checked in";
 };
 
 export declare const BOOKING_STATUS_LABELS: {
-  readonly DRAFT: "Draft";
-  readonly RESERVED: "Reserved";
-  readonly ONGOING: "Ongoing";
-  readonly OVERDUE: "Overdue";
-  readonly COMPLETE: "Complete";
-  readonly ARCHIVED: "Archived";
-  readonly CANCELLED: "Cancelled";
+  readonly DRAFT: "Nháp";
+  readonly RESERVED: "Đã đặt trước";
+  readonly ONGOING: "Đang diễn ra";
+  readonly OVERDUE: "Quá hạn";
+  readonly COMPLETE: "Hoàn tất";
+  readonly ARCHIVED: "Đã lưu trữ";
+  readonly CANCELLED: "Đã hủy";
 };
 
 /** Audit session lifecycle (AuditStatus in the Prisma schema). */
 export declare const AUDIT_STATUS_LABELS: {
-  readonly PENDING: "Pending";
-  readonly ACTIVE: "Active";
-  readonly COMPLETED: "Completed";
-  readonly CANCELLED: "Cancelled";
-  readonly ARCHIVED: "Archived";
+  readonly PENDING: "Chờ thực hiện";
+  readonly ACTIVE: "Đang thực hiện";
+  readonly COMPLETED: "Hoàn tất";
+  readonly CANCELLED: "Đã hủy";
+  readonly ARCHIVED: "Đã lưu trữ";
 };
 
 /**
@@ -69,9 +69,9 @@ export declare const AUDIT_STATUS_LABELS: {
  * explanatory tooltip. Kept together so they can never disagree.
  */
 export declare const AUDIT_UNASSIGNED_LABELS: {
-  readonly SHORT: "Unassigned · admins and owners can scan";
-  readonly A11Y: "unassigned, admins and owners can scan";
-  readonly DETAIL: "Workspace admins and owners can perform this audit because it has no specific assignee.";
+  readonly SHORT: "Chưa phân công · quản trị viên và chủ sở hữu có thể quét";
+  readonly A11Y: "chưa phân công, quản trị viên và chủ sở hữu có thể quét";
+  readonly DETAIL: "Quản trị viên và chủ sở hữu không gian làm việc có thể thực hiện đợt kiểm kê này vì chưa có người được phân công cụ thể.";
 };
 
 /**
@@ -83,10 +83,10 @@ export declare const AUDIT_UNASSIGNED_LABELS: {
  * that helper applies the completion rule.
  */
 export declare const AUDIT_ASSET_STATUS_LABELS: {
-  readonly PENDING: "Not scanned";
-  readonly FOUND: "Found";
-  readonly MISSING: "Missing";
-  readonly UNEXPECTED: "Unexpected";
+  readonly PENDING: "Chưa quét";
+  readonly FOUND: "Đã tìm thấy";
+  readonly MISSING: "Thiếu";
+  readonly UNEXPECTED: "Ngoài dự kiến";
 };
 
 /**
@@ -98,7 +98,7 @@ export declare const AUDIT_ASSET_STATUS_LABELS: {
  * applies the "keep the snapshotted title" rule.
  */
 export declare const AUDIT_DELETED_ASSET_LABELS: {
-  readonly UNTITLED: "Deleted asset";
+  readonly UNTITLED: "Tài sản đã xóa";
 };
 
 /**
@@ -164,9 +164,9 @@ export declare function auditAssetStatusLabel(
  * offending assets and keeps its own richer message.
  */
 export declare const BOOKING_RESERVE_BLOCKED_LABELS: {
-  readonly NOTHING_TO_RESERVE: "Add assets or reserve at least one model on this booking before you reserve it.";
-  readonly UNAVAILABLE_ASSETS: "This booking holds assets marked as unavailable. Remove them, or make them available again, before reserving.";
-  readonly ALREADY_BOOKED: "This booking holds assets already booked for that period. Remove them, or change the dates, before reserving.";
+  readonly NOTHING_TO_RESERVE: "Hãy thêm tài sản hoặc đặt trước ít nhất một mẫu tài sản trước khi xác nhận lịch đặt.";
+  readonly UNAVAILABLE_ASSETS: "Lịch đặt này có tài sản đang không khả dụng. Hãy xóa chúng khỏi lịch hoặc chuyển về trạng thái sẵn sàng trước khi đặt.";
+  readonly ALREADY_BOOKED: "Lịch đặt này có tài sản đã được đặt trong khoảng thời gian đó. Hãy xóa tài sản hoặc đổi thời gian trước khi đặt.";
 };
 
 /**
@@ -178,7 +178,7 @@ export declare const BOOKING_RESERVE_BLOCKED_LABELS: {
  * statuses hold nothing, and ONGOING / OVERDUE bookings must stay emptiable so
  * a checked-out asset can still be pulled off a live booking.
  */
-export declare const BOOKING_EMPTY_RESERVED_MESSAGE: "A reserved booking must keep at least one asset or model reservation. Cancel the booking instead, or add a replacement first.";
+export declare const BOOKING_EMPTY_RESERVED_MESSAGE: "Lịch đã đặt phải có ít nhất một tài sản hoặc mẫu tài sản được giữ chỗ. Hãy hủy lịch hoặc thêm tài sản thay thế trước.";
 
 /**
  * The semantic weight a status badge carries, independent of any palette. Each
