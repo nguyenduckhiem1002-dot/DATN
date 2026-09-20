@@ -26,6 +26,7 @@
     "lint:fix": "eslint --cache --cache-location ./node_modules/.cache/eslint --ext .js,.jsx,.ts,.tsx --fix .",
     "format-code": "pnpm run format && pnpm run lint:fix",
     "stripe:webhook": "stripe listen --forward-to https://localhost:3000/api/stripe-webhook",
+    "seed:casla-user": "dotenv -e ../../.env -- tsx scripts/seed-casla-user.ts",
     "seed:reporting-demo": "dotenv -e ../../.env -- tsx scripts/seed-reporting-demo.ts",
     "seed:reporting-demo:staging": "dotenv -e ../../.env.staging -- tsx scripts/seed-reporting-demo.ts",
     "clean:reporting-demo": "dotenv -e ../../.env -- tsx scripts/clean-reporting-demo.ts",
