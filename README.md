@@ -1,173 +1,171 @@
-<a href="https://www.shelf.nu/" target="_blank">
-<img width="100%" src="./apps/webapp/public/static/images/readme-cover.jpg" alt="Shelf.nu" />
-</a>
+<p align="center">
+  <img src="./apps/webapp/public/static/images/casla-logo.svg" alt="Casla Assets" width="300" />
+</p>
 
-<h3 align="center">Open-source asset management infrastructure for everyone.</h3>
+<h1 align="center">Casla Assets</h1>
 
 <p align="center">
-  <a href="https://github.com/Shelf-nu/shelf.nu/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Shelf-nu/shelf.nu?label=License" alt="License" /></a>
-  <a href="https://github.com/Shelf-nu/shelf.nu/actions/workflows/deploy.yml"><img src="https://github.com/Shelf-nu/shelf.nu/actions/workflows/deploy.yml/badge.svg" alt="Deploy" /></a>
-  <a href="https://github.com/Shelf-nu/shelf.nu/stargazers"><img src="https://img.shields.io/github/stars/Shelf-nu/shelf.nu" alt="Stars" /></a>
-  <a href="https://discord.gg/8he9W7aTJu"><img src="https://img.shields.io/badge/Discord-community-blue?logo=discord&logoColor=white" alt="Discord" /></a>
+  Hệ thống quản lý tài sản nội bộ dành cho Casla.
 </p>
 
 <p align="center">
-  <a href="https://www.shelf.nu/?ref=github"><b>Website</b></a> &middot;
-  <a href="https://docs.shelf.nu/?ref=github"><b>Documentation</b></a> &middot;
-  <a href="https://discord.gg/8he9W7aTJu"><b>Discord</b></a> &middot;
-  <a href="https://twitter.com/ShelfQR/?ref=github"><b>Twitter</b></a>
+  <a href="https://github.com/nguyenduckhiem1002-dot/DATN/actions/workflows/test.yml">
+    <img src="https://github.com/nguyenduckhiem1002-dot/DATN/actions/workflows/test.yml/badge.svg" alt="Tests" />
+  </a>
+  <a href="https://github.com/nguyenduckhiem1002-dot/DATN/actions/workflows/casla-branding.yml">
+    <img src="https://github.com/nguyenduckhiem1002-dot/DATN/actions/workflows/casla-branding.yml/badge.svg" alt="Casla Branding" />
+  </a>
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/badge/license-AGPL--3.0-blue" alt="AGPL-3.0" />
+  </a>
 </p>
 
 ---
 
-Shelf is a platform for tracking physical assets — equipment, devices, tools, vehicles, props, inventory. It's built for teams that need to know what they have, where it is, and who's using it. Organizations use Shelf to manage thousands of assets across locations with role-based access for their teams.
+## Giới thiệu
 
-## Features
+**Casla Assets** là hệ thống quản lý tài sản được tùy biến để sử dụng trong nội bộ Casla, phát triển dựa trên mã nguồn mở [Shelf.nu](https://github.com/Shelf-nu/shelf.nu).
 
-- **QR asset tags** — Generate and print QR codes. Scan with any phone to view, check out, or report an asset.
-- **Bookings and reservations** — Schedule equipment, prevent double-bookings, set checkout/return dates with calendar integration.
-- **Custody tracking** — Assign assets to team members. Know who has what at all times.
-- **Location management** — Hierarchical locations (buildings, floors, rooms, shelves). GPS tagging support.
-- **Team roles** — Owner, Admin, Base, and Self Service roles with granular permissions.
-- **Custom fields** — Add any metadata to assets: purchase date, warranty info, serial numbers, condition.
-- **Categories and tags** — Organize assets into categories. Tag for flexible cross-cutting grouping.
-- **Kits** — Bundle assets into kits (e.g., laptop + charger + dock) and manage them as a unit.
-- **Search and filtering** — Full-text search with advanced filters. Saved filter presets.
-- **CSV import/export** — Bulk import assets from spreadsheets. Export for reporting.
-- **Asset reminders** — Schedule alerts for maintenance, calibration, warranty expiry.
-- **Audit trail** — Notes and activity logs on every asset.
-- **Multi-workspace** — Manage separate inventories for different organizations or departments.
-- **Scanner** — Built-in QR/barcode scanner with bulk actions: assign custody, update location, add to bookings.
+Mục tiêu của dự án là tập trung thông tin tài sản vào một hệ thống thống nhất, giúp theo dõi tài sản đang ở đâu, thuộc danh mục nào, ai đang sử dụng, lịch bàn giao/hoàn trả và lịch sử thay đổi.
 
-## Tech Stack
+Giao diện của bản Casla được ưu tiên **Tiếng Việt** và sử dụng bộ nhận diện Casla.
 
-| Layer      | Technology                                                                      |
-| ---------- | ------------------------------------------------------------------------------- |
-| Framework  | [React Router](https://reactrouter.com/) 7 (React 19)                           |
-| Language   | [TypeScript](https://www.typescriptlang.org/) 5                                 |
-| Database   | [PostgreSQL](https://www.postgresql.org/) via [Supabase](https://supabase.com/) |
-| ORM        | [Prisma](https://www.prisma.io/) 6                                              |
-| Styling    | [Tailwind CSS](https://tailwindcss.com/) 3                                      |
-| Components | [Radix UI](https://www.radix-ui.com/) primitives                                |
-| Auth       | [Supabase Auth](https://supabase.com/docs/guides/auth) (email, SSO)             |
-| Job queue  | [pg-boss](https://github.com/timgit/pg-boss)                                    |
-| Payments   | [Stripe](https://stripe.com/)                                                   |
-| Email      | [Nodemailer](https://nodemailer.com/) (SMTP)                                    |
-| Build      | [Vite](https://vite.dev/) 7, [Turborepo](https://turbo.build/)                  |
-| Testing    | [Vitest](https://vitest.dev/), [Playwright](https://playwright.dev/)            |
+## Chức năng chính
 
-## Getting Started
+- **Quản lý tài sản** — tạo, cập nhật, tìm kiếm, lọc và theo dõi tài sản.
+- **Mã QR / Barcode** — quét mã để truy cập nhanh thông tin tài sản.
+- **Vị trí** — quản lý tài sản theo kho, phòng, khu vực hoặc địa điểm.
+- **Bàn giao / người giữ tài sản** — theo dõi tài sản đang được giao cho ai.
+- **Đặt lịch** — lên lịch sử dụng, bàn giao và nhận lại thiết bị.
+- **Bộ tài sản** — gom nhiều tài sản thành một bộ để quản lý cùng nhau.
+- **Danh mục và thẻ** — phân loại tài sản linh hoạt.
+- **Kiểm kê** — hỗ trợ quy trình kiểm kê và đối chiếu tài sản.
+- **Nhắc việc** — theo dõi bảo trì, bảo hành và các mốc cần xử lý.
+- **Báo cáo** — tổng hợp dữ liệu tài sản và lịch sử hoạt động.
+- **Phân quyền** — quản lý quyền truy cập theo người dùng và vai trò.
+- **Import / Export CSV** — nhập và xuất dữ liệu hàng loạt.
 
-### Prerequisites
+## Công nghệ
 
-- [Node.js](https://nodejs.org/) >= 22.20.0
-- [pnpm](https://pnpm.io/) >= 9.15.4
-- A [Supabase](https://supabase.com/) project (free tier works)
+| Thành phần | Công nghệ |
+| --- | --- |
+| Frontend / Web | React 19, React Router 7 |
+| Ngôn ngữ | TypeScript |
+| Build | Vite, Turborepo |
+| Package manager | pnpm |
+| Database | PostgreSQL |
+| ORM | Prisma |
+| Authentication / Storage | Supabase |
+| UI | Tailwind CSS, Radix UI |
+| Test | Vitest, Playwright |
+| Mobile companion | React Native / Expo |
 
-### Setup
+## Yêu cầu phát triển
+
+- Node.js **>= 22.20.0**
+- pnpm **9.15.9**
+- PostgreSQL / Supabase phù hợp với cấu hình môi trường của dự án
+
+## Chạy dự án local
 
 ```bash
-# Clone the repository
-git clone https://github.com/Shelf-nu/shelf.nu.git
-cd shelf.nu
+git clone https://github.com/nguyenduckhiem1002-dot/DATN.git
+cd DATN
 
-# Install dependencies
 pnpm install
 
-# Copy environment template
 cp .env.example .env
-```
 
-Edit `.env` with your Supabase credentials and other configuration. See the [Supabase setup guide](https://docs.shelf.nu/supabase-setup) for step-by-step instructions.
-
-```bash
-# Generate Prisma client and run migrations
 pnpm webapp:setup
-
-# Start development server
 pnpm webapp:dev
 ```
 
-The app runs at `https://localhost:3000` (the dev server uses HTTPS with local certificates by default).
+Ứng dụng development mặc định chạy tại:
 
-For detailed setup instructions including SSL certificates and troubleshooting, see the [local development guide](https://docs.shelf.nu/local-development).
-
-## Project Structure
-
+```text
+https://localhost:3000
 ```
-shelf.nu/
+
+> File `.env` cần được cấu hình đúng database, Supabase và các dịch vụ liên quan trước khi chạy đầy đủ ứng dụng.
+
+## Các lệnh thường dùng
+
+| Lệnh | Chức năng |
+| --- | --- |
+| `pnpm webapp:dev` | Chạy web app ở development |
+| `pnpm webapp:build` | Build web app |
+| `pnpm webapp:validate` | Prisma generate + test + lint + typecheck |
+| `pnpm webapp:test` | Chạy Vitest |
+| `pnpm webapp:lint` | Chạy ESLint |
+| `pnpm typecheck` | Kiểm tra TypeScript |
+| `pnpm webapp:setup` | Generate Prisma client và chạy migration |
+| `pnpm db:deploy-migration` | Apply migration |
+| `pnpm db:reset` | Reset database — **xóa dữ liệu** |
+
+## Cấu trúc chính
+
+```text
+DATN/
 ├── apps/
-│   ├── webapp/          # Main application (React Router + Hono)
-│   │   ├── app/
-│   │   │   ├── routes/      # File-based routing
-│   │   │   ├── modules/     # Business logic (booking, asset, kit, etc.)
-│   │   │   ├── components/  # React components
-│   │   │   └── utils/       # Shared utilities
-│   │   └── public/          # Static assets
-│   └── docs/            # Documentation site (VitePress)
+│   ├── webapp/              # Ứng dụng Casla Assets trên web
+│   ├── companion/           # Ứng dụng mobile companion
+│   └── docs/                # Tài liệu từ upstream
 ├── packages/
-│   └── database/        # Prisma schema, migrations, client
-└── tooling/
-    └── typescript/      # Shared TypeScript config
+│   ├── database/            # Prisma schema, migrations
+│   └── ...                  # Các package dùng chung
+├── .github/
+│   └── workflows/           # GitHub Actions
+└── CASLA_CUSTOMIZATION.md   # Ghi chú tùy biến Casla
 ```
 
-The monorepo is managed with pnpm workspaces and Turborepo. The `@shelf/database` package owns all database concerns — schema, migrations, and Prisma client generation.
+### Vì sao vẫn còn tên `@shelf/*` trong code?
 
-## Commands
+Một số package, biến nội bộ và cấu trúc kỹ thuật vẫn giữ tên từ upstream như `@shelf/webapp` hoặc `@shelf/database`.
 
-| Command                     | Description                             |
-| --------------------------- | --------------------------------------- |
-| `pnpm webapp:dev`           | Start development server                |
-| `pnpm webapp:build`         | Production build                        |
-| `pnpm webapp:test`          | Run tests (Vitest)                      |
-| `pnpm webapp:validate`      | Lint + typecheck + test                 |
-| `pnpm webapp:doctor`        | React health scan (react-doctor)        |
-| `pnpm companion:doctor`     | React Native health scan (react-doctor) |
-| `pnpm webapp:setup`         | Generate Prisma client + run migrations |
-| `pnpm db:prepare-migration` | Create a new database migration         |
-| `pnpm db:deploy-migration`  | Apply pending migrations                |
-| `pnpm db:reset`             | Reset database (destructive)            |
-| `pnpm docs:dev`             | Start documentation site                |
-| `pnpm typecheck`            | TypeScript type checking                |
-| `pnpm lint`                 | ESLint                                  |
+Đây là quyết định có chủ đích để giảm rủi ro làm hỏng dependency graph, migration, import path và khả năng đồng bộ các bản vá từ upstream. Tên hiển thị cho người dùng được đổi sang **Casla Assets**; việc đổi namespace nội bộ có thể thực hiện sau nếu thật sự cần thiết.
 
-## Deployment
+## GitHub Actions
 
-### Fly.io
+Repository có hai lớp kiểm tra chính:
 
-Shelf deploys to [Fly.io](https://fly.io/) with GitHub Actions for CI/CD. Pushes to `dev` trigger staging deploys and pushes to `main` trigger production deploys; in both cases we run lint, typecheck, test, Docker build, and deploy.
+1. **Test workflow** — lint, TypeScript, Vitest và test các workspace package trên Pull Request.
+2. **Casla Assets Brand Guard** — kiểm tra logo, tên thương hiệu và locale Casla để tránh các thay đổi upstream vô tình đưa branding Shelf trở lại.
 
-See the [deployment guide](https://docs.shelf.nu/deployment) for full setup instructions.
+Không commit secret hoặc nội dung `.env` lên repository. Các secret dùng cho deploy/E2E phải cấu hình bằng **GitHub Actions Secrets / Environments**.
 
-### Docker
+## Triển khai nội bộ
 
-Community-maintained Docker support is available for self-hosting. Requires an external Supabase instance.
+Casla Assets có thể được triển khai trong hạ tầng nội bộ, nhưng kiến trúc hiện tại vẫn kế thừa Shelf.nu và sử dụng PostgreSQL/Supabase cho một số thành phần.
 
-See the [Docker guide](https://docs.shelf.nu/docker).
+Nếu triển khai hoàn toàn on-premise, cần đánh giá riêng:
 
-## Documentation
+- PostgreSQL
+- Authentication
+- Object storage
+- SMTP
+- Backup database
+- Reverse proxy / HTTPS
+- Quản lý secret
+- Chiến lược cập nhật từ upstream
 
-| Guide                                                        | Description                                  |
-| ------------------------------------------------------------ | -------------------------------------------- |
-| [Local Development](https://docs.shelf.nu/local-development) | Full local setup with SSL, monorepo overview |
-| [Supabase Setup](https://docs.shelf.nu/supabase-setup)       | Database, auth, storage configuration        |
-| [Deployment](https://docs.shelf.nu/deployment)               | Fly.io + GitHub Actions CI/CD                |
-| [Docker](https://docs.shelf.nu/docker)                       | Self-hosted Docker setup                     |
-| [App Configuration](https://docs.shelf.nu/app-configuration) | `shelf.config.ts` options                    |
-| [Error Handling](https://docs.shelf.nu/handling-errors)      | Error patterns and conventions               |
-| [Accessibility](https://docs.shelf.nu/accessibility)         | WCAG 2.1 AA compliance                       |
-| [Contributing](./CONTRIBUTING.md)                            | How to contribute                            |
+## Tùy biến Casla
 
-For developer onboarding and codebase conventions, see [`CLAUDE.md`](./CLAUDE.md).
+Các thay đổi đặc thù Casla được ghi trong [CASLA_CUSTOMIZATION.md](./CASLA_CUSTOMIZATION.md).
 
-## Contributing
+Logo ứng dụng:
 
-We welcome contributions. Check the [contribution guidelines](./CONTRIBUTING.md) and look for issues labeled [**"Open for contributions"**](https://github.com/Shelf-nu/shelf.nu/issues?q=is%3Aissue+is%3Aopen+label%3A%22Open+for+contributions%22).
+- `apps/webapp/public/static/images/casla-logo.svg`
+- `apps/webapp/public/static/images/casla-logo-white.svg`
 
-The project uses [conventional commits](https://www.conventionalcommits.org/), enforced by commitlint. Pre-commit hooks run ESLint, Prettier, and TypeScript checking via Lefthook.
+Locale mặc định: **vi-VN**.
 
-Join the [Discord](https://discord.gg/8he9W7aTJu) if you have questions or want to discuss your contribution.
+## Nguồn gốc và giấy phép
 
-## License
+Dự án này được phát triển dựa trên:
 
-Shelf.nu is licensed under [AGPL-3.0](./LICENSE).
+- Upstream: [Shelf.nu](https://github.com/Shelf-nu/shelf.nu)
+- License: **GNU Affero General Public License v3.0 (AGPL-3.0)**
+
+Casla Assets tiếp tục tuân thủ các điều khoản áp dụng của AGPL-3.0. Không xóa file [LICENSE](./LICENSE) hoặc các thông báo bản quyền bắt buộc của upstream.
+
+Việc sử dụng nội bộ hoặc không nhằm mục đích thương mại không tự động loại bỏ các nghĩa vụ của AGPL-3.0.
