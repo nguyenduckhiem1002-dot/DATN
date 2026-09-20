@@ -34,7 +34,7 @@ export default function PerPageItemsSelect() {
         onValueChange={onValueChange}
       >
         <SelectTrigger
-          aria-label="Select per page"
+          aria-label="Chọn số mục mỗi trang"
           className="h-[34px] px-3 py-[5.5px] text-[14px]"
         >
           <SelectValue />
