@@ -1,4 +1,5 @@
 name: Bootstrap Casla Assets
+# Initializes the internal Casla Assets codebase from the pinned upstream commit.
 
 on:
   workflow_dispatch:
