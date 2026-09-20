@@ -12,11 +12,11 @@ import { ErrorContent } from "~/components/errors";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
 export const meta: MetaFunction = () => [
-  { title: appendToMetaTitle("Reports") },
+  { title: appendToMetaTitle("Báo cáo") },
 ];
 
 export const handle = {
-  breadcrumb: () => <Link to="/reports">Reports</Link>,
+  breadcrumb: () => <Link to="/reports">Báo cáo</Link>,
 };
 
 export default function ReportsLayout() {
