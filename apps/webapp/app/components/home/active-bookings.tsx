@@ -28,7 +28,7 @@ export default function ActiveBookings() {
     <div className="flex h-full flex-col rounded border border-gray-200 bg-white">
       <div className="flex items-center justify-between border-b px-4 py-3 md:px-6">
         <span className="text-[14px] font-semibold text-gray-900">
-          Active bookings
+          Đặt lịch đang hoạt động
         </span>
         <div className="flex items-center gap-2">
           {canUseBookings && (
@@ -37,7 +37,7 @@ export default function ActiveBookings() {
               variant="block-link-gray"
               className="!mt-0 text-xs"
             >
-              View all
+              Xem tất cả
             </Button>
           )}
         </div>
