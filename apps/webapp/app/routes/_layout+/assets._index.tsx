@@ -98,7 +98,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           throw new ShelfError({
             cause,
             message:
-              "We can't find your user data. Please try again or contact support.",
+              "Không tìm thấy dữ liệu người dùng. Vui lòng thử lại hoặc liên hệ bộ phận hỗ trợ.",
             additionalData: { userId },
             label: "Assets",
           });
@@ -122,9 +122,9 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       });
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
+        title: "Không có quyền truy cập",
         message:
-          "You don't have permission to access the advanced mode. We will automatically switch you back to 'simple' mode. Please reload the page.",
+          "Bạn không có quyền sử dụng chế độ nâng cao. Hệ thống sẽ tự động chuyển về chế độ đơn giản. Vui lòng tải lại trang.",
         label: "Assets",
         status: 403,
         shouldBeCaptured: false,
@@ -230,8 +230,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Assets deleted",
-          message: "Your assets has been deleted successfully",
+          title: "Đã xóa tài sản",
+          message: "Các tài sản đã được xóa thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -369,10 +369,10 @@ export default function AssetIndexPage() {
       </Header>
       <AssetsList
         customEmptyStateContent={{
-          title: "No assets yet",
-          text: "Assets are the core of your inventory. Create your first asset to start tracking equipment, devices, or anything your team manages.",
+          title: "Chưa có tài sản",
+          text: "Tài sản là dữ liệu cốt lõi của hệ thống. Hãy tạo tài sản đầu tiên để bắt đầu theo dõi thiết bị và vật tư của công ty.",
           newButtonRoute: "/assets/new",
-          newButtonContent: "Create your first asset",
+          newButtonContent: "Tạo tài sản đầu tiên",
         }}
       />
     </div>
