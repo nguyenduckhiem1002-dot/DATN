@@ -81,10 +81,10 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     if (isPersonalOrg(currentOrganization)) {
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
+        title: "Không có quyền",
         message:
-          "You cannot use bookings in a personal workspaces. Please create a Team workspace to create bookings.",
-        label: "Booking",
+          "Bạn không thể sử dụng đặt lịch trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
+        label: "Đặt lịch",
         shouldBeCaptured: false,
       });
     }
@@ -216,11 +216,11 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     });
 
     const header: HeaderData = {
-      title: "Bookings",
+      title: "Đặt lịch",
     };
     const modelName = {
-      singular: "booking",
-      plural: "bookings",
+      singular: "lịch đặt",
+      plural: "lịch đặt",
     };
 
     return data(
@@ -342,7 +342,7 @@ export default function BookingsIndexPage({
             trigger={
               <Button
                 type="button"
-                aria-label="new booking"
+                aria-label="lịch đặt mới"
                 data-test-id="createNewBooking"
                 prefetch="none"
               >
@@ -362,7 +362,7 @@ export default function BookingsIndexPage({
             )
           }
           customEmptyStateContent={{
-            title: "No bookings yet",
+            title: "Chưa có lịch đặt",
             text: "Đặt lịch giúp nhóm giữ tài sản cho các ngày cụ thể. Hãy tạo lịch để lên kế hoạch bàn giao và nhận lại thiết bị.",
             newButtonRoute: "/bookings/new",
             newButtonContent: "Tạo lịch đặt đầu tiên",
@@ -371,14 +371,14 @@ export default function BookingsIndexPage({
           headerChildren={
             <>
               <Th />
-              <Th>Assets</Th>
-              <Th>Description</Th>
+              <Th>Tài sản</Th>
+              <Th>Mô tả</Th>
 
-              <Th>From</Th>
-              <Th>To</Th>
-              <Th>Tags</Th>
-              <Th>Custodian</Th>
-              <Th>Created by</Th>
+              <Th>Từ</Th>
+              <Th>Đến</Th>
+              <Th>Thẻ</Th>
+              <Th>Người giữ</Th>
+              <Th>Người tạo</Th>
             </>
           }
           headerExtraContent={
