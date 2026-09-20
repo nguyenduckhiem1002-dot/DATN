@@ -12,6 +12,7 @@ import {
 import { Config } from "./types";
 
 export const config: Config = {
+  internalMode: true,
   sendOnboardingEmail: SEND_ONBOARDING_EMAIL || false,
   enablePremiumFeatures: ENABLE_PREMIUM_FEATURES || false,
   freeTrialDays: Number(FREE_TRIAL_DAYS || 7),
@@ -20,10 +21,10 @@ export const config: Config = {
   enableScim: ENABLE_SCIM || false,
 
   logoPath: {
-    fullLogo: "/static/images/casla-logo.svg",
-    symbol: "/static/images/casla-logo.svg",
+    fullLogo: "/static/images/casla-logo-compact.svg",
+    symbol: "/static/images/casla-mark.svg",
   },
-  faviconPath: "/static/favicon.ico",
+  faviconPath: "/static/images/casla-mark.svg",
   emailPrimaryColor: "#EF6820",
   showHowDidYouFindUs: SHOW_HOW_DID_YOU_FIND_US || false,
   collectBusinessIntel:
