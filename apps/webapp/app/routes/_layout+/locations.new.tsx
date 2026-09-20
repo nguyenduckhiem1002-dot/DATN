@@ -130,8 +130,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
       })) ?? location;
 
     sendNotification({
-      title: "Location created",
-      message: "Your location has been created successfully",
+      title: "Đã tạo vị trí",
+      message: "Vị trí đã được tạo thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
