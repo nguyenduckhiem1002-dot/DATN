@@ -46,8 +46,8 @@ import { resolveUserDisplayName } from "~/utils/user";
 
 const AUDIT_SORTING_OPTIONS = {
   name: "Name",
-  createdAt: "Creation Date",
-  dueDate: "Due date",
+  createdAt: "Ngày tạo",
+  dueDate: "Hạn hoàn thành",
 } as const;
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
@@ -94,12 +94,12 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     const totalPages = Math.ceil(totalAudits / perPage);
 
     const header: HeaderData = {
-      title: "Audits",
+      title: "Kiểm kê",
     };
 
     const modelName = {
-      singular: "audit",
-      plural: "audits",
+      singular: "đợt kiểm kê",
+      plural: "đợt kiểm kê",
     };
 
     return data(
@@ -114,8 +114,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         modelName,
         isSelfServiceOrBase,
         searchFieldTooltip: {
-          title: "Search audits",
-          text: "Search audits by name or description.",
+          title: "Tìm kiếm kiểm kê",
+          text: "Tìm đợt kiểm kê theo tên hoặc mô tả.",
         },
       }),
       {
@@ -170,18 +170,18 @@ export default function AuditsIndexPage() {
           ItemComponent={ListItemContent}
           headerChildren={
             <>
-              <Th>Status</Th>
-              <Th>Description</Th>
-              <Th>Created by</Th>
-              <Th>Assignee</Th>
-              <Th className="whitespace-nowrap">Due date</Th>
-              <Th>Created</Th>
-              <Th>Started</Th>
-              <Th>Completed</Th>
-              <Th className="text-right">Expected</Th>
-              <Th className="text-right">Found</Th>
+              <Th>Trạng thái</Th>
+              <Th>Mô tả</Th>
+              <Th>Người tạo</Th>
+              <Th>Người phụ trách</Th>
+              <Th className="whitespace-nowrap">Hạn hoàn thành</Th>
+              <Th>Ngày tạo</Th>
+              <Th>Bắt đầu</Th>
+              <Th>Hoàn tất</Th>
+              <Th className="text-right">Dự kiến</Th>
+              <Th className="text-right">Đã tìm thấy</Th>
               {/* why: one header spans audits in every state, so it uses the
-                  word that is true in both — "Not scanned". ("Missing" was
+                  word that is true in both — "Chưa quét". ("Missing" was
                   not: missingAssetCount is seeded with the full expected count
                   at creation, so it claimed a brand-new audit had already lost
                   its assets.) The tooltip reconciles it with the audit detail
@@ -203,7 +203,7 @@ export default function AuditsIndexPage() {
                   />
                 </span>
               </Th>
-              <Th className="text-right">Unexpected</Th>
+              <Th className="text-right">Ngoài dự kiến</Th>
             </>
           }
         />
@@ -220,7 +220,7 @@ export type AuditListItem = Prisma.AuditSessionGetPayload<{
 const ListItemContent = ({ item }: { item: AuditListItem }) => {
   const { createdBy } = item;
   const creatorName =
-    resolveUserDisplayName(createdBy) || createdBy?.email || "Unknown";
+    resolveUserDisplayName(createdBy) || createdBy?.email || "Không xác định";
   const creatorImg =
     createdBy?.profilePicture || "/static/images/default_pfp.jpg";
 
@@ -229,7 +229,7 @@ const ListItemContent = ({ item }: { item: AuditListItem }) => {
   const assigneeName = firstAssignment?.user
     ? resolveUserDisplayName(firstAssignment.user) ||
       firstAssignment.user.email ||
-      "Unknown"
+      "Không xác định"
     : null;
   const assigneeImg =
     firstAssignment?.user?.profilePicture || "/static/images/default_pfp.jpg";
