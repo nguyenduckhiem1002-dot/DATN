@@ -27,7 +27,7 @@ import { requirePermission } from "~/utils/roles.server";
 import { zodFieldIsRequired } from "~/utils/zod";
 
 export const NewTagFormSchema = z.object({
-  name: z.string().min(3, "Name is required"),
+  name: z.string().min(3, "Tên thẻ là bắt buộc"),
   description: z.string(),
   color: z
     .string()
@@ -42,7 +42,7 @@ export const NewTagFormSchema = z.object({
     .pipe(z.array(z.nativeEnum(TagUseFor)).optional().default([])),
 });
 
-const title = "New Tag";
+const title = "Thẻ mới";
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
@@ -103,8 +103,8 @@ export async function action({ context, request }: LoaderFunctionArgs) {
     });
 
     sendNotification({
-      title: "Tag created",
-      message: "Your tag has been created successfully",
+      title: "Đã tạo thẻ",
+      message: "Thẻ đã được tạo thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
@@ -136,8 +136,8 @@ export default function NewTag() {
           <div className="gap-3 lg:flex lg:items-end">
             <Input
               ref={nameInputRef}
-              label="Name"
-              placeholder="Tag name"
+              label="Tên"
+              placeholder="Tên thẻ"
               className="mb-4 lg:mb-0 lg:max-w-[180px]"
               name={zo.fields.name()}
               disabled={disabled}
@@ -146,8 +146,8 @@ export default function NewTag() {
               required={zodFieldIsRequired(NewTagFormSchema.shape.name)}
             />
             <Input
-              label="Description"
-              placeholder="Description (optional)"
+              label="Mô tả"
+              placeholder="Mô tả (không bắt buộc)"
               name={zo.fields.description()}
               disabled={disabled}
               data-test-id="tagDescription"
@@ -169,12 +169,12 @@ export default function NewTag() {
               items={tagUseFor}
               labelKey="label"
               valueKey="value"
-              label="Use for"
-              placeholder="Select use for"
+              label="Áp dụng cho"
+              placeholder="Chọn phạm vi áp dụng"
               tooltip={{
-                title: "Use for",
+                title: "Áp dụng cho",
                 content:
-                  "When no specific entry is selected, this tag will be available for all entries.",
+                  "Nếu không chọn phạm vi cụ thể, thẻ này sẽ khả dụng cho tất cả đối tượng.",
               }}
             />
           </div>
@@ -186,10 +186,10 @@ export default function NewTag() {
               size="sm"
               disabled={disabled}
             >
-              Cancel
+              Hủy
             </Button>
             <Button type="submit" size="sm" disabled={disabled}>
-              Create
+              Tạo
             </Button>
           </div>
         </div>
