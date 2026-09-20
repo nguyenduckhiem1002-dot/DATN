@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 5 72 92" role="img" aria-labelledby="title">
+  <title id="title">Casla</title>
+  <polygon fill="#C39D56" points="71.8,93 91.4,59.1 110.9,93 121.6,93 91.4,40.6 61.2,93"/>
+  <path fill="#C39D56" d="M91.4,38.1c1.2-7.7,4.6-12.1,11.3-14.5C96.1,21.1,92.6,16.7,91.4,9c-1.2,7.6-4.7,12.1-11.5,14.5C86.7,25.9,90.3,30.5,91.4,38.1z"/>
+</svg>
