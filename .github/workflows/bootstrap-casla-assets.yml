@@ -1,0 +1,115 @@
+name: Bootstrap Casla Assets
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/bootstrap-casla-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    if: github.repository == 'nguyenduckhiem1002-dot/DATN'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Import Shelf.nu source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Shelf-nu/shelf.nu.git /tmp/shelf
+          cd /tmp/shelf
+          git fetch --depth 1 origin 4f6115e76e4ec6ad320a92d79416f3466860c752
+          git checkout 4f6115e76e4ec6ad320a92d79416f3466860c752
+          cd "$GITHUB_WORKSPACE"
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          cp -a /tmp/shelf/. .
+          rm -rf .git
+          mkdir -p .github/workflows
+          cp "$GITHUB_WORKSPACE/.github/workflows/bootstrap-casla-assets.yml" /tmp/bootstrap.yml 2>/dev/null || true
+          cp /tmp/bootstrap.yml .github/workflows/bootstrap-casla-assets.yml 2>/dev/null || true
+
+      - name: Apply Casla Assets branding
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p apps/webapp/public/casla
+          curl -fsSL "https://raw.githubusercontent.com/nguyenduckhiem1002-dot/Android-App-Casla/refs/heads/master/casla_production/assets/images/logo.svg" -o apps/webapp/public/casla/logo.svg
+          curl -fsSL "https://raw.githubusercontent.com/nguyenduckhiem1002-dot/Android-App-Casla/refs/heads/master/casla_production/assets/images/logo_white.svg" -o apps/webapp/public/casla/logo_white.svg
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          roots = [Path("apps/webapp"), Path("packages")]
+          suffixes = {".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".html", ".css", ".scss"}
+          replacements = {
+              "Shelf.nu": "Casla Assets",
+              "Shelf Nu": "Casla Assets",
+              "shelf.nu": "Casla Assets",
+          }
+
+          for root in roots:
+              if not root.exists():
+                  continue
+              for p in root.rglob("*"):
+                  if not p.is_file() or p.suffix.lower() not in suffixes:
+                      continue
+                  try:
+                      s = p.read_text(encoding="utf-8")
+                  except UnicodeDecodeError:
+                      continue
+                  new = s
+                  for a, b in replacements.items():
+                      new = new.replace(a, b)
+                  if new != s:
+                      p.write_text(new, encoding="utf-8")
+
+          # Prefer Vietnamese formatting where the app falls back to a fixed locale.
+          p = Path("apps/webapp/app/utils/client-hints.tsx")
+          if p.exists():
+              s = p.read_text(encoding="utf-8")
+              s = s.replace('return locales[0] ?? "en-US";', 'return locales[0] ?? "vi-VN";')
+              p.write_text(s, encoding="utf-8")
+          PY
+
+      - name: Add Casla source and localization notes
+        shell: bash
+        run: |
+          cat > CASLA_CUSTOMIZATION.md <<'EOF'
+          # Casla Assets
+
+          Casla Assets là bản tùy biến nội bộ dựa trên Shelf.nu.
+
+          ## Nguồn
+          - Upstream: https://github.com/Shelf-nu/shelf.nu
+          - Base commit: 4f6115e76e4ec6ad320a92d79416f3466860c752
+          - License: GNU Affero General Public License v3.0 (AGPL-3.0)
+
+          ## Branding
+          - Tên ứng dụng: Casla Assets
+          - Logo: lấy từ repository Android-App-Casla của Casla
+          - Locale mặc định: vi-VN
+
+          ## Lưu ý giấy phép
+          Bản tùy biến này tiếp tục tuân thủ AGPL-3.0. Không xóa LICENSE hoặc các thông báo bản quyền/nguồn gốc bắt buộc.
+          EOF
+
+      - name: Commit imported source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "casla-assets-bot"
+          git config user.email "casla-assets-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+            exit 0
+          fi
+          git commit -m "chore: bootstrap Casla Assets from Shelf.nu"
+          git push origin HEAD:main
