@@ -45,7 +45,7 @@ export const PLANNING_BOOKING_STATUSES: BookingStatus[] = [
 /**
  * Whether an asset or kit can still be added to this booking.
  *
- * Used by the "Add to existing booking" dialogs to decide whether to render a
+ * Used by the "Thêm vào lịch đặt hiện có" dialogs to decide whether to render a
  * row for a booking the picker handed them. Accepts a loose shape because the
  * pickers pass records from two sources (the route loader and
  * `/api/model-filters`), neither of which is narrowed to `Booking` client-side.
@@ -121,7 +121,7 @@ export const BOOKING_INCLUDE_FOR_EMAIL = {
  *
  * Also pulls `modelRequests` (Book-by-Model intent rows) with the
  * related `assetModel` so the reservation email can render a
- * "Requested models" section alongside the booked items list.
+ * "Mẫu tài sản được yêu cầu" section alongside the booked items list.
  */
 export const BOOKING_INCLUDE_FOR_RESERVATION_EMAIL = {
   ...BOOKING_INCLUDE_FOR_EMAIL,
@@ -315,7 +315,7 @@ export const BOOKING_WITH_ASSETS_INCLUDE = {
           qrCodes: { take: 1, select: { id: true } },
           barcodes: { select: { id: true, type: true, value: true } },
           // `mainImage`/`thumbnailImage` are consumed by the partial
-          // check-in drawer's "expected assets" list (see the loader in
+          // check-in drawer's "tài sản dự kiến" list (see the loader in
           // `bookings.$bookingId.overview.checkin-assets.tsx`) and by
           // the synthetic scanned-item payload produced by
           // `quickCheckinQtyAssetAtom`. Selecting them here keeps those
@@ -402,7 +402,7 @@ export const BOOKING_WITH_ASSETS_INCLUDE = {
   },
   // Surface any outstanding `BookingModelRequest` rows (Book-by-Model
   // intent rows) alongside concrete `bookingAssets` so every loader
-  // reusing this include can render the "unassigned model reservations"
+  // reusing this include can render the "đặt trước theo mẫu chưa gán tài sản"
   // section and the checkout guard can enforce fulfilment. Intentionally
   // kept cheap — `assetModel` selects just enough for UI/error
   // messaging; no deep graph traversal required.
@@ -441,11 +441,11 @@ export enum BOOKING_SCHEDULER_EVENTS_ENUM {
  * Sorting options available for booking assets
  */
 export const BOOKING_ASSET_SORTING_OPTIONS = {
-  status: "Status",
-  title: "Name",
-  category: "Category",
-  location: "Location",
-  type: "Item type",
+  status: "Trạng thái",
+  title: "Tên",
+  category: "Danh mục",
+  location: "Vị trí",
+  type: "Loại mục",
 } as const;
 
 export type BookingAssetSortingOption =
