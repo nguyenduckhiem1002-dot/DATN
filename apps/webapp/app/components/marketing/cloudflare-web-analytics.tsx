@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { config } from "~/config/shelf.config";
 
 const BEACON_SCRIPT_SRC = "https://static.cloudflareinsights.com/beacon.min.js";
 
@@ -15,6 +16,8 @@ const BEACON_SCRIPT_SRC = "https://static.cloudflareinsights.com/beacon.min.js";
  */
 export function CloudflareWebAnalytics() {
   useEffect(() => {
+    if (config.internalMode) return;
+
     const token = window.env.CLOUDFLARE_WEB_ANALYTICS_TOKEN;
     if (!token) return;
 
