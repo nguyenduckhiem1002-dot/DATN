@@ -33,7 +33,7 @@ type NewBookingFormData = {
     assetIds?: string[] | null;
     /**
      * Optional originating kit id. Present only when the booking is being
-     * created FROM a kit (kit detail → "Create new booking"). Submitted as a
+     * created FROM a kit (kit detail → "Tạo lịch đặt mới"). Submitted as a
      * hidden `kitId` input so the action resolves the kit's memberships into
      * kit-driven slices, keeping the kit grouped in the new booking instead of
      * its members landing as loose standalone rows.
@@ -242,7 +242,7 @@ export function NewBookingForm({ booking, action }: NewBookingFormData) {
               disabled={disabled}
               width={"full"}
             >
-              {assetIds ? "Create Booking" : "View assets list"}
+              {assetIds ? "Tạo lịch đặt" : "Xem danh sách tài sản"}
             </Button>
             <hr />
             <Button
