@@ -25,13 +25,13 @@ export default function OnboardingChecklist() {
           as="h2"
           className="break-all text-display-xs font-semibold md:text-display-sm"
         >
-          Welcome
+          Chào mừng
         </Heading>
-        <SubHeading>Complete all tasks to unlock your dashboard.</SubHeading>
+        <SubHeading>Hoàn thành các bước bên dưới để mở bảng điều khiển của bạn.</SubHeading>
       </div>
       <div className="mb-8">
         <div className="mb-4">
-          <h4 className=" text-lg font-semibold">Stay organized</h4>
+          <h4 className=" text-lg font-semibold">Sắp xếp khoa học</h4>
           <p className="text-[14px] text-gray-600">
             Organizing your assets improves overview and unlocks the power of
             our filters and search bar.
@@ -52,10 +52,10 @@ export default function OnboardingChecklist() {
                 <div className="text-[14px]">
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">
-                      Create your first asset
+                      Tạo tài sản đầu tiên
                     </h6>
                     <p className=" text-gray-600">
-                      Each asset gets it’s own encrypted QR tag.
+                      Mỗi tài sản được gắn một mã QR riêng để nhận diện.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -64,10 +64,10 @@ export default function OnboardingChecklist() {
                       target="_blank"
                       className=" font-semibold text-gray-600"
                     >
-                      Learn more
+                      Tìm hiểu thêm
                     </Link>
                     <Button variant="link" to="/assets/new">
-                      New asset
+                      Tài sản mới
                     </Button>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function OnboardingChecklist() {
                 <div className="text-[14px]">
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">
-                      Create a custom category
+                      Tạo danh mục tùy chỉnh
                     </h6>
                     <p className=" text-gray-600">
                       View, edit or delete our default categories and build your
@@ -104,10 +104,10 @@ export default function OnboardingChecklist() {
                       target="_blank"
                       className=" font-semibold text-gray-600"
                     >
-                      Learn more
+                      Tìm hiểu thêm
                     </Link>
                     <Button variant="link" to="/categories/new">
-                      New category
+                      Danh mục mới
                     </Button>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export default function OnboardingChecklist() {
                 </div>
                 <div className="text-[14px]">
                   <div className="mb-3">
-                    <h6 className="font-medium text-gray-700">Create a tag</h6>
+                    <h6 className="font-medium text-gray-700">Tạo thẻ</h6>
                     <p className=" text-gray-600">
                       Tags are small pieces of information that can be added to
                       assets.
@@ -138,7 +138,7 @@ export default function OnboardingChecklist() {
                   </div>
                   <div className="flex gap-3">
                     <Button variant="link" to="/tags/new">
-                      New tag
+                      Thẻ mới
                     </Button>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ export default function OnboardingChecklist() {
       </div>
       <div className="mb-8">
         <div className="mb-4">
-          <h4 className=" text-lg font-semibold">Team, custody and bookings</h4>
+          <h4 className=" text-lg font-semibold">Nhân sự, bàn giao và đặt lịch</h4>
           <p className="text-[14px] text-gray-600">
             Assign custody to your team members. Consider upgrading to Team to
             invite other users to your workspace.
@@ -173,7 +173,7 @@ export default function OnboardingChecklist() {
                 <div className="text-[14px]">
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">
-                      Add a team member
+                      Thêm thành viên
                     </h6>
                     <p className=" text-gray-600">
                       Track who has custody over an asset by adding your team
@@ -186,10 +186,10 @@ export default function OnboardingChecklist() {
                       target="_blank"
                       className=" font-semibold text-gray-600"
                     >
-                      Learn more
+                      Tìm hiểu thêm
                     </Link>
                     <Button variant="link" to="/settings/team">
-                      New team member
+                      Thành viên mới
                     </Button>
                   </div>
                 </div>
@@ -213,7 +213,7 @@ export default function OnboardingChecklist() {
                 <div className="text-[14px]">
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">
-                      Assign custody over an asset
+                      Bàn giao tài sản
                     </h6>
                     <p className=" text-gray-600">
                       View, edit or delete our default categories and build your
@@ -226,7 +226,7 @@ export default function OnboardingChecklist() {
                       target="_blank"
                       className=" font-semibold text-gray-600"
                     >
-                      Learn more
+                      Tìm hiểu thêm
                     </Link>
                   </div>
                 </div>
@@ -240,7 +240,7 @@ export default function OnboardingChecklist() {
       </div>
       <div className="mb-8">
         <div className="mb-4">
-          <h4 className=" text-lg font-semibold">Customize your experience</h4>
+          <h4 className=" text-lg font-semibold">Tùy chỉnh trải nghiệm</h4>
           <p className="text-[14px] text-gray-600">
             Optimize your workflow and use Shelf in way that works for you and
             your organizations.
@@ -261,10 +261,10 @@ export default function OnboardingChecklist() {
                 <div className="text-[14px]">
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">
-                      Create a custom field
+                      Tạo trường tùy chỉnh
                     </h6>
                     <p className=" text-gray-600">
-                      Improve your asset database with custom field types.
+                      Bổ sung các trường dữ liệu riêng phù hợp với tài sản của công ty.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -273,10 +273,10 @@ export default function OnboardingChecklist() {
                       target="_blank"
                       className=" font-semibold text-gray-600"
                     >
-                      Learn more
+                      Tìm hiểu thêm
                     </Link>
                     <Button variant="link" to="/settings/custom-fields/new">
-                      New custom field
+                      Trường tùy chỉnh mới
                     </Button>
                   </div>
                 </div>
@@ -294,7 +294,7 @@ export default function OnboardingChecklist() {
       >
         <input type="hidden" name="skipOnboardingChecklist" value="skipped" />
         <Button variant="link" type="submit">
-          Skip tour, continue to dashboard
+          Bỏ qua hướng dẫn, vào bảng điều khiển
         </Button>
       </fetcher.Form>
     </div>
