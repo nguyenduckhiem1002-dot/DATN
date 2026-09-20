@@ -238,14 +238,14 @@ export function getDateTimeFormatFromHints(
 /**
  *
  * @param request
- * @returns current locale. Defaults to en-US
+ * @returns current locale. Defaults to vi-VN
  */
 export function getLocale(request: Request) {
   const locales = parseAcceptLanguage(request.headers.get("accept-language"), {
     validate: Intl.DateTimeFormat.supportedLocalesOf,
   });
 
-  return locales[0] ?? "en-US";
+  return locales[0] ?? "vi-VN";
 }
 
 /**
