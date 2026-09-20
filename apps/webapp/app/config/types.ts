@@ -1,5 +1,11 @@
 export interface Config {
   /**
+   * Internal company deployment mode.
+   * Hides SaaS/commercial surfaces that are irrelevant for Casla's internal use.
+   */
+  internalMode: boolean;
+
+  /**
    * Enable sending of onboarding email.
    * Email gets sent when user is onboarded and we have their first and last name
    * */
