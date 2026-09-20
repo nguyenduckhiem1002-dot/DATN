@@ -6,7 +6,7 @@ import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
 export const loader = () => null;
 
-export const meta = () => [{ title: appendToMetaTitle("Authentication") }];
+export const meta = () => [{ title: appendToMetaTitle("Xác thực") }];
 
 export default function App() {
   const matches = useMatches();
@@ -41,7 +41,7 @@ export default function App() {
           className="relative z-20 mt-4 w-[150px] text-right text-sm text-white no-underline hover:text-white/80"
           target="_blank"
         >
-          shelf.nu
+          Casla Assets
         </a>
         <img
           className="absolute inset-0 size-full max-w-none object-cover"
