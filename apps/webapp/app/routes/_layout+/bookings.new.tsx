@@ -73,10 +73,10 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     if (isPersonalOrg(currentOrganization)) {
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
+        title: "Không có quyền",
         message:
-          "You can't create bookings for personal workspaces. Please create a Team workspace to create bookings.",
-        label: "Booking",
+          "Bạn không thể tạo lịch đặt trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
+        label: "Đặt lịch",
         status: 403,
         shouldBeCaptured: false,
       });
@@ -157,10 +157,10 @@ export async function action({ context, request }: ActionFunctionArgs) {
     if (isPersonalOrg(currentOrganization)) {
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
+        title: "Không có quyền",
         message:
-          "You can't create bookings for personal workspaces. Please create a Team workspace to create bookings.",
-        label: "Booking",
+          "Bạn không thể tạo lịch đặt trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
+        label: "Đặt lịch",
         status: 403,
         shouldBeCaptured: false,
       });
@@ -225,10 +225,10 @@ export async function action({ context, request }: ActionFunctionArgs) {
     }).catch((cause) => {
       throw new ShelfError({
         cause,
-        title: "Team member not found",
-        message: "The selected team member could not be found.",
+        title: "Không tìm thấy thành viên",
+        message: "Không tìm thấy thành viên đã chọn.",
         additionalData: { userId, custodian },
-        label: "Booking",
+        label: "Đặt lịch",
         status: 404,
       });
     });
@@ -240,8 +240,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     if (isSelfServiceOrBase && custodianFromDb.userId !== userId) {
       throw new ShelfError({
         cause: null,
-        message: "Self user can assign booking to themselves only.",
-        label: "Booking",
+        message: "Người dùng tự phục vụ chỉ có thể tạo lịch đặt cho chính mình.",
+        label: "Đặt lịch",
       });
     }
 
@@ -252,9 +252,9 @@ export async function action({ context, request }: ActionFunctionArgs) {
     if (!from || !to) {
       throw new ShelfError({
         cause: null,
-        message: "Booking start and end dates are required.",
+        message: "Ngày bắt đầu và kết thúc lịch đặt là bắt buộc.",
         additionalData: { userId, organizationId },
-        label: "Booking",
+        label: "Đặt lịch",
         status: 400,
         shouldBeCaptured: false,
       });
@@ -295,10 +295,10 @@ export async function action({ context, request }: ActionFunctionArgs) {
       if (kitSlices.length === 0) {
         throw new ShelfError({
           cause: null,
-          title: "Kit not found",
+          title: "Không tìm thấy bộ tài sản",
           message:
-            "The selected kit could not be resolved. Please reload and try again.",
-          label: "Booking",
+            "Không thể xác định bộ tài sản đã chọn. Vui lòng tải lại trang và thử lại.",
+          label: "Đặt lịch",
           status: 409,
           shouldBeCaptured: false,
         });
@@ -351,8 +351,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     }
 
     sendNotification({
-      title: "Booking saved",
-      message: "Your booking has been saved successfully",
+      title: "Đã lưu lịch đặt",
+      message: "Lịch đặt đã được lưu thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
