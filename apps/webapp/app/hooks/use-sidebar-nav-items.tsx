@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { useMemo } from "react";
 import {
   AlarmClockIcon,
-  BellIcon,
   BoxesIcon,
   CalendarRangeIcon,
   ChartLineIcon,
@@ -10,10 +9,8 @@ import {
   FileBarChartIcon,
   HomeIcon,
   MapPinIcon,
-  MessageCircleIcon,
   Package,
   PackageOpenIcon,
-  QrCodeIcon,
   ScanBarcodeIcon,
   SettingsIcon,
   TagsIcon,
@@ -66,7 +63,7 @@ export type NavItem =
   | ButtonNavItem;
 
 export function useSidebarNavItems() {
-  const { isAdmin, canUseBookings, subscription, unreadUpdatesCount } =
+  const { isAdmin, canUseBookings, subscription } =
     useLoaderData<typeof loader>();
   const { isBaseOrSelfService } = useUserRoleHelper();
   const currentOrganization = useCurrentOrganization();
@@ -234,7 +231,7 @@ export function useSidebarNavItems() {
           to: "/settings/general",
         },
         {
-          title: "Bookings",
+          title: "Đặt lịch",
           to: "/settings/bookings",
           hidden: isPersonalOrganization,
         },
@@ -250,39 +247,14 @@ export function useSidebarNavItems() {
     },
   ];
 
+  // Casla Assets is an internal company app: keep the utility footer focused
+  // on operational tasks and remove Shelf SaaS/store/update/feedback surfaces.
   const bottomMenuItems: NavItem[] = [
-    {
-      type: "child",
-      title: "Nhãn tài sản",
-      to: `https://store.shelf.nu/?ref=shelf_webapp_sidebar`,
-      Icon: QrCodeIcon,
-      target: "_blank",
-    },
     {
       type: "child",
       title: "Quét mã QR",
       to: "/scanner",
       Icon: ScanBarcodeIcon,
-    },
-    {
-      type: "button",
-      title: "Cập nhật",
-      Icon: BellIcon,
-      badge: {
-        show: (unreadUpdatesCount || 0) > 0,
-        variant: "unread" as const,
-      },
-      onClick: () => {
-        // This will be handled by the sidebar component with popover
-      },
-    },
-    {
-      type: "button",
-      title: "Hỏi đáp/Góp ý",
-      Icon: MessageCircleIcon,
-      onClick: () => {
-        // Handled by FeedbackNavItem in sidebar-nav.tsx
-      },
     },
   ];
 
