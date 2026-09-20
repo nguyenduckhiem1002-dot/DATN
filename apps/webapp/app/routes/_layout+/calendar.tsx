@@ -140,7 +140,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
         title: "Không có quyền",
         message:
           "Bạn không thể sử dụng đặt lịch trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
-        label: "Đặt lịch",
+        label: "Booking",
         shouldBeCaptured: false,
       });
     }
