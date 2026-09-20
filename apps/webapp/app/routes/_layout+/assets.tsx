@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router";
 import { ErrorContent } from "~/components/errors";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
-export const meta = () => [{ title: appendToMetaTitle("Assets") }];
+export const meta = () => [{ title: appendToMetaTitle("Tài sản") }];
 
 export function loader() {
   return null;
@@ -25,7 +25,7 @@ export function shouldRevalidate({
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/assets">Assets</Link>,
+  breadcrumb: () => <Link to="/assets">Tài sản</Link>,
 };
 
 export default function AssetsPage() {
