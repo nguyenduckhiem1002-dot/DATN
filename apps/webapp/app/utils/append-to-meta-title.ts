@@ -1,3 +1,3 @@
-/** Small helper that appends `shelf.nu` to the current route meta title */
+/** Thêm thương hiệu Casla Assets vào tiêu đề trang. */
 export const appendToMetaTitle = (title: string | null | undefined) =>
-  `${title ? title : "Not found"} | shelf.nu`;
+  `${title ? title : "Không tìm thấy"} | Casla Assets`;
