@@ -39,24 +39,24 @@ const ForgotPasswordSchema = z.object({
     .string()
     .transform((email) => email.toLowerCase())
     .refine(validEmail, () => ({
-      message: "Please enter a valid email",
+      message: "Vui lòng nhập email hợp lệ",
     })),
 });
 
 const OtpSchema = z
   .object({
-    otp: z.string().min(6, "OTP is required."),
+    otp: z.string().min(6, "Vui lòng nhập mã OTP."),
     email: z.string().transform((email) => email.toLowerCase()),
-    password: passwordSchema("Password is too short. Minimum 8 characters."),
+    password: passwordSchema("Mật khẩu quá ngắn. Tối thiểu 8 ký tự."),
     confirmPassword: passwordSchema(
-      "Password is too short. Minimum 8 characters."
+      "Mật khẩu quá ngắn. Tối thiểu 8 ký tự."
     ),
   })
   .superRefine(({ password, confirmPassword, otp, email }, ctx) => {
     if (password !== confirmPassword) {
       return ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Password and confirm password must match",
+        message: "Mật khẩu xác nhận phải trùng với mật khẩu",
         path: ["confirmPassword"],
       });
     }
@@ -67,11 +67,11 @@ const OtpSchema = z
 export function loader({ context, request }: LoaderFunctionArgs) {
   const searchParams = getCurrentSearchParams(request);
 
-  const title = "Forgot password?";
+  const title = "Quên mật khẩu?";
   const subHeading =
     searchParams.has("email") && searchParams.get("email") !== ""
-      ? "Step 2 of 2: Enter OTP and your new password"
-      : "Step 1 of 2: Enter your email";
+      ? "Bước 2/2: Nhập mã OTP và mật khẩu mới"
+      : "Bước 1/2: Nhập email";
 
   if (context.isAuthenticated) {
     return redirect("/assets");
@@ -87,7 +87,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
       z.object({ intent: z.enum(["request-otp", "confirm-otp"]) }),
       {
         message:
-          "Invalid request. Please try again. If the issue persists, contact support.",
+          "Yêu cầu không hợp lệ. Vui lòng thử lại. Nếu lỗi vẫn tiếp diễn, hãy liên hệ bộ phận hỗ trợ.",
         shouldBeCaptured: false,
       }
     );
@@ -184,7 +184,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         if (verifyError || !otpData.user || !otpData.session) {
           throw new ShelfError({
             cause: verifyError,
-            message: "Invalid or expired verification code",
+            message: "Mã xác thực không hợp lệ hoặc đã hết hạn",
             // The OTP is deliberately NOT included. It is a live
             // account-takeover credential until it expires, and additionalData
             // is written straight to the log line.
@@ -247,14 +247,14 @@ export default function ForgotPassword() {
         email === "" ? (
           <div>
             <p className="mb-4 text-center">
-              Enter your email address and we'll send you a one-time code to
-              reset your password.
+              Nhập địa chỉ email, hệ thống sẽ gửi mã dùng một lần để
+              đặt lại mật khẩu.
             </p>
             <Form ref={zo.ref} method="post" className="space-y-2" replace>
               <input type="hidden" name="intent" value="request-otp" />
               <div>
                 <Input
-                  label="Email address"
+                  label="Địa chỉ email"
                   data-test-id="email"
                   name={zo.fields.email()}
                   type="email"
@@ -272,24 +272,23 @@ export default function ForgotPassword() {
                 type="submit"
                 disabled={disabled}
               >
-                {!disabled ? "Reset password" : "Sending code..."}
+                {!disabled ? "Đặt lại mật khẩu" : "Đang gửi mã..."}
               </Button>
             </Form>
             <p className="mt-2 text-center text-gray-500">
-              Tip: Check your spam folder if you don't see the email within a
-              few minutes.
+              Mẹo: Hãy kiểm tra thư rác nếu bạn chưa thấy email sau vài phút.
             </p>
           </div>
         ) : (
           <>
             <p className="mb-2">
-              We've sent a 6-digit code to{" "}
+              Chúng tôi đã gửi mã gồm 6 chữ số tới{" "}
               <span className="font-semibold">{email}</span>.
             </p>
             <ol className="mb-4 list-inside list-decimal">
-              <li>Enter the code from your email</li>
-              <li>Enter your new password</li>
-              <li>Confirm your new password</li>
+              <li>Nhập mã nhận được trong email</li>
+              <li>Nhập mật khẩu mới</li>
+              <li>Xác nhận mật khẩu mới</li>
             </ol>
             <PasswordResetForm email={email} />
           </>
@@ -297,11 +296,11 @@ export default function ForgotPassword() {
         <div className="pt-4 text-center">
           {email ? (
             <Button variant="link" to={"/forgot-password"}>
-              Request new code
+              Yêu cầu mã mới
             </Button>
           ) : (
             <Button variant="link" to={"/login"}>
-              Back to login
+              Quay lại đăng nhập
             </Button>
           )}
         </div>
@@ -327,13 +326,13 @@ function PasswordResetForm({ email }: { email: string }) {
   // Keep the form mounted for validation errors so field-level messages render;
   // only a hard error (e.g. invalid OTP) falls back to the generic message.
   return !email || email === "" || (actionData?.error && !validationErrors) ? (
-    <div>Something went wrong. Please refresh the page and try again.</div>
+    <div>Đã xảy ra lỗi. Vui lòng tải lại trang và thử lại.</div>
   ) : (
     <Form method="post" ref={zoReset.ref} className="space-y-2">
       <ShelfOTP error={zoReset.errors.otp()?.message} />
 
       <PasswordInput
-        label="New password"
+        label="Mật khẩu mới"
         data-test-id="password"
         name={zoReset.fields.password()}
         type="password"
@@ -347,7 +346,7 @@ function PasswordResetForm({ email }: { email: string }) {
         required
       />
       <PasswordInput
-        label="Confirm new password"
+        label="Xác nhận mật khẩu mới"
         data-test-id="confirmPassword"
         name={zoReset.fields.confirmPassword()}
         type="password"
@@ -370,7 +369,7 @@ function PasswordResetForm({ email }: { email: string }) {
         className="w-full "
         disabled={disabled}
       >
-        Confirm password reset
+        Xác nhận đặt lại mật khẩu
       </Button>
     </Form>
   );
