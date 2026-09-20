@@ -1,11 +1,14 @@
 import { useEffect } from "react";
-import { clarity } from "react-microsoft-clarity";
+import { config } from "~/config/shelf.config";
 
 export const Clarity = () => {
   useEffect(() => {
-    if (window && window.env.MICROSOFT_CLARITY_ID) {
+    if (config.internalMode || !window.env.MICROSOFT_CLARITY_ID) return;
+
+    void import("react-microsoft-clarity").then(({ clarity }) => {
       clarity.init(window.env.MICROSOFT_CLARITY_ID);
-    }
+    });
   }, []);
-  return <></>;
+
+  return null;
 };
