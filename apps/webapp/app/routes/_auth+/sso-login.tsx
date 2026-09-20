@@ -36,7 +36,7 @@ const SSOLoginFormSchema = z.object({
     .string()
     .transform((email) => email.toLowerCase())
     .refine(isValidDomain, () => ({
-      message: "Please enter a valid domain name",
+      message: "Vui lòng nhập tên miền hợp lệ",
     })),
   redirectTo: z.string().optional(),
   // "mobile" routes the post-auth redirect to the native-app callback so the
@@ -45,8 +45,8 @@ const SSOLoginFormSchema = z.object({
 });
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
-  const title = "Log in with SSO";
-  const subHeading = "Enter your company's domain to login with SSO.";
+  const title = "Đăng nhập bằng SSO";
+  const subHeading = "Nhập tên miền công ty để đăng nhập bằng SSO.";
   const { disableSSO } = config;
 
   const url = new URL(request.url);
@@ -64,9 +64,9 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     if (disableSSO) {
       throw new ShelfError({
         cause: null,
-        title: "SSO is disabled",
+        title: "SSO đang bị tắt",
         message:
-          "For more information, please contact your workspace administrator.",
+          "Để biết thêm thông tin, vui lòng liên hệ quản trị viên không gian làm việc.",
         label: "User onboarding",
         status: 403,
         shouldBeCaptured: false,
@@ -90,9 +90,9 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     if (isMobile && !validChallenge) {
       throw new ShelfError({
         cause: null,
-        title: "Sign-in not supported",
+        title: "Không hỗ trợ đăng nhập",
         message:
-          "This version of the Shelf app can't sign in with SSO. Please update the app and try again.",
+          "Phiên bản ứng dụng này không thể đăng nhập bằng SSO. Vui lòng cập nhật ứng dụng và thử lại.",
         label: "Auth",
         status: 400,
         shouldBeCaptured: false,
@@ -175,7 +175,7 @@ export default function SSOLogin() {
             <Input
               ref={domainInputRef}
               data-test-id="domain"
-              label="Company domain"
+              label="Tên miền công ty"
               placeholder="yourdomain.com"
               required
               name={zo.fields.domain()}
@@ -192,7 +192,7 @@ export default function SSOLogin() {
               disabled={disabled}
               width="full"
             >
-              Log In
+              Đăng nhập
             </Button>
           </div>
         </Form>
@@ -200,13 +200,13 @@ export default function SSOLogin() {
           <div className="text-sm text-error-500">{data.error.message}</div>
         )}
         <div>
-          Want to enable SSO for your organization?{" "}
+          Bạn muốn bật SSO cho tổ chức?{" "}
           <Button
             as="a"
             href="mailto:hello@shelf.nu?subject=SSO request"
             variant="link"
           >
-            Contact us
+            Liên hệ
           </Button>
         </div>
       </div>
