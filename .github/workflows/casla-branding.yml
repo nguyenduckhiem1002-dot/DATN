@@ -1,0 +1,85 @@
+name: 🏷️ Casla Assets Brand Guard
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - "CASLA_CUSTOMIZATION.md"
+      - "apps/webapp/app/config/shelf.config.ts"
+      - "apps/webapp/app/utils/append-to-meta-title.ts"
+      - "apps/webapp/app/utils/client-hints.tsx"
+      - "apps/webapp/public/static/images/casla-logo.svg"
+      - "apps/webapp/public/static/images/casla-logo-white.svg"
+      - ".github/workflows/casla-branding.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - "CASLA_CUSTOMIZATION.md"
+      - "apps/webapp/app/config/shelf.config.ts"
+      - "apps/webapp/app/utils/append-to-meta-title.ts"
+      - "apps/webapp/app/utils/client-hints.tsx"
+      - "apps/webapp/public/static/images/casla-logo.svg"
+      - "apps/webapp/public/static/images/casla-logo-white.svg"
+      - ".github/workflows/casla-branding.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: casla-branding-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  branding:
+    name: Kiểm tra branding Casla Assets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Kiểm tra logo Casla
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s apps/webapp/public/static/images/casla-logo.svg
+          test -s apps/webapp/public/static/images/casla-logo-white.svg
+
+      - name: Kiểm tra cấu hình logo
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'fullLogo: "/static/images/casla-logo.svg"' apps/webapp/app/config/shelf.config.ts
+          grep -q 'symbol: "/static/images/casla-logo.svg"' apps/webapp/app/config/shelf.config.ts
+
+          if grep -Eq 'logo-full-color\(x2\)\.png|shelf-symbol\.png' apps/webapp/app/config/shelf.config.ts; then
+            echo "Phát hiện cấu hình logo Shelf cũ."
+            exit 1
+          fi
+
+      - name: Kiểm tra tên ứng dụng
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'Casla Assets' apps/webapp/app/utils/append-to-meta-title.ts
+          grep -q 'Casla Assets' README.md
+
+      - name: Kiểm tra locale mặc định
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'return locales\[0\] ?? "vi-VN";' apps/webapp/app/utils/client-hints.tsx
+
+      - name: Kiểm tra ghi chú nguồn mở
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'Shelf.nu' CASLA_CUSTOMIZATION.md
+          grep -q 'AGPL' CASLA_CUSTOMIZATION.md
+          test -s LICENSE
