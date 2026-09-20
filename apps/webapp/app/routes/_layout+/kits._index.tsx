@@ -257,12 +257,12 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     kits = await updateKitsWithBookingCustodians(kits);
 
     const header = {
-      title: "Kits",
+      title: "Bộ tài sản",
     };
 
     const modelName = {
-      singular: "kit",
-      plural: "kits",
+      singular: "bộ tài sản",
+      plural: "bộ tài sản",
     };
 
     return data(
@@ -333,7 +333,7 @@ export default function KitsIndexPage() {
       <Header>
         {canCreateKit && (
           <Button to="new" role="link" aria-label="new kit">
-            New kit
+            Bộ tài sản mới
           </Button>
         )}
       </Header>
@@ -435,17 +435,17 @@ export default function KitsIndexPage() {
             ItemComponent={ListContent}
             bulkActions={isBase ? undefined : <BulkActionsDropdown />}
             customEmptyStateContent={{
-              title: "No kits yet",
+              title: "Chưa có bộ tài sản",
               text: "Kits let you group related assets together. Create a kit to bundle equipment that's typically used as a set.",
               newButtonRoute: "/kits/new",
-              newButtonContent: "Create your first kit",
+              newButtonContent: "Tạo bộ tài sản đầu tiên",
             }}
             headerChildren={
               <>
                 <Th>Category</Th>
-                <Th>Location</Th>
-                <Th>Description</Th>
-                <Th>Assets</Th>
+                <Th>Vị trí</Th>
+                <Th>Mô tả</Th>
+                <Th>Tài sản</Th>
                 <Th className="flex items-center gap-1 whitespace-nowrap">
                   Custodian{" "}
                   <InfoTooltip
@@ -464,7 +464,7 @@ export default function KitsIndexPage() {
                     }
                   />
                 </Th>
-                <Th>Actions</Th>
+                <Th>Thao tác</Th>
               </>
             }
           />
