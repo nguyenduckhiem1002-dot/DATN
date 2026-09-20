@@ -112,9 +112,9 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           .catch((cause) => {
             throw new ShelfError({
               cause,
-              message: "User not found",
+              message: "Không tìm thấy người dùng",
               additionalData: { userId, organizationId },
-              label: "Settings",
+              label: "Cài đặt",
             });
           }),
         /* Check the tier limit */
@@ -144,7 +144,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       ]);
 
     const header: HeaderData = {
-      title: "General",
+      title: "Chung",
     };
 
     const canHideBranding = canHideShelfBranding(tierLimit);
@@ -196,7 +196,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => "General",
+  breadcrumb: () => "Chung",
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
@@ -283,8 +283,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (currentOrganization.id !== id) {
           throw new ShelfError({
             cause: null,
-            message: "You are not allowed to edit this organization.",
-            label: "Organization",
+            message: "Bạn không có quyền chỉnh sửa tổ chức này.",
+            label: "Tổ chức",
             shouldBeCaptured: false,
           });
         }
@@ -311,7 +311,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
                 DEFAULT_MAX_IMAGE_UPLOAD_SIZE / (1024 * 1024)
               }MB`,
               status: 400,
-              label: "Organization",
+              label: "Tổ chức",
               additionalData: { organizationId, field: "image" },
               shouldBeCaptured: false,
             });
@@ -339,8 +339,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Workspace updated",
-          message: "Your workspace  has been updated successfully",
+          title: "Đã cập nhật không gian làm việc",
+          message: "Không gian làm việc đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -366,8 +366,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (currentOrganization.id !== id) {
           throw new ShelfError({
             cause: null,
-            message: "You are not allowed to edit this organization.",
-            label: "Organization",
+            message: "Bạn không có quyền chỉnh sửa tổ chức này.",
+            label: "Tổ chức",
             shouldBeCaptured: false,
           });
         }
@@ -383,8 +383,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Workspace updated",
-          message: "Your workspace  has been updated successfully",
+          title: "Đã cập nhật không gian làm việc",
+          message: "Không gian làm việc đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -395,17 +395,17 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (role !== OrganizationRoles.OWNER) {
           throw new ShelfError({
             cause: null,
-            title: "Permission denied",
-            message: "You are not allowed to edit SSO settings.",
-            label: "Settings",
+            title: "Không có quyền",
+            message: "Bạn không có quyền chỉnh sửa cài đặt SSO.",
+            label: "Cài đặt",
           });
         }
 
         if (!currentOrganization.enabledSso) {
           throw new ShelfError({
             cause: null,
-            message: "SSO is not enabled for this organization.",
-            label: "Settings",
+            message: "SSO chưa được bật cho tổ chức này.",
+            label: "Cài đặt",
           });
         }
         const schema = EditWorkspaceSSOSettingsFormSchema(
@@ -423,8 +423,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (currentOrganization.id !== id) {
           throw new ShelfError({
             cause: null,
-            message: "You are not allowed to edit this organization.",
-            label: "Organization",
+            message: "Bạn không có quyền chỉnh sửa tổ chức này.",
+            label: "Tổ chức",
             shouldBeCaptured: false,
           });
         }
@@ -440,8 +440,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Workspace updated",
-          message: "Your workspace has been updated successfully",
+          title: "Đã cập nhật không gian làm việc",
+          message: "Không gian làm việc đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -456,9 +456,9 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (role !== OrganizationRoles.OWNER) {
           throw new ShelfError({
             cause: null,
-            title: "Permission denied",
-            message: "Only the workspace owner can transfer ownership.",
-            label: "Settings",
+            title: "Không có quyền",
+            message: "Chỉ chủ sở hữu không gian làm việc mới có thể chuyển quyền sở hữu.",
+            label: "Cài đặt",
             status: 403,
             // why: a blocked privilege escalation attempt is a client error, not
             // a server fault — it should not page anyone via Sentry
@@ -478,7 +478,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Ownership transferred",
+          title: "Đã chuyển quyền sở hữu",
           message: `You have successfully transferred ownership of ${
             currentOrganization.name
           } to ${resolveUserDisplayName(newOwner)}`,
@@ -494,7 +494,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (!config.enableScim) {
           throw new ShelfError({
             cause: null,
-            message: "SCIM provisioning is not enabled on this instance.",
+            message: "Cấp phát người dùng SCIM chưa được bật trên hệ thống này.",
             label: "SCIM",
             status: 404,
             shouldBeCaptured: false,
@@ -504,8 +504,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (role !== OrganizationRoles.OWNER) {
           throw new ShelfError({
             cause: null,
-            title: "Permission denied",
-            message: "You are not allowed to manage SCIM tokens.",
+            title: "Không có quyền",
+            message: "Bạn không có quyền quản lý token SCIM.",
             label: "SCIM",
           });
         }
@@ -513,14 +513,14 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (!currentOrganization.enabledSso) {
           throw new ShelfError({
             cause: null,
-            message: "SSO is not enabled for this organization.",
+            message: "SSO chưa được bật cho tổ chức này.",
             label: "SCIM",
           });
         }
 
         const { label: tokenLabel } = parseData(
           formData,
-          z.object({ label: z.string().min(1, "Label is required") }),
+          z.object({ label: z.string().min(1, "Nhãn là bắt buộc") }),
           { additionalData: { userId, organizationId } }
         );
 
@@ -542,7 +542,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (!config.enableScim) {
           throw new ShelfError({
             cause: null,
-            message: "SCIM provisioning is not enabled on this instance.",
+            message: "Cấp phát người dùng SCIM chưa được bật trên hệ thống này.",
             label: "SCIM",
             status: 404,
             shouldBeCaptured: false,
@@ -552,8 +552,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (role !== OrganizationRoles.OWNER) {
           throw new ShelfError({
             cause: null,
-            title: "Permission denied",
-            message: "You are not allowed to manage SCIM tokens.",
+            title: "Không có quyền",
+            message: "Bạn không có quyền quản lý token SCIM.",
             label: "SCIM",
           });
         }
@@ -572,8 +572,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "SCIM token deleted",
-          message: "The SCIM token has been deleted successfully",
+          title: "Đã xóa token SCIM",
+          message: "Token SCIM đã được xóa thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -583,9 +583,9 @@ export async function action({ context, request }: ActionFunctionArgs) {
       default: {
         throw new ShelfError({
           cause: null,
-          message: "Invalid action",
+          message: "Thao tác không hợp lệ",
           additionalData: { intent },
-          label: "Team",
+          label: "Nhóm",
         });
       }
     }
