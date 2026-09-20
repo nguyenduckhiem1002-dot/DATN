@@ -19,9 +19,9 @@
 
 // Base asset status enum (AssetStatus in the Prisma schema).
 export const ASSET_STATUS_LABELS = Object.freeze({
-  AVAILABLE: "Available",
-  IN_CUSTODY: "In custody",
-  CHECKED_OUT: "Checked out",
+  AVAILABLE: "Sẵn sàng",
+  IN_CUSTODY: "Đang bàn giao",
+  CHECKED_OUT: "Đã xuất",
 });
 
 // Quantity-aware asset status labels. A QUANTITY_TRACKED asset whose units are
@@ -29,21 +29,21 @@ export const ASSET_STATUS_LABELS = Object.freeze({
 // raw enum. These are the labels that helper can emit (web canonical: the
 // quantity path in asset-status-badge/quantity-data.ts).
 export const ASSET_QTY_STATUS_LABELS = Object.freeze({
-  AVAILABLE: "Available",
-  IN_CUSTODY: "In custody",
-  PARTIAL_CUSTODY: "Partial custody",
-  CHECKED_OUT: "Checked out",
-  PARTIALLY_CHECKED_OUT: "Partially checked out",
-  RESERVED: "Reserved",
-  PARTIALLY_RESERVED: "Partially reserved",
+  AVAILABLE: "Sẵn sàng",
+  IN_CUSTODY: "Đang bàn giao",
+  PARTIAL_CUSTODY: "Bàn giao một phần",
+  CHECKED_OUT: "Đã xuất",
+  PARTIALLY_CHECKED_OUT: "Đã xuất một phần",
+  RESERVED: "Đã đặt trước",
+  PARTIALLY_RESERVED: "Đặt trước một phần",
 });
 
 // Booking-context pseudo-statuses an asset row can show inside a booking
 // (web canonical: the enum path in asset-status-badge/status-labels.ts).
 export const ASSET_BOOKING_PSEUDO_STATUS_LABELS = Object.freeze({
-  ALREADY_CHECKED_IN: "Already checked in",
-  PARTIALLY_CHECKED_IN: "Partially checked in",
-  PARTIALLY_CHECKED_OUT: "Partially checked out",
+  ALREADY_CHECKED_IN: "Đã nhận lại",
+  PARTIALLY_CHECKED_IN: "Đã nhận lại một phần",
+  PARTIALLY_CHECKED_OUT: "Đã xuất một phần",
 });
 
 /**
@@ -70,30 +70,30 @@ export const ASSET_BOOKING_PSEUDO_STATUS_LABELS = Object.freeze({
  * holds those three strings together: reword both maps, or neither.
  */
 export const KIT_STATUS_LABELS = Object.freeze({
-  AVAILABLE: "Available",
-  IN_CUSTODY: "In custody",
-  CHECKED_OUT: "Checked out",
+  AVAILABLE: "Sẵn sàng",
+  IN_CUSTODY: "Đang bàn giao",
+  CHECKED_OUT: "Đã xuất",
   PARTIALLY_CHECKED_IN: ASSET_BOOKING_PSEUDO_STATUS_LABELS.ALREADY_CHECKED_IN,
 });
 
 // Booking status enum (BookingStatus in the Prisma schema).
 export const BOOKING_STATUS_LABELS = Object.freeze({
-  DRAFT: "Draft",
-  RESERVED: "Reserved",
-  ONGOING: "Ongoing",
-  OVERDUE: "Overdue",
-  COMPLETE: "Complete",
-  ARCHIVED: "Archived",
-  CANCELLED: "Cancelled",
+  DRAFT: "Nháp",
+  RESERVED: "Đã đặt trước",
+  ONGOING: "Đang diễn ra",
+  OVERDUE: "Quá hạn",
+  COMPLETE: "Hoàn tất",
+  ARCHIVED: "Đã lưu trữ",
+  CANCELLED: "Đã hủy",
 });
 
 // Audit session status enum (AuditStatus in the Prisma schema).
 export const AUDIT_STATUS_LABELS = Object.freeze({
-  PENDING: "Pending",
-  ACTIVE: "Active",
-  COMPLETED: "Completed",
-  CANCELLED: "Cancelled",
-  ARCHIVED: "Archived",
+  PENDING: "Chờ thực hiện",
+  ACTIVE: "Đang thực hiện",
+  COMPLETED: "Hoàn tất",
+  CANCELLED: "Đã hủy",
+  ARCHIVED: "Đã lưu trữ",
 });
 
 // Who may act on an audit that has no specific assignee. One idea, three
@@ -107,10 +107,10 @@ export const AUDIT_STATUS_LABELS = Object.freeze({
 // are exactly the set who may scan an unassigned audit.
 // Pinned by the AUDIT_UNASSIGNED_LABELS tests in the webapp.
 export const AUDIT_UNASSIGNED_LABELS = Object.freeze({
-  SHORT: "Unassigned · admins and owners can scan",
-  A11Y: "unassigned, admins and owners can scan",
+  SHORT: "Chưa phân công · quản trị viên và chủ sở hữu có thể quét",
+  A11Y: "chưa phân công, quản trị viên và chủ sở hữu có thể quét",
   DETAIL:
-    "Workspace admins and owners can perform this audit because it has no specific assignee.",
+    "Quản trị viên và chủ sở hữu không gian làm việc có thể thực hiện đợt kiểm kê này vì chưa có người được phân công cụ thể.",
 });
 
 // Per-asset audit status (AuditAssetStatus in the Prisma schema).
@@ -124,10 +124,10 @@ export const AUDIT_UNASSIGNED_LABELS = Object.freeze({
 // PENDING's label. `auditAssetStatusLabel` below encodes that rule; call it
 // instead of indexing this map directly.
 export const AUDIT_ASSET_STATUS_LABELS = Object.freeze({
-  PENDING: "Not scanned",
-  FOUND: "Found",
-  MISSING: "Missing",
-  UNEXPECTED: "Unexpected",
+  PENDING: "Chưa quét",
+  FOUND: "Đã tìm thấy",
+  MISSING: "Thiếu",
+  UNEXPECTED: "Ngoài dự kiến",
 });
 
 /**
@@ -143,7 +143,7 @@ export const AUDIT_ASSET_STATUS_LABELS = Object.freeze({
  * there is no name left to qualify, so the row says only what it is.
  */
 export const AUDIT_DELETED_ASSET_LABELS = Object.freeze({
-  UNTITLED: "Deleted asset",
+  UNTITLED: "Tài sản đã xóa",
 });
 
 /**
@@ -155,7 +155,7 @@ export const AUDIT_DELETED_ASSET_LABELS = Object.freeze({
  */
 export function auditDeletedAssetLabel(title) {
   const trimmed = typeof title === "string" ? title.trim() : "";
-  return trimmed ? `${trimmed} (deleted)` : AUDIT_DELETED_ASSET_LABELS.UNTITLED;
+  return trimmed ? `${trimmed} (đã xóa)` : AUDIT_DELETED_ASSET_LABELS.UNTITLED;
 }
 
 /**
@@ -210,11 +210,11 @@ export function auditAssetStatusLabel(status, isAuditCompleted) {
 // offending assets and deliberately keeps its own richer message.
 export const BOOKING_RESERVE_BLOCKED_LABELS = Object.freeze({
   NOTHING_TO_RESERVE:
-    "Add assets or reserve at least one model on this booking before you reserve it.",
+    "Hãy thêm tài sản hoặc đặt trước ít nhất một mẫu tài sản trước khi xác nhận lịch đặt.",
   UNAVAILABLE_ASSETS:
-    "This booking holds assets marked as unavailable. Remove them, or make them available again, before reserving.",
+    "Lịch đặt này có tài sản đang không khả dụng. Hãy xóa chúng khỏi lịch hoặc chuyển về trạng thái sẵn sàng trước khi đặt.",
   ALREADY_BOOKED:
-    "This booking holds assets already booked for that period. Remove them, or change the dates, before reserving.",
+    "Lịch đặt này có tài sản đã được đặt trong khoảng thời gian đó. Hãy xóa tài sản hoặc đổi thời gian trước khi đặt.",
 });
 
 // Refusal shown when emptying a RESERVED booking. Such a booking with nothing
@@ -228,7 +228,7 @@ export const BOOKING_RESERVE_BLOCKED_LABELS = Object.freeze({
 // checked-out asset off a live booking is a real correction flow (the service
 // reconciles the asset's status when it happens).
 export const BOOKING_EMPTY_RESERVED_MESSAGE =
-  "A reserved booking must keep at least one asset or model reservation. Cancel the booking instead, or add a replacement first.";
+  "Lịch đã đặt phải có ít nhất một tài sản hoặc mẫu tài sản được giữ chỗ. Hãy hủy lịch hoặc thêm tài sản thay thế trước.";
 
 /**
  * The semantic weight a status badge carries, independent of any palette.
