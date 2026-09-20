@@ -33,7 +33,7 @@ import {
 import When from "../when/when";
 
 export const NewLocationFormSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  name: z.string().min(2, "Tên vị trí là bắt buộc"),
   description: z.string(),
   address: z.string(),
   parentId: z
@@ -177,7 +177,7 @@ export const LocationForm = ({
             >
               <Input
                 ref={nameInputRef}
-                label="Name"
+                label="Tên"
                 hideLabel
                 name={zo.fields.name()}
                 disabled={disabled}
@@ -194,7 +194,7 @@ export const LocationForm = ({
         >
           <Input
             ref={nameInputRef}
-            label="Name"
+            label="Tên"
             hideLabel
             name={zo.fields.name()}
             disabled={disabled}
@@ -298,7 +298,7 @@ export const LocationForm = ({
               required={zodFieldIsRequired(NewLocationFormSchema.shape.address)}
             >
               <Input
-                label="Address"
+                label="Địa chỉ"
                 hideLabel
                 name={zo.fields.address()}
                 disabled={disabled}
@@ -313,7 +313,7 @@ export const LocationForm = ({
           }
         >
           <Input
-            label="Address"
+            label="Địa chỉ"
             name={zo.fields.address()}
             disabled={disabled}
             error={zo.errors.address()?.message}
@@ -340,7 +340,7 @@ export const LocationForm = ({
             >
               <Input
                 inputType="textarea"
-                label="Description"
+                label="Mô tả"
                 hideLabel
                 name={zo.fields.description()}
                 defaultValue={description || ""}
@@ -357,7 +357,7 @@ export const LocationForm = ({
         >
           <Input
             inputType="textarea"
-            label="Description"
+            label="Mô tả"
             name={zo.fields.description()}
             defaultValue={description || ""}
             placeholder="Add a description for your location."
@@ -432,11 +432,11 @@ const AddAnother = ({ disabled }: { disabled: boolean }) => (
           name="addAnother"
           value="true"
         >
-          Add another
+          Thêm vị trí khác
         </Button>
       </TooltipTrigger>
       <TooltipContent side="bottom">
-        <p className="text-sm">Save the location and add a new one</p>
+        <p className="text-sm">Lưu vị trí và thêm vị trí mới</p>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
