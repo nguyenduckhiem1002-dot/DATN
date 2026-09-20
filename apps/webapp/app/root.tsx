@@ -62,8 +62,8 @@ export const handle = {
 
 export const links: LinksFunction = () => [
   { rel: "manifest", href: "/static/manifest.json" },
-  { rel: "apple-touch-icon", href: config.faviconPath },
-  { rel: "icon", href: config.faviconPath },
+  { rel: "icon", href: config.faviconPath, type: "image/svg+xml" },
+  { rel: "shortcut icon", href: config.faviconPath, type: "image/svg+xml" },
   ...splashScreenLinks,
   { rel: "stylesheet", href: styles },
   { rel: "stylesheet", href: fontsStylesheetUrl },
@@ -75,7 +75,7 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => [
   {
-    title: "shelf.nu",
+    title: "Casla Assets",
   },
 ];
 
@@ -189,19 +189,10 @@ export function Layout({ children }: { children: ReactNode }) {
   );
 
   return (
-    <html lang="en" className="overflow-hidden">
+    <html lang="vi" className="overflow-hidden">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        {/* why: iOS Smart App Banner must be rendered here in <head>, not via a
-            route `meta` export. React Router renders the leaf route's meta
-            (not a merge of root + leaf), and 150+ routes export their own
-            meta, so a root-level descriptor would be dropped on the pages
-            users actually visit. Placed in the shared document <head> it is
-            present site-wide. Mobile Safari renders a native banner linking to
-            the Shelf Companion App Store listing (id6765639874), or "Open" if
-            installed. Apple-hosted, zero-maintenance, no CLS, no cookie. */}
-        <meta name="apple-itunes-app" content="app-id=6765639874" />
         {/* why: a classic inline script runs even in browsers that cannot
             execute the module bundle, so they get the "browser out of date"
             screen below instead of a spinner. The inline style keeps that
@@ -224,16 +215,16 @@ export function Layout({ children }: { children: ReactNode }) {
             inline check there flags the browser; hydration is skipped then. */}
         <div id={UNSUPPORTED_BROWSER_SCREEN_ID}>
           <BlockInteractions
-            title="Your browser is out of date"
-            content="Shelf needs a current browser. Please update your browser, or switch to the latest Chrome, Firefox, Edge or Safari."
+            title="Trình duyệt đã quá cũ"
+            content="Casla Assets cần trình duyệt hiện đại. Vui lòng cập nhật Chrome, Firefox, Edge hoặc Safari."
             icon="x"
           />
         </div>
 
         <noscript>
           <BlockInteractions
-            title="JavaScript is disabled"
-            content="This website requires JavaScript to be enabled to function properly. Please enable JavaScript or change browser and try again."
+            title="JavaScript đang bị tắt"
+            content="Casla Assets cần JavaScript để hoạt động. Vui lòng bật JavaScript và thử lại."
             icon="x"
           />
         </noscript>
@@ -247,8 +238,8 @@ export function Layout({ children }: { children: ReactNode }) {
           <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
         ) : (
           <BlockInteractions
-            title="Cookies are disabled"
-            content="This website requires cookies to be enabled to function properly. Please enable cookies and try again."
+            title="Cookie đang bị tắt"
+            content="Casla Assets cần cookie để duy trì đăng nhập. Vui lòng bật cookie và thử lại."
             icon="x"
           />
         )}
