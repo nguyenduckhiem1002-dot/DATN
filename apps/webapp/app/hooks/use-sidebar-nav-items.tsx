@@ -80,13 +80,13 @@ export function useSidebarNavItems() {
     return {
       reason: (
         <div>
-          <h5>Disabled</h5>
+          <h5>Đang tắt</h5>
           <p>
-            Booking is a premium feature only available for Team workspaces.
+            Tính năng đặt lịch chỉ khả dụng cho không gian làm việc Nhóm.
           </p>
 
           <When truthy={!!subscription} fallback={<UpgradeMessage />}>
-            <p>Please switch to your team workspace to access this feature.</p>
+            <p>Vui lòng chuyển sang không gian làm việc của nhóm để sử dụng tính năng này.</p>
           </When>
         </div>
       ),
@@ -103,80 +103,80 @@ export function useSidebarNavItems() {
       return false;
     }
 
-    return { reason: "Inviting users is available on Team workspaces" };
+    return { reason: "Mời người dùng chỉ khả dụng trong không gian làm việc Nhóm" };
   }, [isPersonalOrganization]);
 
   const topMenuItems: NavItem[] = [
     {
       type: "child",
-      title: "Admin Dashboard",
+      title: "Trang quản trị",
       to: "/admin-dashboard/users",
       Icon: ChartLineIcon,
       hidden: !isAdmin,
     },
     {
       type: "label",
-      title: "Asset management",
+      title: "Quản lý tài sản",
     },
     {
       type: "child",
-      title: "Home",
+      title: "Trang chủ",
       to: "/home",
       Icon: HomeIcon,
       hidden: isBaseOrSelfService,
     },
     {
       type: "child",
-      title: "Assets",
+      title: "Tài sản",
       to: "/assets",
       Icon: PackageOpenIcon,
     },
     {
       type: "child",
-      title: "Kits",
+      title: "Bộ tài sản",
       to: "/kits",
       Icon: Package,
     },
     {
       type: "child",
-      title: "Categories",
+      title: "Danh mục",
       to: "/categories",
       Icon: BoxesIcon,
       hidden: isBaseOrSelfService,
     },
     {
       type: "child",
-      title: "Tags",
+      title: "Thẻ",
       to: "/tags",
       Icon: TagsIcon,
       hidden: isBaseOrSelfService,
     },
     {
       type: "child",
-      title: "Locations",
+      title: "Vị trí",
       to: "/locations",
       Icon: MapPinIcon,
       hidden: isBaseOrSelfService,
     },
     {
       type: "child",
-      title: "Audits",
+      title: "Kiểm kê",
       to: "/audits",
       Icon: ClipboardCheckIcon,
     },
     {
       type: "parent",
-      title: "Bookings",
+      title: "Đặt lịch",
       Icon: CalendarRangeIcon,
       disabled: bookingDisabled,
       children: [
         {
-          title: "View Bookings",
+          title: "Danh sách đặt lịch",
           to: "/bookings",
           disabled: bookingDisabled,
         },
         {
-          title: "Calendar",
+          title: "Lịch",
           to: "/calendar",
           disabled: bookingDisabled,
         },
@@ -184,53 +184,53 @@ export function useSidebarNavItems() {
     },
     {
       type: "child",
-      title: "Reminders",
+      title: "Nhắc việc",
       Icon: AlarmClockIcon,
       hidden: isBaseOrSelfService,
       to: "/reminders",
     },
     {
       type: "child",
-      title: "Reports",
+      title: "Báo cáo",
       Icon: FileBarChartIcon,
       hidden: isBaseOrSelfService,
       to: "/reports",
     },
     {
       type: "label",
-      title: "Organization",
+      title: "Tổ chức",
       hidden: isBaseOrSelfService,
     },
     {
       type: "parent",
-      title: "Team",
+      title: "Nhân sự",
       Icon: UsersRoundIcon,
       hidden: isBaseOrSelfService,
       children: [
         {
-          title: "Users",
+          title: "Người dùng",
           to: "/settings/team/users",
           disabled: teamInviteDisabled,
         },
         {
-          title: "Pending invites",
+          title: "Lời mời đang chờ",
           to: "/settings/team/invites",
           disabled: teamInviteDisabled,
         },
         {
-          title: "Non-registered members",
+          title: "Thành viên chưa đăng ký",
           to: "/settings/team/nrm",
         },
       ],
     },
     {
       type: "parent",
-      title: "Workspace settings",
+      title: "Cài đặt không gian làm việc",
       Icon: SettingsIcon,
       hidden: isBaseOrSelfService,
       children: [
         {
-          title: "General",
+          title: "Chung",
           to: "/settings/general",
         },
         {
@@ -239,11 +239,11 @@ export function useSidebarNavItems() {
           hidden: isPersonalOrganization,
         },
         {
-          title: "Custom fields",
+          title: "Trường tùy chỉnh",
           to: "/settings/custom-fields",
         },
         {
-          title: "Asset models",
+          title: "Mẫu tài sản",
           to: "/settings/asset-models",
         },
       ],
@@ -253,20 +253,20 @@ export function useSidebarNavItems() {
   const bottomMenuItems: NavItem[] = [
     {
       type: "child",
-      title: "Asset labels",
+      title: "Nhãn tài sản",
       to: `https://store.shelf.nu/?ref=shelf_webapp_sidebar`,
       Icon: QrCodeIcon,
       target: "_blank",
     },
     {
       type: "child",
-      title: "QR Scanner",
+      title: "Quét mã QR",
       to: "/scanner",
       Icon: ScanBarcodeIcon,
     },
     {
       type: "button",
-      title: "Updates",
+      title: "Cập nhật",
       Icon: BellIcon,
       badge: {
         show: (unreadUpdatesCount || 0) > 0,
@@ -278,7 +278,7 @@ export function useSidebarNavItems() {
     },
     {
       type: "button",
-      title: "Questions/Feedback",
+      title: "Hỏi đáp/Góp ý",
       Icon: MessageCircleIcon,
       onClick: () => {
         // Handled by FeedbackNavItem in sidebar-nav.tsx
