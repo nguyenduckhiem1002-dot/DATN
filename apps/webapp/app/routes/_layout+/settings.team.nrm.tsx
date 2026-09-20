@@ -142,7 +142,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           cause: null,
           message: "Thao tác không hợp lệ",
           additionalData: { intent },
-          label: "Nhóm",
+          label: "Team",
         });
       }
     }
