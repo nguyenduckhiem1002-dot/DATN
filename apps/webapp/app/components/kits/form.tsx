@@ -31,7 +31,7 @@ import When from "../when/when";
 export const NewKitFormSchema = z.object({
   name: z
     .string()
-    .min(2, "Name is required")
+    .min(2, "Tên bộ tài sản là bắt buộc")
     .transform((value) => value.trim()),
   description: z
     .string()
@@ -149,7 +149,7 @@ export default function KitsForm({
         <FormRow rowLabel="Name" className="border-b-0 pb-[10px]" required>
           <Input
             ref={nameInputRef}
-            label="Name"
+            label="Tên"
             hideLabel
             name={zo.fields.name()}
             disabled={disabled}
@@ -162,7 +162,7 @@ export default function KitsForm({
         </FormRow>
 
         <FormRow
-          rowLabel="Description"
+          rowLabel="Mô tả"
           subHeading={
             <p>
               Briefly describe what is included and/or what is will be used for.
@@ -187,7 +187,7 @@ export default function KitsForm({
         </FormRow>
 
         <FormRow
-          rowLabel="Category"
+          rowLabel="Danh mục"
           subHeading={
             <p>
               Make it unique. Each kit can have 1 category. It will show on your
@@ -210,8 +210,8 @@ export default function KitsForm({
             defaultValue={categoryId ?? undefined}
             model={{ name: "category", queryKey: "name" }}
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
-            contentLabel="Categories"
-            label="Category"
+            contentLabel="Danh mục"
+            label="Danh mục"
             hideLabel
             initialDataKey="categories"
             countKey="totalCategories"
@@ -221,8 +221,8 @@ export default function KitsForm({
             extraContent={({ onItemCreated, closePopover }) => (
               <InlineEntityCreationDialog
                 type="category"
-                title="Create new category"
-                buttonLabel="Create new category"
+                title="Tạo danh mục mới"
+                buttonLabel="Tạo danh mục mới"
                 onCreated={(created) => {
                   if (created?.type !== "category") return;
                   const category = created.entity;
@@ -240,7 +240,7 @@ export default function KitsForm({
         </FormRow>
 
         <FormRow
-          rowLabel="Location"
+          rowLabel="Vị trí"
           subHeading={
             <p>
               A location is a place where an item is supposed to be located.
@@ -264,8 +264,8 @@ export default function KitsForm({
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
             defaultValue={locationId ?? undefined}
             model={{ name: "location", queryKey: "name" }}
-            contentLabel="Locations"
-            label="Location"
+            contentLabel="Vị trí"
+            label="Vị trí"
             hideLabel
             initialDataKey="locations"
             countKey="totalLocations"
@@ -274,8 +274,8 @@ export default function KitsForm({
             extraContent={({ onItemCreated, closePopover }) => (
               <InlineEntityCreationDialog
                 type="location"
-                title="Create new location"
-                buttonLabel="Create new location"
+                title="Tạo vị trí mới"
+                buttonLabel="Tạo vị trí mới"
                 onCreated={(created) => {
                   if (created?.type !== "location") return;
                   const location = created.entity;
@@ -346,7 +346,7 @@ export default function KitsForm({
         <FormRow className="border-y-0 pb-0 pt-5" rowLabel="">
           <div className="ml-auto flex gap-2">
             <Button to={cancelTo} variant="secondary" disabled={disabled}>
-              Cancel
+              Hủy
             </Button>
             <Button type="submit" disabled={disabled}>
               {disabled ? "Saving..." : "Save"}

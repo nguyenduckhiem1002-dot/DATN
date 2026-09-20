@@ -44,17 +44,17 @@ export const EmptyState = ({
 
   const filteredTexts = hasSearch
     ? {
-        title: `No ${plural} found`,
-        p: `Your search for "${search}" did not match any ${plural} in the database.`,
+        title: `Không tìm thấy ${plural}`,
+        p: `Không có ${plural} nào khớp với từ khóa "${search}".`,
       }
     : {
-        title: `No ${plural} found`,
-        p: `No ${plural} match the applied filters. Try adjusting or clearing your filters.`,
+        title: `Không tìm thấy ${plural}`,
+        p: `Không có ${plural} nào khớp với bộ lọc hiện tại. Hãy điều chỉnh hoặc xóa bộ lọc.`,
       };
 
   const zeroDataTexts = {
-    title: `No ${plural} on database`,
-    p: `What are you waiting for? Create your first ${singular} now!`,
+    title: `Chưa có ${plural}`,
+    p: `Hãy tạo ${singular} đầu tiên để bắt đầu.`,
   };
 
   /** Determine which "clear" button to show */
@@ -62,7 +62,7 @@ export const EmptyState = ({
     if (!isFiltered) return null;
 
     if (hasSearch && hasActiveFilters) {
-      // Both search and filters active — single "Clear All" button
+      // Both search and filters active — single "Xóa tất cả" button
       return (
         <Button
           type="button"
@@ -71,7 +71,7 @@ export const EmptyState = ({
             setSearchParams(() => new URLSearchParams());
           }}
         >
-          Clear All
+          Xóa tất cả
         </Button>
       );
     }
@@ -89,7 +89,7 @@ export const EmptyState = ({
             });
           }}
         >
-          Clear Search
+          Xóa tìm kiếm
         </Button>
       );
     }
@@ -111,7 +111,7 @@ export const EmptyState = ({
           });
         }}
       >
-        Clear Filters
+        Xóa bộ lọc
       </Button>
     );
   })();
@@ -164,7 +164,7 @@ export const EmptyState = ({
               >
                 {customContent?.newButtonContent
                   ? customContent.newButtonContent
-                  : `New ${singular}`}
+                  : `Tạo ${singular}`}
               </Button>
             )}
       </div>

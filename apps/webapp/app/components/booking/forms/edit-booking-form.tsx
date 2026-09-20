@@ -107,7 +107,7 @@ export function EditBookingForm({ booking, action }: BookingFormData) {
 
   // Progressive checkout is only offered while there are still items that
   // haven't been checked out yet (the Booked bucket). Once everything has been
-  // checked out, hide the "Scan to check out" entry point.
+  // checked out, hide the "Quét để xuất tài sản" entry point.
   const hasItemsToCheckOut = (lifecycleProgress?.bookedCount ?? 0) > 0;
 
   const isProcessing = isFormProcessing(navigation.state);
@@ -354,17 +354,17 @@ export function EditBookingForm({ booking, action }: BookingFormData) {
                 className="grow whitespace-nowrap"
                 size="sm"
               >
-                {isBase ? "Request reservation" : "Reserve"}
+                {isBase ? "Yêu cầu đặt trước" : "Reserve"}
               </Button>
             ) : null}
 
             {/*
-              Check-out control. Collapses the full "Check Out" flow (RESERVED
-              only) and the progressive "Scan to check out" flow
+              Check-out control. Collapses the full "Xuất tài sản" flow (RESERVED
+              only) and the progressive "Quét để xuất tài sản" flow
               (RESERVED/ONGOING/OVERDUE with still-Booked items) into a single
               dropdown — mirroring the check-in dropdown for a consistent header.
               CheckoutDropdown renders a single button when only one option
-              applies, and only "Scan to check out" when the workspace requires
+              applies, and only "Quét để xuất tài sản" when the workspace requires
               explicit check-out for the viewer's role.
 
               When the booking has outstanding `BookingModelRequest` rows the
@@ -391,12 +391,12 @@ export function EditBookingForm({ booking, action }: BookingFormData) {
                   bookingFlags?.hasAssetsInCustody
                     ? {
                         reason: bookingFlags?.hasAssetsInCustody
-                          ? "Some assets in this booking are currently in custody. You need to resolve that before you can check-out"
+                          ? "Một số tài sản trong lịch đặt hiện đang được bàn giao. Cần xử lý trạng thái này trước khi xuất tài sản"
                           : bookingFlags?.hasAlreadyBookedAssets
-                          ? "Your booking has assets that are already booked for the desired period. You need to resolve that before you can check-out"
+                          ? "Lịch đặt có tài sản đã được đặt trong khoảng thời gian này. Cần xử lý xung đột trước khi xuất tài sản"
                           : isProcessing || isLoadingWorkingHours
                           ? undefined
-                          : "Some assets in this booking are not Available because they're part of an Ongoing or Overdue booking",
+                          : "Một số tài sản không sẵn sàng vì đang thuộc lịch đặt đang diễn ra hoặc quá hạn",
                       }
                     : false;
 
@@ -412,7 +412,7 @@ export function EditBookingForm({ booking, action }: BookingFormData) {
                       className="grow"
                       size="sm"
                     >
-                      Check Out
+                      Xuất tài sản
                     </Button>
                   );
                 }
@@ -481,7 +481,7 @@ export function EditBookingForm({ booking, action }: BookingFormData) {
           {id ? (
             <input type="hidden" name="id" defaultValue={id} key={id} />
           ) : null}
-          <h3>Booking details</h3>
+          <h3>Chi tiết lịch đặt</h3>
           <div
             className={tw(
               "flex flex-col gap-3 lg:flex-row",

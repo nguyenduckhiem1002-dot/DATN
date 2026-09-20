@@ -140,8 +140,8 @@ test("a not-yet-started audit is not an alarm", () => {
 // ---------------------------------------------------------------------------
 
 test("an unscanned asset is only missing once the audit is closed", () => {
-  assert.equal(auditAssetStatusLabel("PENDING", false), "Not scanned");
-  assert.equal(auditAssetStatusLabel("PENDING", true), "Missing");
+  assert.equal(auditAssetStatusLabel("PENDING", false), "Chưa quét");
+  assert.equal(auditAssetStatusLabel("PENDING", true), "Thiếu");
 });
 
 test("every other status reads the same either side of completion", () => {
@@ -205,7 +205,7 @@ test("the exported maps cannot be mutated by a consumer", () => {
 test("a deleted asset keeps the title it was scanned under", () => {
   assert.equal(
     auditDeletedAssetLabel("Arri Fresnel 650"),
-    "Arri Fresnel 650 (deleted)"
+    "Arri Fresnel 650 (đã xóa)"
   );
 });
 
@@ -213,10 +213,10 @@ test("a deleted asset with no snapshotted title says only what it is", () => {
   // A scan recorded before the title was captured by value has nothing left to
   // qualify, so the row must not read " (deleted)" with an empty name.
   for (const empty of [null, undefined, "", "   "]) {
-    assert.equal(auditDeletedAssetLabel(empty), "Deleted asset");
+    assert.equal(auditDeletedAssetLabel(empty), "Tài sản đã xóa");
   }
 });
 
 test("surrounding whitespace never reaches the rendered name", () => {
-  assert.equal(auditDeletedAssetLabel("  Tripod  "), "Tripod (deleted)");
+  assert.equal(auditDeletedAssetLabel("  Tripod  "), "Tripod (đã xóa)");
 });

@@ -2,9 +2,9 @@ import { Button } from "../shared/button";
 
 export const CategorySelectNoCategories = () => (
   <div>
-    You don't seem to have any categories yet.{" "}
+    Bạn chưa có danh mục nào.{" "}
     <Button to={"/categories/new"} variant="link" className="">
-      Create your first category
+      Tạo danh mục đầu tiên
     </Button>
   </div>
 );

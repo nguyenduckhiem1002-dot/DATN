@@ -1,14 +1,14 @@
 /**
- * "+New asset" Split-Button Dropdown
+ * "+ Tài sản mới" Split-Button Dropdown
  *
  * Surfaces the alternative creation paths next to the primary
- * "New asset" CTA on the `/assets` index page without changing the
+ * "Tài sản mới" CTA on the `/assets` index page without changing the
  * default click target. The main button still navigates to
  * `/assets/new` (no regression for users who don't engage the menu);
  * the caret button next to it opens a Popover with shortcuts to:
  *
- *   - Bulk create from model  → `/assets/new?bulk=1`
- *   - Import from CSV         → `/assets/import` (gated on
+ *   - Tạo hàng loạt từ mẫu  → `/assets/new?bulk=1`
+ *   - Nhập từ CSV         → `/assets/import` (gated on
  *     `canImportAssets`, mirroring the existing ImportButton gate)
  *
  * Uses Radix Popover (per CLAUDE.md, DropdownMenu is deprecated for
@@ -33,7 +33,7 @@ import { Button } from "../shared/button";
 
 /**
  * @param canImportAssets - Workspace permission flag for CSV import;
- *   when false, the "Import from CSV" menu item is hidden.
+ *   when false, the "Nhập từ CSV" menu item is hidden.
  */
 export function NewAssetDropdown({
   canImportAssets,
@@ -51,13 +51,13 @@ export function NewAssetDropdown({
         data-test-id="createNewAsset"
         className="rounded-r-none border-r-0"
       >
-        New asset
+        Tài sản mới
       </Button>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             type="button"
-            aria-label="More create options"
+            aria-label="Thêm tùy chọn tạo"
             // Mirror the main button's height (size=sm → py-2) so the two
             // halves line up; flex-center the caret so the chevron sits in
             // the middle regardless of its intrinsic SVG bounds.
@@ -85,15 +85,15 @@ export function NewAssetDropdown({
           >
             <DropdownLink
               to="/assets/new?bulk=1"
-              label="Bulk create from model"
-              description="Create multiple assets at once from a model"
+              label="Tạo hàng loạt từ mẫu"
+              description="Tạo nhiều tài sản cùng lúc từ một mẫu"
               onClose={() => setOpen(false)}
             />
             {canImportAssets ? (
               <DropdownLink
                 to="/assets/import"
-                label="Import from CSV"
-                description="Onboard many assets from a spreadsheet"
+                label="Nhập từ CSV"
+                description="Nhập nhiều tài sản từ bảng tính"
                 onClose={() => setOpen(false)}
               />
             ) : null}

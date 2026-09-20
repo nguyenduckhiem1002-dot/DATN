@@ -703,7 +703,7 @@ export const AssetForm = ({
           >
             <Input
               ref={titleInputRef}
-              label="Name"
+              label="Tên"
               hideLabel
               name="title"
               disabled={disabled}
@@ -817,7 +817,7 @@ export const AssetForm = ({
             className="border-b-0 pb-[10px]"
             subHeading={
               isEditMode
-                ? "Tracking method cannot be changed after creation."
+                ? "Không thể thay đổi phương thức theo dõi sau khi tạo tài sản."
                 : "Choose how this asset is tracked. This cannot be changed later."
             }
             required={true}
@@ -1126,7 +1126,7 @@ export const AssetForm = ({
         <When truthy={!bulkMode}>{assetModelFormRow}</When>
 
         <FormRow
-          rowLabel="Category"
+          rowLabel="Danh mục"
           subHeading={
             <p>
               Make it unique. Each asset can have 1 category. It will show on
@@ -1152,8 +1152,8 @@ export const AssetForm = ({
             }
             model={{ name: "category", queryKey: "name" }}
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
-            contentLabel="Categories"
-            label="Category"
+            contentLabel="Danh mục"
+            label="Danh mục"
             hideLabel
             initialDataKey="categories"
             countKey="totalCategories"
@@ -1162,9 +1162,9 @@ export const AssetForm = ({
             allowClear={true}
             extraContent={({ onItemCreated, closePopover }) => (
               <InlineEntityCreationDialog
-                title="Create new category"
+                title="Tạo danh mục mới"
                 type="category"
-                buttonLabel="Create new category"
+                buttonLabel="Tạo danh mục mới"
                 onCreated={(created) => {
                   if (created?.type !== "category") return;
                   const category = created.entity;
@@ -1182,17 +1182,17 @@ export const AssetForm = ({
         </FormRow>
 
         <FormRow
-          rowLabel="Tags"
+          rowLabel="Thẻ"
           subHeading={
             <p>
-              Tags can help you organise your database. They can be combined.{" "}
+              Thẻ giúp bạn sắp xếp dữ liệu tài sản và có thể kết hợp nhiều thẻ.{" "}
               <Button
                 to="/tags/new"
                 className="text-gray-600 underline"
                 target="_blank"
                 variant="link-gray"
               >
-                Create tags
+                Tạo thẻ
               </Button>
             </p>
           }
@@ -1207,7 +1207,7 @@ export const AssetForm = ({
         </FormRow>
 
         <FormRow
-          rowLabel="Location"
+          rowLabel="Vị trí"
           subHeading={
             <p>
               A location is a place where an item is supposed to be located.
@@ -1218,7 +1218,7 @@ export const AssetForm = ({
                 target="_blank"
                 variant="link-gray"
               >
-                Create locations
+                Tạo vị trí
               </Button>
             </p>
           }
@@ -1247,8 +1247,8 @@ export const AssetForm = ({
                 triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
                 defaultValue={locationId || undefined}
                 model={{ name: "location", queryKey: "name" }}
-                contentLabel="Locations"
-                label="Location"
+                contentLabel="Vị trí"
+                label="Vị trí"
                 hideLabel
                 initialDataKey="locations"
                 countKey="totalLocations"
@@ -1264,8 +1264,8 @@ export const AssetForm = ({
               triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
               defaultValue={locationId || undefined}
               model={{ name: "location", queryKey: "name" }}
-              contentLabel="Locations"
-              label="Location"
+              contentLabel="Vị trí"
+              label="Vị trí"
               hideLabel
               initialDataKey="locations"
               countKey="totalLocations"
@@ -1274,8 +1274,8 @@ export const AssetForm = ({
               extraContent={({ onItemCreated, closePopover }) => (
                 <InlineEntityCreationDialog
                   type="location"
-                  title="Create new location"
-                  buttonLabel="Create new location"
+                  title="Tạo vị trí mới"
+                  buttonLabel="Tạo vị trí mới"
                   onCreated={(created) => {
                     if (created?.type !== "location") return;
                     const location = created.entity;
@@ -1305,7 +1305,7 @@ export const AssetForm = ({
         </FormRow>
 
         <FormRow
-          rowLabel={"Value"}
+          rowLabel={"Giá trị"}
           subHeading={
             <p>
               Specify the value of assets to get an idea of the total value of
@@ -1317,7 +1317,7 @@ export const AssetForm = ({
           <div className="relative w-full">
             <Input
               type="number"
-              label="Value"
+              label="Giá trị"
               inputClassName="pl-[70px] valuation-input"
               hideLabel
               name="valuation"
@@ -1343,7 +1343,7 @@ export const AssetForm = ({
           {canUseBarcodes ? (
             <>
               <FormRow
-                rowLabel={"Barcodes"}
+                rowLabel={"Mã vạch"}
                 className="border-b-0"
                 subHeading="Add additional barcodes to this asset (Code 128, Code 39, or Data Matrix). Note: Each asset automatically gets a default Shelf QR code for tracking."
               >
@@ -1373,7 +1373,7 @@ export const AssetForm = ({
               />
             </>
           ) : (
-            <FormRow rowLabel={"Barcodes"} className="border-b-0">
+            <FormRow rowLabel={"Mã vạch"} className="border-b-0">
               <UnlockBarcodesBanner />
             </FormRow>
           )}
@@ -1422,7 +1422,7 @@ const Actions = ({
 
     <ButtonGroup>
       <Button to={cancelTo} variant="secondary" disabled={disabled}>
-        Cancel
+        Hủy
       </Button>
       {showAddAnother ? <AddAnother disabled={disabled} /> : null}
     </ButtonGroup>
@@ -1440,11 +1440,11 @@ const AddAnother = ({ disabled }: { disabled: boolean }) => (
           name="addAnother"
           value="true"
         >
-          Add another
+          Thêm tài sản khác
         </Button>
       </TooltipTrigger>
       <TooltipContent side="bottom">
-        <p className="text-sm">Save the asset and add a new one</p>
+        <p className="text-sm">Lưu tài sản và thêm tài sản mới</p>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
@@ -1471,10 +1471,10 @@ function BulkCreatePreview({ titles }: { titles: string[] }) {
       className="rounded border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-700"
       data-test-id="bulkCreatePreview"
     >
-      <span className="font-medium text-gray-900">Preview:</span>{" "}
+      <span className="font-medium text-gray-900">Xem trước:</span>{" "}
       <span className="font-mono">{head.join(", ")}</span>
       {remaining > 0 ? (
-        <span className="text-gray-500"> …and {remaining} more</span>
+        <span className="text-gray-500"> …và thêm {remaining} mục</span>
       ) : null}
     </div>
   );
@@ -1484,15 +1484,15 @@ function BulkCreatePreview({ titles }: { titles: string[] }) {
 const TRACKING_OPTIONS = [
   {
     value: AssetType.INDIVIDUAL,
-    title: "Individually tracked",
+    title: "Theo dõi từng tài sản",
     description:
-      "Each item gets its own QR code, custody record, and booking entry. Best for unique or high-value items.",
+      "Mỗi tài sản có mã QR, lịch sử bàn giao và lịch đặt riêng. Phù hợp với tài sản riêng lẻ hoặc giá trị cao.",
   },
   {
     value: AssetType.QUANTITY_TRACKED,
-    title: "Tracked by quantity",
+    title: "Theo dõi theo số lượng",
     description:
-      "A single record represents a pool of identical items. Custody and bookings are managed by numeric quantity.",
+      "Một bản ghi đại diện cho nhiều vật phẩm giống nhau. Bàn giao và đặt lịch được quản lý theo số lượng.",
   },
 ] as const;
 
@@ -1565,7 +1565,7 @@ function TrackingMethodCards({
           </TooltipTrigger>
           <TooltipContent side="bottom">
             <p className="text-sm">
-              Tracking method cannot be changed after creation.
+              Không thể thay đổi phương thức theo dõi sau khi tạo tài sản.
             </p>
           </TooltipContent>
         </Tooltip>
@@ -1580,11 +1580,11 @@ function TrackingMethodCards({
 const CONSUMPTION_OPTIONS = [
   {
     value: ConsumptionType.ONE_WAY,
-    label: "Used up (one-way) — consumed and not returned",
+    label: "Tiêu hao (một chiều) — sử dụng hết và không hoàn trả",
   },
   {
     value: ConsumptionType.TWO_WAY,
-    label: "Returnable (two-way) — checked out and returned",
+    label: "Có hoàn trả (hai chiều) — xuất ra và nhận lại",
   },
 ] as const;
 
@@ -1620,7 +1620,7 @@ function ConsumptionTypeSelect({
 
   const selectedLabel =
     CONSUMPTION_OPTIONS.find((o) => o.value === selected)?.label ??
-    "Select consumption type";
+    "Chọn loại sử dụng";
 
   return (
     <div className="w-full">

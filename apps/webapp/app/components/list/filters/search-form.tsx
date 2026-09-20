@@ -75,7 +75,7 @@ export const SearchForm = ({ className }: { className?: string }) => {
     []
   );
 
-  const label = searchFieldLabel ? searchFieldLabel : `Search by ${singular}`;
+  const label = searchFieldLabel ? searchFieldLabel : `Tìm theo ${singular}`;
 
   /**
    * Clears the search parameter and page parameter from the URL
@@ -172,8 +172,8 @@ export const SearchForm = ({ className }: { className?: string }) => {
             // dev). Keep `title` for the visual tooltip, name it explicitly for
             // assistive tech. Static on purpose — the control is still "clear
             // search" while it spins.
-            aria-label="Clear search"
-            title="Clear search"
+            aria-label="Xóa tìm kiếm"
+            title="Xóa tìm kiếm"
             className="absolute right-3.5 top-1/2 !w-auto -translate-y-1/2 cursor-pointer border-0 p-0 text-gray-400 hover:text-gray-700"
             onClick={clearSearch}
           />

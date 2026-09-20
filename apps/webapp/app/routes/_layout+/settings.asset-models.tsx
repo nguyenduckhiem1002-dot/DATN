@@ -29,7 +29,7 @@ import {
 import { requirePermission } from "~/utils/roles.server";
 
 export const meta = () => [
-  { title: appendToMetaTitle("Asset models settings") },
+  { title: appendToMetaTitle("Cài đặt mẫu tài sản") },
 ];
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
@@ -83,8 +83,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
       });
 
       sendNotification({
-        title: "Asset models deleted",
-        message: "Selected asset models have been deleted successfully",
+        title: "Đã xóa mẫu tài sản",
+        message: "Các mẫu tài sản đã chọn được xóa thành công",
         icon: { name: "trash", variant: "error" },
         senderId: userId,
       });
@@ -106,8 +106,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     await deleteAssetModel({ id, organizationId, userId });
 
     sendNotification({
-      title: "Asset model deleted",
-      message: "Your asset model has been deleted successfully",
+      title: "Đã xóa mẫu tài sản",
+      message: "Mẫu tài sản đã được xóa thành công",
       icon: { name: "trash", variant: "error" },
       senderId: userId,
     });

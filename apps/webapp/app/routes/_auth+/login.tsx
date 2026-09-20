@@ -48,8 +48,8 @@ import {
 import { validEmail } from "~/utils/misc";
 
 export function loader({ context }: LoaderFunctionArgs) {
-  const title = "Log in";
-  const subHeading = "Welcome back! Enter your details below to log in.";
+  const title = "Đăng nhập";
+  const subHeading = "Chào mừng bạn quay lại! Nhập thông tin bên dưới để đăng nhập.";
   const { disableSignup, disableSSO } = config;
 
   if (context.isAuthenticated) {
@@ -64,9 +64,9 @@ const LoginFormSchema = z.object({
     .string()
     .transform((email) => email.toLowerCase())
     .refine(validEmail, () => ({
-      message: "Please enter a valid email",
+      message: "Vui lòng nhập email hợp lệ",
     })),
-  password: z.string().min(8, "Password is too short. Minimum 8 characters."),
+  password: z.string().min(8, "Mật khẩu quá ngắn. Tối thiểu 8 ký tự."),
   redirectTo: z.string().optional(),
 });
 
@@ -86,7 +86,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             error(
               new ShelfError({
                 cause: null,
-                message: "Invalid request",
+                message: "Yêu cầu không hợp lệ",
                 label: "Request validation",
                 shouldBeCaptured: false,
                 status: 400,
@@ -105,7 +105,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             error(
               new ShelfError({
                 cause,
-                message: "Invalid request body",
+                message: "Nội dung yêu cầu không hợp lệ",
                 label: "Request validation",
                 shouldBeCaptured: false,
                 status: 400,
@@ -186,15 +186,15 @@ export default function IndexLoginForm() {
     <div className="w-full max-w-md">
       {acceptedInvite ? (
         <div className="mb-8 text-center text-success-600">
-          Successfully accepted workspace invite. Please login to see your new
-          workspace.
+          Đã chấp nhận lời mời vào không gian làm việc. Vui lòng đăng nhập để xem
+          không gian làm việc mới.
         </div>
       ) : null}
 
       {passwordReset ? (
         <div className="mb-8 text-center text-success-600">
-          You have successfully reset your password. You can now use your new
-          password to login.
+          Bạn đã đặt lại mật khẩu thành công. Bây giờ có thể dùng mật khẩu mới
+          để đăng nhập.
         </div>
       ) : null}
       <Form ref={zo.ref} method="post" replace className="flex flex-col gap-5">
@@ -202,7 +202,7 @@ export default function IndexLoginForm() {
           <Input
             ref={emailInputRef}
             data-test-id="email"
-            label="Email address"
+            label="Địa chỉ email"
             placeholder="zaans@huisje.com"
             required
             name={zo.fields.email()}
@@ -214,7 +214,7 @@ export default function IndexLoginForm() {
           />
         </div>
         <PasswordInput
-          label="Password"
+          label="Mật khẩu"
           placeholder="**********"
           data-test-id="password"
           name={zo.fields.password()}
@@ -230,11 +230,11 @@ export default function IndexLoginForm() {
           data-test-id="login"
           disabled={disabled}
         >
-          Log In
+          Đăng nhập
         </Button>
         <div className="flex flex-col items-center justify-center">
           <div className="text-center text-sm text-gray-500">
-            Don't remember your password?{" "}
+            Quên mật khẩu?{" "}
             <Button
               variant="link"
               to={{
@@ -242,7 +242,7 @@ export default function IndexLoginForm() {
                 search: searchParams.toString(),
               }}
             >
-              Reset password
+              Đặt lại mật khẩu
             </Button>
           </div>
         </div>
@@ -250,7 +250,7 @@ export default function IndexLoginForm() {
       {!disableSSO && (
         <div className="mt-6 text-center">
           <Button variant="link" to="/sso-login">
-            Login with SSO
+            Đăng nhập bằng SSO
           </Button>
         </div>
       )}
@@ -262,9 +262,9 @@ export default function IndexLoginForm() {
           </div>
           <div className="relative flex justify-center text-sm">
             <span className="bg-white px-2 text-gray-500">
-              Or use a{" "}
-              <strong title="One Time Password (OTP) is the most secure way to login. We will send you a code to your email.">
-                One Time Password
+              Hoặc sử dụng{" "}
+              <strong title="Mã OTP (OTP) is the most secure way to login. We will send you a code to your email.">
+                Mã OTP
               </strong>
             </span>
           </div>
@@ -274,7 +274,7 @@ export default function IndexLoginForm() {
         </div>
         {disableSignup ? null : (
           <div className="mt-6 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
+            Chưa có tài khoản?{" "}
             <Button
               variant="link"
               data-test-id="signupButton"
@@ -283,7 +283,7 @@ export default function IndexLoginForm() {
                 search: searchParams.toString(),
               }}
             >
-              Sign up
+              Đăng ký
             </Button>
           </div>
         )}

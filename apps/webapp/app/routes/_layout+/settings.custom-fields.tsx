@@ -18,7 +18,7 @@ import {
 import { requirePermission } from "~/utils/roles.server";
 
 export const meta = () => [
-  { title: appendToMetaTitle("Custom fields settings") },
+  { title: appendToMetaTitle("Cài đặt trường tùy chỉnh") },
 ];
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
@@ -58,7 +58,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         id: z.string(),
         confirmation: z
           .string()
-          .min(1, "Confirmation is required")
+          .min(1, "Cần xác nhận")
           .transform((value) => value.trim()),
       }),
       { additionalData: { userId } }
@@ -71,14 +71,14 @@ export async function action({ context, request }: ActionFunctionArgs) {
       throw new ShelfError({
         cause: null,
         message:
-          "Confirmation text does not match the custom field name (case-insensitive).",
+          "Nội dung xác nhận không khớp với tên trường tùy chỉnh.",
         additionalData: {
           userId,
           customFieldId: id,
           confirmation,
           expected: customField.name,
         },
-        label: "Custom fields",
+        label: "Trường tùy chỉnh",
         status: 400,
         shouldBeCaptured: false,
       });
@@ -87,7 +87,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
     await softDeleteCustomField({ id, organizationId });
 
     sendNotification({
-      title: "Custom field deleted",
+      title: "Đã xóa trường tùy chỉnh",
       message: `The custom field "${customField.name}" has been deleted. You can now create a new field with the same name if needed.`,
       icon: { name: "success", variant: "success" },
       senderId: userId,

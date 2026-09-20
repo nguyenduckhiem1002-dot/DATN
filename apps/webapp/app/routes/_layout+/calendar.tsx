@@ -137,10 +137,10 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
     if (isPersonalOrg(currentOrganization)) {
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
+        title: "Không có quyền",
         message:
-          "You cannot use bookings in a personal workspaces. Please create a Team workspace to create bookings.",
-        label: "Booking",
+          "Bạn không thể sử dụng đặt lịch trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
+        label: "Đặt lịch",
         shouldBeCaptured: false,
       });
     }
@@ -213,7 +213,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
       userId,
       calendarFeedUrl,
       searchFieldTooltip: {
-        title: "Search your bookings",
+        title: "Tìm kiếm lịch đặt",
         text: parseMarkdownToReact(bookingsSearchFieldTooltipText),
       },
     });
@@ -304,7 +304,7 @@ export default function Calendar() {
       <Header hidePageDescription>
         <CreateBookingDialog
           trigger={
-            <Button type="button" aria-label="new booking">
+            <Button type="button" aria-label="lịch đặt mới">
               New booking
             </Button>
           }
@@ -337,9 +337,9 @@ export default function Calendar() {
             {isMd ? (
               <ViewButtonGroup
                 views={[
-                  { label: "Month", value: "dayGridMonth" },
-                  { label: "Week", value: "timeGridWeek" },
-                  { label: "Day", value: "timeGridDay" },
+                  { label: "Tháng", value: "dayGridMonth" },
+                  { label: "Tuần", value: "timeGridWeek" },
+                  { label: "Ngày", value: "timeGridDay" },
                 ]}
                 currentView={calendarView}
                 onViewChange={handleViewChange}

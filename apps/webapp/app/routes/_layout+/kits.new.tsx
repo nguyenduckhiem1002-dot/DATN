@@ -125,7 +125,7 @@ export async function action({ context, request }: LoaderFunctionArgs) {
     });
 
     sendNotification({
-      title: "Kit created",
+      title: "Đã tạo bộ tài sản",
       message: "Your kit has been created successfully!",
       icon: { name: "success", variant: "success" },
       senderId: userId,

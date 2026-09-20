@@ -122,7 +122,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           .catch((cause) => {
             throw new ShelfError({
               cause,
-              message: "Failed to load asset aggregation",
+              message: "Không thể tải thống kê tài sản",
               additionalData: { userId, organizationId },
               label: "Dashboard",
             });
@@ -144,7 +144,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           .catch((cause) => {
             throw new ShelfError({
               cause,
-              message: "Failed to load asset total valuation",
+              message: "Không thể tải tổng giá trị tài sản",
               additionalData: { userId, organizationId },
               label: "Dashboard",
             });
@@ -286,7 +286,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         .catch((cause) => {
           throw new ShelfError({
             cause,
-            message: "Failed to load newest assets",
+            message: "Không thể tải danh sách tài sản mới nhất",
             additionalData: { userId, organizationId },
             label: "Dashboard",
           });
@@ -304,7 +304,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         .catch((cause) => {
           throw new ShelfError({
             cause,
-            message: "Failed to load announcement",
+            message: "Không thể tải thông báo",
             additionalData: { userId, organizationId },
             label: "Dashboard",
           });
@@ -381,7 +381,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     const totalValuation = assetAggregation.totalValuation;
 
     const header: HeaderData = {
-      title: "Home",
+      title: "Trang chủ",
     };
 
     return payload({
@@ -433,13 +433,13 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 }
 
 export const meta: MetaFunction<typeof loader> = () => [
-  { title: appendToMetaTitle("Home") },
+  { title: appendToMetaTitle("Trang chủ") },
 ];
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const handle = {
-  breadcrumb: () => <Link to="/home">Home</Link>,
+  breadcrumb: () => <Link to="/home">Trang chủ</Link>,
 };
 
 export default function HomePage() {

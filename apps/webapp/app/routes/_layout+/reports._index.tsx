@@ -31,7 +31,7 @@ import { requirePermission } from "~/utils/roles.server";
 import { tw } from "~/utils/tw";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
-  { title: appendToMetaTitle(data?.header?.title || "Reports") },
+  { title: appendToMetaTitle(data?.header?.title || "Báo cáo") },
 ];
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
@@ -49,8 +49,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 
   // Standard header object for app Header component
   const header = {
-    title: "Reports",
-    subHeading: "Track and analyze your asset management operations",
+    title: "Báo cáo",
+    subHeading: "Theo dõi và phân tích hoạt động quản lý tài sản",
   };
 
   return data({
@@ -154,12 +154,12 @@ function ReportCard({ report }: { report: ReportDefinition }) {
         {report.description}
       </p>
 
-      {/* Coming soon badge */}
+      {/* Sắp ra mắt badge */}
       {!report.enabled && (
         <div className="absolute right-3 top-3">
           <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500">
             <Lock className="size-2.5" />
-            Coming soon
+            Sắp ra mắt
           </span>
         </div>
       )}

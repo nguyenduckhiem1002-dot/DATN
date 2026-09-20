@@ -14,44 +14,44 @@ export type OtpPageData = Record<
 
 export const OTP_PAGE_MAP: OtpPageData = {
   login: {
-    title: "Fill your code",
+    title: "Nhập mã xác thực",
     SubHeading: ({ email }) => (
       <SubHeading className="-mt-4 text-center">
-        We have sent a code to{" "}
-        <span className="font-bold text-gray-900">{email}</span>. Fill the code
-        below to log in.
+        Chúng tôi đã gửi mã tới{" "}
+        <span className="font-bold text-gray-900">{email}</span>. Nhập mã
+        bên dưới để đăng nhập.
       </SubHeading>
     ),
-    buttonTitle: "Log In",
+    buttonTitle: "Đăng nhập",
   },
   signup: {
-    title: "Create an account",
+    title: "Tạo tài khoản",
     SubHeading: () => (
       <SubHeading className="-mt-4 text-center">
-        Start your journey with Shelf.
+        Bắt đầu sử dụng Casla Assets.
       </SubHeading>
     ),
-    buttonTitle: "Create Account",
+    buttonTitle: "Tạo tài khoản",
   },
   confirm_signup: {
-    title: "Confirm your email",
+    title: "Xác nhận email",
     SubHeading: ({ email }) => (
       <SubHeading className="-mt-4 text-center">
-        We have sent a code to{" "}
-        <span className="font-bold text-gray-900">{email}</span>. Fill the code
-        below to confirm you email.
+        Chúng tôi đã gửi mã tới{" "}
+        <span className="font-bold text-gray-900">{email}</span>. Nhập mã
+        bên dưới để xác nhận email.
       </SubHeading>
     ),
-    buttonTitle: "Confirm",
+    buttonTitle: "Xác nhận",
   },
 };
 
 export const DEFAULT_PAGE_DATA: OtpPageData["login"] = {
-  title: "One Time Password",
-  buttonTitle: "Continue",
+  title: "Mã OTP",
+  buttonTitle: "Tiếp tục",
   SubHeading: () => (
     <SubHeading className="-mt-4 text-center">
-      Please confirm your OTP to continue
+      Vui lòng xác nhận mã OTP để tiếp tục
     </SubHeading>
   ),
 };

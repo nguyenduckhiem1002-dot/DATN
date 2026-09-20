@@ -38,17 +38,17 @@ import { validateNonSSOSignup } from "~/utils/sso.server";
 import { passwordSchema } from "~/utils/zod";
 
 export function loader({ context }: LoaderFunctionArgs) {
-  const title = "Create an account";
-  const subHeading = "Start your journey with Shelf";
+  const title = "Tạo tài khoản";
+  const subHeading = "Bắt đầu sử dụng Casla Assets";
   const { disableSignup } = config;
 
   try {
     if (disableSignup) {
       throw new ShelfError({
         cause: null,
-        title: "Signup is disabled",
+        title: "Đăng ký đang bị tắt",
         message:
-          "For more information, please contact your workspace administrator.",
+          "Để biết thêm thông tin, vui lòng liên hệ quản trị viên không gian làm việc.",
         label: "User onboarding",
         status: 403,
         shouldBeCaptured: false,
@@ -71,7 +71,7 @@ const JoinFormSchema = z
       .string()
       .transform((email) => email.toLowerCase())
       .refine(validEmail, () => ({
-        message: "Please enter a valid email",
+        message: "Vui lòng nhập email hợp lệ",
       })),
     password: passwordSchema(),
     confirmPassword: passwordSchema(),
@@ -81,7 +81,7 @@ const JoinFormSchema = z
     if (password !== confirmPassword) {
       return ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Password and confirm password must match",
+        message: "Mật khẩu xác nhận phải trùng với mật khẩu",
         path: ["confirmPassword"],
       });
     }
@@ -106,7 +106,7 @@ export async function action({ request }: ActionFunctionArgs) {
         if (existingUser) {
           throw new ShelfError({
             cause: null,
-            message: "User with this Email already exits, login instead",
+            message: "Email này đã có tài khoản. Vui lòng đăng nhập thay vì đăng ký mới.",
             additionalData: {
               email,
             },
@@ -159,7 +159,7 @@ export default function Join() {
             <Input
               ref={emailInputRef}
               data-test-id="email"
-              label="Email address"
+              label="Địa chỉ email"
               placeholder="zaans@huisje.com"
               required
               name={zo.fields.email()}
@@ -172,7 +172,7 @@ export default function Join() {
           </div>
 
           <PasswordInput
-            label="Password"
+            label="Mật khẩu"
             placeholder="**********"
             required
             data-test-id="password"
@@ -186,7 +186,7 @@ export default function Join() {
             }
           />
           <PasswordInput
-            label="Confirm Password"
+            label="Xác nhận mật khẩu"
             placeholder="**********"
             required
             data-test-id="confirmPassword"
@@ -213,7 +213,7 @@ export default function Join() {
             disabled={disabled}
             width="full"
           >
-            Get Started
+            Bắt đầu
           </Button>
         </Form>
         <div className="mt-6">
@@ -223,7 +223,7 @@ export default function Join() {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="bg-white px-2 text-gray-500">
-                {"Or use a One Time Password"}
+                {"Hoặc sử dụng mã OTP"}
               </span>
             </div>
           </div>
@@ -233,7 +233,7 @@ export default function Join() {
         </div>
         <div className="flex items-center justify-center pt-5">
           <div className="text-center text-sm text-gray-500">
-            {"Already have an account? "}
+            {"Đã có tài khoản? "}
             <Button
               variant="link"
               to={{
@@ -241,7 +241,7 @@ export default function Join() {
                 search: searchParams.toString(),
               }}
             >
-              Log in
+              Đăng nhập
             </Button>
           </div>
         </div>

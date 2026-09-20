@@ -15,7 +15,7 @@ import Input from "../forms/input";
 import { Button } from "../shared/button";
 
 export const NewCategoryFormSchema = z.object({
-  name: z.string().min(3, "Name is required"),
+  name: z.string().min(3, "Tên danh mục là bắt buộc"),
   description: z.string(),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   preventRedirect: z.string().optional(),
@@ -96,8 +96,8 @@ export default function NewCategoryForm({
       <div className={tw("gap-4 md:flex md:items-center", className)}>
         <Input
           ref={nameInputRef}
-          label="Name"
-          placeholder="Category name"
+          label="Tên"
+          placeholder="Tên danh mục"
           className={tw("mb-4 lg:mb-0 lg:max-w-[180px]", inputClassName)}
           name={zo.fields.name()}
           disabled={disabled}
@@ -107,8 +107,8 @@ export default function NewCategoryForm({
           required={zodFieldIsRequired(NewCategoryFormSchema.shape.name)}
         />
         <Input
-          label="Description"
-          placeholder="Description (optional)"
+          label="Mô tả"
+          placeholder="Mô tả (không bắt buộc)"
           name={zo.fields.description()}
           disabled={disabled}
           data-test-id="categoryDescription"
@@ -144,7 +144,7 @@ export default function NewCategoryForm({
               className="flex-1"
               disabled={disabled}
             >
-              Cancel
+              Hủy
             </Button>
           ) : (
             <Button
@@ -154,7 +154,7 @@ export default function NewCategoryForm({
               className="flex-1"
               disabled={disabled}
             >
-              Cancel
+              Hủy
             </Button>
           )}
           <Button
@@ -163,7 +163,7 @@ export default function NewCategoryForm({
             className="flex-1"
             disabled={disabled}
           >
-            {disabled ? "Creating..." : "Create"}
+            {disabled ? "Đang tạo..." : "Tạo"}
           </Button>
         </div>
 

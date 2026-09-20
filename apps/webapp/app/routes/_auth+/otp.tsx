@@ -49,12 +49,12 @@ export function loader({ context, request }: LoaderFunctionArgs) {
 }
 
 const OtpSchema = z.object({
-  otp: z.string().min(2, "Please enter the code sent to your email"),
+  otp: z.string().min(2, "Vui lòng nhập mã đã được gửi tới email của bạn"),
   email: z
     .string()
     .transform((email) => email.toLowerCase())
     .refine(validEmail, () => ({
-      message: "Please enter a valid email",
+      message: "Vui lòng nhập email hợp lệ",
     })),
 });
 
@@ -72,7 +72,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             error(
               new ShelfError({
                 cause,
-                message: "Invalid request body",
+                message: "Nội dung yêu cầu không hợp lệ",
                 label: "Request validation",
                 shouldBeCaptured: false,
                 status: 400,
@@ -183,7 +183,7 @@ export default function OtpPage() {
       });
     } catch {
       setMessage({
-        message: "Something went wrong. Please try again.",
+        message: "Đã xảy ra lỗi. Vui lòng thử lại.",
         type: "error",
       });
     }
@@ -199,7 +199,7 @@ export default function OtpPage() {
         });
       } else {
         setMessage({
-          message: "Email sent successfully. Please check your inbox.",
+          message: "Đã gửi email thành công. Vui lòng kiểm tra hộp thư.",
           type: "success",
         });
       }
@@ -251,9 +251,9 @@ export default function OtpPage() {
             className="mt-6 w-full text-center text-sm font-semibold"
             onClick={handleResendOtp}
           >
-            Did not receive a code?{" "}
+            Chưa nhận được mã?{" "}
             <span className="text-primary-500">
-              {fetcherDisabled ? "Sending code..." : "Send again"}
+              {fetcherDisabled ? "Đang gửi mã..." : "Gửi lại"}
             </span>
           </button>
         </div>
