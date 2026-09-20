@@ -20,8 +20,8 @@ export const config: Config = {
   enableScim: ENABLE_SCIM || false,
 
   logoPath: {
-    fullLogo: "/static/images/logo-full-color(x2).png",
-    symbol: "/static/images/shelf-symbol.png",
+    fullLogo: "/static/images/casla-logo.svg",
+    symbol: "/static/images/casla-logo.svg",
   },
   faviconPath: "/static/favicon.ico",
   emailPrimaryColor: "#EF6820",
@@ -34,6 +34,6 @@ export const config: Config = {
   // assetlinks.json route. Must match apps/companion/app.json android.package.
   companionAndroidPackageName: "com.shelf.companion",
   geocoding: {
-    userAgent: GEOCODING_USER_AGENT || "Self-hosted Asset Management System",
+    userAgent: GEOCODING_USER_AGENT || "Casla Assets - Hệ thống quản lý tài sản nội bộ",
   },
 };

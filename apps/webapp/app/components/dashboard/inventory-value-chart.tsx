@@ -62,7 +62,7 @@ export default function InventoryValueChart() {
           </div>
         ) : (
           <DashboardEmptyState
-            text="No asset values yet"
+            text="Chưa có giá trị tài sản"
             subText="Add valuations to your assets to see your total inventory value here."
             ctaTo="/assets"
             ctaText="Go to assets"

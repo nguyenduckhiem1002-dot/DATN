@@ -4,7 +4,7 @@ import { ErrorContent } from "~/components/errors";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import { skipRevalidationOnClientViewChange } from "~/utils/list-view-params";
 
-export const meta = () => [{ title: appendToMetaTitle("Bookings") }];
+export const meta = () => [{ title: appendToMetaTitle("Đặt lịch") }];
 
 export function loader() {
   return null;
@@ -26,7 +26,7 @@ export function shouldRevalidate(args: ShouldRevalidateFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/bookings">Bookings</Link>,
+  breadcrumb: () => <Link to="/bookings">Đặt lịch</Link>,
 };
 
 export default function BookingsPage() {
