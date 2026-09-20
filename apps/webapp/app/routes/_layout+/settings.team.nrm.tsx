@@ -66,8 +66,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     };
 
     const modelName = {
-      singular: "non-registered member",
-      plural: "non-registered members",
+      singular: "thành viên chưa đăng ký",
+      plural: "thành viên chưa đăng ký",
     };
 
     return payload({
@@ -140,9 +140,9 @@ export async function action({ context, request }: ActionFunctionArgs) {
       default: {
         throw new ShelfError({
           cause: null,
-          message: "Invalid action",
+          message: "Thao tác không hợp lệ",
           additionalData: { intent },
-          label: "Team",
+          label: "Nhóm",
         });
       }
     }
@@ -174,7 +174,7 @@ export default function NrmSettings() {
               to="add-member"
               className="mt-2 w-full md:mt-0 md:w-max"
             >
-              <span className=" whitespace-nowrap">Add NRM</span>
+              <span className=" whitespace-nowrap">Thêm thành viên</span>
             </Button>
           </div>
         </Filters>
@@ -186,18 +186,18 @@ export default function NrmSettings() {
           className="overflow-x-visible md:overflow-x-auto"
           ItemComponent={TeamMemberRow}
           customEmptyStateContent={{
-            title: "No non-registered members yet",
-            text: "Non-registered members are name-only records for assigning custody. They can't log in.",
+            title: "Chưa có thành viên chưa đăng ký",
+            text: "Thành viên chưa đăng ký là bản ghi dùng để bàn giao tài sản và không thể đăng nhập hệ thống.",
             newButtonRoute: "add-member",
-            newButtonContent: "Add NRM",
+            newButtonContent: "Thêm thành viên",
           }}
           hideFirstHeaderColumn
           headerChildren={
             <>
-              <Th>ID</Th>
-              <Th>Name</Th>
-              <Th>Custodies</Th>
-              <Th>Actions</Th>
+              <Th>Mã</Th>
+              <Th>Tên</Th>
+              <Th>Tài sản bàn giao</Th>
+              <Th>Thao tác</Th>
             </>
           }
         />
