@@ -345,7 +345,7 @@ export async function simpleModeLoader({
       new ShelfError({
         cause,
         message: "Failed to batch refresh expired asset images",
-        label: "Assets",
+        label: "Tài sản",
         additionalData: { assetCount: assets.length },
         shouldBeCaptured: true,
       })
@@ -374,7 +374,7 @@ export async function simpleModeLoader({
         new ShelfError({
           cause,
           message: "Failed to attach kit names to booking assets",
-          label: "Assets",
+          label: "Tài sản",
           additionalData: { organizationId, assetCount: assets.length },
           shouldBeCaptured: true,
         })
@@ -390,12 +390,12 @@ export async function simpleModeLoader({
         : `Your inventory`
       : currentOrganization?.name
       ? `${currentOrganization?.name}'s inventory`
-      : "Your inventory",
+      : "Kho tài sản của bạn",
   };
 
   const modelName = {
-    singular: "asset",
-    plural: "assets",
+    singular: "tài sản",
+    plural: "tài sản",
   };
 
   const userPrefsCookie = await userPrefs.serialize(cookie);
@@ -433,9 +433,9 @@ export async function simpleModeLoader({
       modelName,
       hasActiveFilters,
       canImportAssets: canImportAssets(tierLimit) && canImport,
-      searchFieldLabel: "Search assets",
+      searchFieldLabel: "Tìm kiếm tài sản",
       searchFieldTooltip: {
-        title: "Search your asset database",
+        title: "Tìm kiếm trong kho tài sản",
         text: parseMarkdownToReact(searchFieldTooltipText),
       },
       totalCategories,
@@ -699,7 +699,7 @@ export async function advancedModeLoader({
       new ShelfError({
         cause,
         message: "Failed to batch refresh expired asset images",
-        label: "Assets",
+        label: "Tài sản",
         additionalData: { assetCount: refreshedAssets.length },
         shouldBeCaptured: true,
       })
@@ -714,12 +714,12 @@ export async function advancedModeLoader({
         : `Your inventory`
       : currentOrganization?.name
       ? `${currentOrganization?.name}'s inventory`
-      : "Your inventory",
+      : "Kho tài sản của bạn",
   };
 
   const modelName = {
-    singular: "asset",
-    plural: "assets",
+    singular: "tài sản",
+    plural: "tài sản",
   };
 
   const userPrefsCookie = await userPrefs.serialize(cookie);
@@ -747,9 +747,9 @@ export async function advancedModeLoader({
       modelName,
       hasActiveFilters,
       canImportAssets: canImportAssets(tierLimit) && advCanImport,
-      searchFieldLabel: "Search assets",
+      searchFieldLabel: "Tìm kiếm tài sản",
       searchFieldTooltip: {
-        title: "Search your asset database",
+        title: "Tìm kiếm trong kho tài sản",
         text: parseMarkdownToReact(searchFieldTooltipText),
       },
       filters,
