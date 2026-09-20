@@ -79,7 +79,7 @@ export function SortBy<T extends Record<string, string>>({
           disabled={disabled}
         >
           <span className="truncate whitespace-nowrap text-[14px]">
-            Sorted by: {sortingOptions[orderBy as keyof T]}
+            Sắp xếp theo: {sortingOptions[orderBy as keyof T]}
           </span>
           <CaretSortIcon />
         </button>
@@ -91,7 +91,7 @@ export function SortBy<T extends Record<string, string>>({
           onOpenAutoFocus={(event) => event.preventDefault()}
         >
           <div className="flex items-center gap-1.5">
-            <h5>Sort by:</h5>
+            <h5>Sắp xếp theo:</h5>
             {hint ? (
               <InfoTooltip
                 content={hint}
@@ -129,8 +129,8 @@ export function SortBy<T extends Record<string, string>>({
                 updateSearchParam("orderDirection", event.currentTarget.value)
               }
             >
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
+              <option value="asc">Tăng dần</option>
+              <option value="desc">Giảm dần</option>
             </select>
           </div>
         </PopoverContent>
