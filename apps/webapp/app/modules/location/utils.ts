@@ -15,9 +15,9 @@ import {
  * browser bundle. The service imports it from here for its sort-field guard.
  */
 export const LOCATION_SORTING_OPTIONS = {
-  createdAt: "Date created",
-  name: "Name",
-  assets: "Number of assets",
+  createdAt: "Ngày tạo",
+  name: "Tên",
+  assets: "Số lượng tài sản",
 } as const;
 
 /** Helper to safely display a value, showing a dash if empty */
