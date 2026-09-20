@@ -18,7 +18,7 @@ export const SendOtpSchema = z.object({
     .string()
     .transform((email) => email.toLowerCase())
     .refine(validEmail, () => ({
-      message: "Please enter a valid email",
+      message: "Vui lòng nhập email hợp lệ",
     })),
   mode: z.enum(["login", "signup", "confirm_signup"]).optional(),
 });
@@ -30,9 +30,9 @@ export function ContinueWithEmailForm({ mode }: { mode: "login" | "signup" }) {
 
   const isLoading = state === "submitting" || state === "loading";
   const buttontext =
-    mode === "login" ? "Continue with OTP" : "Sign up with OTP";
+    mode === "login" ? "Tiếp tục bằng OTP" : "Đăng ký bằng OTP";
   const buttonLabel = isLoading
-    ? "Sending you a one time password..."
+    ? "Đang gửi mã OTP..."
     : buttontext;
 
   return (
@@ -59,7 +59,7 @@ export function ContinueWithEmailForm({ mode }: { mode: "login" | "signup" }) {
         variant="secondary"
         className="mt-3"
         data-test-id="continueWithOtpButton"
-        title="One Time Password (OTP) is the most secure way to login. We will send you a code to your email."
+        title="Mã OTP sẽ được gửi tới email của bạn để xác thực."
       >
         {buttonLabel}
       </Button>
