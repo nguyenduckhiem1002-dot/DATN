@@ -72,10 +72,10 @@ export default function LocationDistribution() {
       ) : (
         <div className="flex flex-1 items-center justify-center p-4">
           <DashboardEmptyState
-            text="No locations assigned"
-            subText="Assign locations to assets to see distribution here."
+            text="Chưa gán vị trí"
+            subText="Gán vị trí cho tài sản để xem phân bố tại đây."
             ctaTo="/locations"
-            ctaText="Manage locations"
+            ctaText="Quản lý vị trí"
           />
         </div>
       )}
