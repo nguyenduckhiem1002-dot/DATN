@@ -85,8 +85,8 @@ export const AssetsList = ({
   const isSwappingMode = modeFetcher?.formData;
   const headerChildren = modeIsSimple ? (
     <>
-      <Th>Category</Th>
-      <Th>Tags</Th>
+      <Th>Danh mục</Th>
+      <Th>Thẻ</Th>
       <When truthy={!isUserPage}>
         <Th className="flex items-center gap-1 whitespace-nowrap">
           Custodian{" "}
@@ -94,7 +94,7 @@ export const AssetsList = ({
             iconClassName="size-4"
             content={
               <>
-                <h6>Asset custody</h6>
+                <h6>Bàn giao tài sản</h6>
                 <p>
                   This column shows if a user has custody of the asset either
                   via direct assignment or via a booking. If you see{" "}
@@ -106,9 +106,9 @@ export const AssetsList = ({
           />
         </Th>
       </When>
-      <Th>Location</Th>
-      <Th>Quantity</Th>
-      <Th>Actions</Th>
+      <Th>Vị trí</Th>
+      <Th>Số lượng</Th>
+      <Th>Thao tác</Th>
     </>
   ) : (
     <AdvancedTableHeader columns={columns} />
@@ -133,7 +133,7 @@ export const AssetsList = ({
           className="absolute inset-0 z-[100] flex flex-col items-center  bg-gray-25/95 pt-[30vh]"
         >
           <Spinner />
-          <p className="mt-2">Changing mode...</p>
+          <p className="mt-2">Đang chuyển chế độ...</p>
         </m.div>
       </When>
 
