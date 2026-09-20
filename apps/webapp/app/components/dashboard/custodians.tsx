@@ -61,11 +61,11 @@ export default function CustodiansList() {
       {isPersonal ? (
         <div className="flex flex-1 items-center justify-center p-4">
           <PremiumFeatureTeaser
-            headline="Track who has what"
-            description="Add non-registered members to assign asset custody, or create a Team workspace to invite users with full access."
-            ctaLabel="Add a member"
+            headline="Theo dõi người đang giữ tài sản"
+            description="Thêm thành viên chưa đăng ký để bàn giao tài sản, hoặc tạo không gian làm việc Nhóm để mời người dùng có đầy đủ quyền truy cập."
+            ctaLabel="Thêm thành viên"
             ctaTo="/settings/team/nrm"
-            secondaryLabel="Or create a Team workspace →"
+            secondaryLabel="Hoặc tạo không gian làm việc Nhóm →"
             secondaryTo="/account-details/workspace"
           />
         </div>
@@ -107,10 +107,10 @@ export default function CustodiansList() {
       ) : (
         <div className="flex flex-1 items-center justify-center p-4">
           <DashboardEmptyState
-            text="No assets in custody"
-            subText="Assign custody of assets to team members to track who has what."
+            text="Chưa có tài sản được bàn giao"
+            subText="Bàn giao tài sản cho thành viên để theo dõi ai đang giữ tài sản nào."
             ctaTo="/assets"
-            ctaText="Go to assets"
+            ctaText="Đi tới tài sản"
           />
         </div>
       )}
