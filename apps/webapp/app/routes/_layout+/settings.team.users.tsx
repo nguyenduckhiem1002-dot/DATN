@@ -90,10 +90,10 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       modelName,
       hasActiveFilters,
       organization,
-      searchFieldLabel: "Search by name or email",
+      searchFieldLabel: "Tìm theo tên hoặc email",
       searchFieldTooltip: {
-        title: "Search team members",
-        text: "Search team members by first name, last name, or email address.",
+        title: "Tìm thành viên",
+        text: "Tìm thành viên theo họ, tên hoặc địa chỉ email.",
       },
     };
   } catch (cause) {
@@ -179,7 +179,7 @@ export default function UserTeamSetting() {
             <InviteUserDialog
               trigger={
                 <Button type="button" variant="primary">
-                  <span className="whitespace-nowrap">Invite a user</span>
+                  <span className="whitespace-nowrap">Mời người dùng</span>
                 </Button>
               }
             />
@@ -189,8 +189,8 @@ export default function UserTeamSetting() {
         <List
           className="overflow-x-visible md:overflow-x-auto"
           customEmptyStateContent={{
-            title: "No team members yet",
-            text: "Invite team members to collaborate on asset management within your workspace.",
+            title: "Chưa có thành viên",
+            text: "Mời thành viên cùng tham gia quản lý tài sản trong không gian làm việc.",
           }}
           ItemComponent={UserRow}
           headerChildren={
@@ -198,12 +198,12 @@ export default function UserTeamSetting() {
               <Th>
                 <div className="flex items-center gap-1 [&_svg]:size-[15px]">
                   Custodies{" "}
-                  <InfoTooltip content="Custodies count includes only direct asset custodies and doesn't count any assets assigned via bookings." />
+                  <InfoTooltip content="Số lượng bàn giao chỉ tính tài sản được bàn giao trực tiếp, không tính tài sản được giao thông qua lịch đặt." />
                 </div>
               </Th>
-              <Th>Role</Th>
-              <Th>Status</Th>
-              <Th>Actions</Th>
+              <Th>Vai trò</Th>
+              <Th>Trạng thái</Th>
+              <Th>Thao tác</Th>
             </>
           }
         />
@@ -232,7 +232,7 @@ function UserRow({ item }: { item: TeamMembersWithUserOrInvite }) {
         <InviteStatusBadge status={item.status} />
       </Td>
       <Td className="text-right">
-        {item.role !== "Owner" ? (
+        {item.role !== "Chủ sở hữu" ? (
           <TeamUsersActionsDropdown
             inviteStatus={item.status}
             userId={item.userId}
