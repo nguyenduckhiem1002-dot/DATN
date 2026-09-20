@@ -74,11 +74,11 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     const totalPages = Math.ceil(totalTags / perPage);
 
     const header: HeaderData = {
-      title: "Tags",
+      title: "Thẻ",
     };
     const modelName = {
-      singular: "tag",
-      plural: "tags",
+      singular: "thẻ",
+      plural: "thẻ",
     };
 
     return data(
@@ -134,8 +134,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     await deleteTag({ id, organizationId });
 
     sendNotification({
-      title: "Tag deleted",
-      message: "Your tag has been deleted successfully",
+      title: "Đã xóa thẻ",
+      message: "Thẻ đã được xóa thành công",
       icon: { name: "trash", variant: "error" },
       senderId: userId,
     });
@@ -148,7 +148,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/tags">Tags</Link>,
+  breadcrumb: () => <Link to="/tags">Thẻ</Link>,
 };
 export const ErrorBoundary = () => <ErrorContent />;
 
@@ -161,10 +161,10 @@ export default function CategoriesPage() {
         <Button
           to="new"
           role="link"
-          aria-label={`new tag`}
+          aria-label={`tạo thẻ mới`}
           data-test-id="createNewTag"
         >
-          New tag
+          Thẻ mới
         </Button>
       </Header>
       <ListContentWrapper>
@@ -179,17 +179,17 @@ export default function CategoriesPage() {
             isBaseOrSelfService ? undefined : <BulkActionsDropdown />
           }
           customEmptyStateContent={{
-            title: "No tags yet",
-            text: "Tags let you label assets with flexible keywords. Create tags to add custom metadata to your inventory.",
+            title: "Chưa có thẻ",
+            text: "Thẻ giúp gắn từ khóa linh hoạt cho tài sản và bổ sung thông tin phân loại tùy chỉnh.",
             newButtonRoute: "/tags/new",
-            newButtonContent: "Create your first tag",
+            newButtonContent: "Tạo thẻ đầu tiên",
           }}
           ItemComponent={TagItem}
           headerChildren={
             <>
-              <Th>Description</Th>
-              <Th>Use for</Th>
-              <Th>Actions</Th>
+              <Th>Mô tả</Th>
+              <Th>Áp dụng cho</Th>
+              <Th>Thao tác</Th>
             </>
           }
         />
@@ -204,7 +204,7 @@ const TagItem = ({
   item: Pick<Tag, "id" | "description" | "name" | "useFor" | "color">;
 }) => (
   <>
-    <Td className="w-1/4 text-left" title={`Tag: ${item.name}`}>
+    <Td className="w-1/4 text-left" title={`Thẻ: ${item.name}`}>
       <TagBadge color={item.color ?? undefined} withDot={false}>
         {item.name}
       </TagBadge>
@@ -226,7 +226,7 @@ const TagItem = ({
             <GrayBadge key={useFor}>{formatEnum(useFor)}</GrayBadge>
           ))
         ) : (
-          <GrayBadge>All</GrayBadge>
+          <GrayBadge>Tất cả</GrayBadge>
         )}
       </div>
     </Td>
