@@ -245,7 +245,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         tags,
         totalTags: tags.length,
         searchFieldTooltip: {
-          title: "Search your bookings",
+          title: "Tìm kiếm lịch đặt",
           text: parseMarkdownToReact(bookingsSearchFieldTooltipText),
         },
       }),
@@ -363,9 +363,9 @@ export default function BookingsIndexPage({
           }
           customEmptyStateContent={{
             title: "No bookings yet",
-            text: "Bookings let your team reserve assets for specific dates. Create a booking to schedule equipment checkouts and returns.",
+            text: "Đặt lịch giúp nhóm giữ tài sản cho các ngày cụ thể. Hãy tạo lịch để lên kế hoạch bàn giao và nhận lại thiết bị.",
             newButtonRoute: "/bookings/new",
-            newButtonContent: "Create your first booking",
+            newButtonContent: "Tạo lịch đặt đầu tiên",
           }}
           ItemComponent={ListBookingsContent}
           headerChildren={
