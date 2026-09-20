@@ -36,10 +36,10 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         request,
       });
 
-    const header: HeaderData = { title: "Reminders" };
+    const header: HeaderData = { title: "Nhắc việc" };
     const modelName = {
-      singular: "reminder",
-      plural: "reminders",
+      singular: "nhắc việc",
+      plural: "nhắc việc",
     };
 
     return payload({
@@ -50,9 +50,9 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       page,
       perPage,
       totalPages,
-      searchFieldLabel: "Search reminders",
+      searchFieldLabel: "Tìm kiếm nhắc việc",
       searchFieldTooltip: {
-        title: "Search reminders",
+        title: "Tìm kiếm nhắc việc",
         text: "Search reminders by reminder name, message, asset name or team member name. Separate your keywords by a comma(,) to search with OR condition. For example: searching 'Laptop, maintenance' will find reminders matching any of these terms.",
       },
       search,
@@ -97,7 +97,7 @@ export default function Reminders() {
         subHeading={
           <>
             To create a new reminder, navigate to the asset of your choice and
-            use <b>{"Actions > Set Reminder"}</b>
+            use <b>{"Thao tác > Đặt nhắc việc"}</b>
           </>
         }
       />
