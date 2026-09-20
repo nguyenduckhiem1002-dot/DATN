@@ -51,7 +51,7 @@ export default function NewestAssets() {
                     category: asset?.category
                       ? {
                           id: asset.category.id,
-                          name: asset.category?.name || "Uncategorized",
+                          name: asset.category?.name || "Chưa phân loại",
                           color: asset.category?.color || "#575757",
                         }
                       : null,
@@ -77,10 +77,10 @@ export default function NewestAssets() {
       ) : (
         <div className="flex flex-1 items-center justify-center p-4">
           <DashboardEmptyState
-            text="No assets yet"
-            subText="Create your first asset to start building your inventory."
+            text="Chưa có tài sản"
+            subText="Tạo tài sản đầu tiên để bắt đầu xây dựng kho tài sản."
             ctaTo="/assets/new"
-            ctaText="Create an asset"
+            ctaText="Tạo tài sản"
           />
         </div>
       )}
@@ -98,7 +98,7 @@ const Row = ({
      * of its own. See `~/modules/asset/image-resolution`.
      *
      * Required and nullable, which is what keeps the two cases apart: `null`
-     * says "this asset has no model" and is a real answer, while an absent key
+     * says "tài sản này chưa có mẫu" and is a real answer, while an absent key
      * says the loader did not select the relation. Making it optional collapses
      * that distinction, and so does `?? null` at the call site — both render
      * every inheriting asset as the placeholder without anything failing.
