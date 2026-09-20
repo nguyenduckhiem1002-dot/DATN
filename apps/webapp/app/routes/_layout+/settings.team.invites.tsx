@@ -62,7 +62,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
         cause: null,
         message: "Không tìm thấy tổ chức",
         additionalData: { organizationId, userId },
-        label: "Nhóm",
+        label: "Team",
       });
     }
 
@@ -223,7 +223,7 @@ function UserRow({ item }: { item: TeamMembersWithUserOrInvite }) {
         <InviteStatusBadge status={item.status} />
       </Td>
       <Td className="text-right">
-        {item.role !== "Chủ sở hữu" ? (
+        {item.role !== "Owner" ? (
           <TeamUsersActionsDropdown
             inviteStatus={item.status}
             userId={item.userId}
