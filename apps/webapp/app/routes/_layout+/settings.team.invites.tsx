@@ -60,9 +60,9 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     if (!organization) {
       throw new ShelfError({
         cause: null,
-        message: "Organization not found",
+        message: "Không tìm thấy tổ chức",
         additionalData: { organizationId, userId },
-        label: "Team",
+        label: "Nhóm",
       });
     }
 
@@ -85,8 +85,8 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     };
 
     const modelName = {
-      singular: "pending invite",
-      plural: "pending invites",
+      singular: "lời mời đang chờ",
+      plural: "lời mời đang chờ",
     };
 
     return payload({
@@ -177,7 +177,7 @@ export default function UserInvitesSetting() {
                 variant="primary"
                 className="mt-2 w-full md:mt-0 md:w-max"
               >
-                <span className=" whitespace-nowrap">Invite a user</span>
+                <span className=" whitespace-nowrap">Mời người dùng</span>
               </Button>
             }
           />
@@ -191,13 +191,13 @@ export default function UserInvitesSetting() {
               <Th>
                 <div className="flex items-center gap-1 [&_svg]:size-[15px]">
                   Custodies{" "}
-                  <InfoTooltip content="Custodies count includes only direct asset custodies and doesn't count any assets assigned via bookings." />
+                  <InfoTooltip content="Số lượng bàn giao chỉ tính tài sản được bàn giao trực tiếp, không tính tài sản qua lịch đặt." />
                 </div>
               </Th>
-              <Th>Role</Th>
-              <Th>Message</Th>
-              <Th>Status</Th>
-              <Th>Actions</Th>
+              <Th>Vai trò</Th>
+              <Th>Lời nhắn</Th>
+              <Th>Trạng thái</Th>
+              <Th>Thao tác</Th>
             </>
           }
         />
@@ -223,7 +223,7 @@ function UserRow({ item }: { item: TeamMembersWithUserOrInvite }) {
         <InviteStatusBadge status={item.status} />
       </Td>
       <Td className="text-right">
-        {item.role !== "Owner" ? (
+        {item.role !== "Chủ sở hữu" ? (
           <TeamUsersActionsDropdown
             inviteStatus={item.status}
             userId={item.userId}
@@ -251,7 +251,7 @@ function InviteMessageCell({ message }: { message?: string | null }) {
           <MailIcon className="size-4" />
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[300px]">
-          <h5 className="mb-1">Invite message</h5>
+          <h5 className="mb-1">Lời nhắn mời</h5>
           <p className="whitespace-pre-wrap text-sm text-gray-600">{message}</p>
         </TooltipContent>
       </Tooltip>
