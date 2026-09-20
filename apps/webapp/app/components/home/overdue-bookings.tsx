@@ -22,7 +22,7 @@ export default function OverdueBookings() {
     <div className="flex h-full flex-col rounded border border-gray-200 bg-white">
       <div className="flex items-center justify-between border-b px-4 py-3 md:px-6">
         <span className="text-[14px] font-semibold text-gray-900">
-          Overdue bookings
+          Đặt lịch quá hạn
         </span>
         <div className="flex items-center gap-2">
           {canUseBookings && overdueBookings.length > 0 && (
@@ -36,7 +36,7 @@ export default function OverdueBookings() {
               variant="block-link-gray"
               className="!mt-0 text-xs"
             >
-              View all
+              Xem tất cả
             </Button>
           )}
         </div>
