@@ -1,6 +1,5 @@
 import { Link, useMatches, Outlet } from "react-router";
 import { ErrorContent } from "~/components/errors";
-import { ShelfSymbolLogo } from "~/components/marketing/logos";
 import SubHeading from "~/components/shared/sub-heading";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
@@ -21,8 +20,17 @@ export default function App() {
     <main className="flex h-screen">
       <div className="flex size-full flex-col items-center justify-center p-6 lg:p-10">
         <div className=" mb-8 text-center">
-          <Link to="/" reloadDocument>
-            <ShelfSymbolLogo />
+          <Link
+            to="/"
+            reloadDocument
+            aria-label="Casla Assets"
+            className="inline-flex justify-center"
+          >
+            <img
+              src="/static/images/casla-logo.svg"
+              alt="Casla Assets"
+              className="mb-5 h-auto w-[240px] max-w-[72vw] object-contain sm:w-[280px]"
+            />
           </Link>
 
           <h1>{title}</h1>
