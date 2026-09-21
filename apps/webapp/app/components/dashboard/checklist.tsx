@@ -33,8 +33,7 @@ export default function OnboardingChecklist() {
         <div className="mb-4">
           <h4 className=" text-lg font-semibold">Sắp xếp khoa học</h4>
           <p className="text-[14px] text-gray-600">
-            Organizing your assets improves overview and unlocks the power of
-            our filters and search bar.
+            Sắp xếp tài sản khoa học giúp bạn dễ theo dõi tổng quan và tận dụng hiệu quả bộ lọc cùng thanh tìm kiếm.
           </p>
         </div>
         <ul className="onboarding-checklist -mx-1 xl:flex xl:flex-wrap">
@@ -94,8 +93,7 @@ export default function OnboardingChecklist() {
                       Tạo danh mục tùy chỉnh
                     </h6>
                     <p className=" text-gray-600">
-                      View, edit or delete our default categories and build your
-                      own.
+                      Xem, chỉnh sửa hoặc xóa các danh mục mặc định và tạo danh mục riêng của bạn.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -132,8 +130,7 @@ export default function OnboardingChecklist() {
                   <div className="mb-3">
                     <h6 className="font-medium text-gray-700">Tạo thẻ</h6>
                     <p className=" text-gray-600">
-                      Tags are small pieces of information that can be added to
-                      assets.
+                      Thẻ giúp bổ sung thông tin ngắn gọn để phân loại và tìm kiếm tài sản nhanh hơn.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -154,8 +151,7 @@ export default function OnboardingChecklist() {
         <div className="mb-4">
           <h4 className=" text-lg font-semibold">Nhân sự, bàn giao và đặt lịch</h4>
           <p className="text-[14px] text-gray-600">
-            Assign custody to your team members. Consider upgrading to Team to
-            invite other users to your workspace.
+            Bàn giao tài sản cho thành viên để theo dõi người đang quản lý hoặc sử dụng tài sản.
           </p>
         </div>
         <ul className="onboarding-checklist -mx-1 xl:flex xl:flex-wrap">
@@ -176,8 +172,7 @@ export default function OnboardingChecklist() {
                       Thêm thành viên
                     </h6>
                     <p className=" text-gray-600">
-                      Track who has custody over an asset by adding your team
-                      members to shelf.
+                      Thêm thành viên để theo dõi rõ ai đang được bàn giao và chịu trách nhiệm với từng tài sản.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -216,8 +211,7 @@ export default function OnboardingChecklist() {
                       Bàn giao tài sản
                     </h6>
                     <p className=" text-gray-600">
-                      View, edit or delete our default categories and build your
-                      own.
+                      Theo dõi việc bàn giao để biết tài sản đang do ai quản lý và thuận tiện khi thu hồi hoặc điều chuyển.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -242,8 +236,7 @@ export default function OnboardingChecklist() {
         <div className="mb-4">
           <h4 className=" text-lg font-semibold">Tùy chỉnh trải nghiệm</h4>
           <p className="text-[14px] text-gray-600">
-            Optimize your workflow and use Shelf in way that works for you and
-            your organizations.
+            Tùy chỉnh quy trình để hệ thống phù hợp hơn với cách quản lý tài sản của công ty.
           </p>
         </div>
         <ul className="onboarding-checklist -mx-1 xl:flex xl:flex-wrap">
