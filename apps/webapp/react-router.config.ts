@@ -13,7 +13,7 @@ export default {
     // warn; the other two are set for completeness. Flip any of these to
     // `true` deliberately as part of the eventual v8 migration.
     v8_middleware: false,
-    v8_splitRouteModules: false,
+    v8_splitRouteModules: true,
     // The `unstable_trailingSlashAwareDataRequests` flag stabilized
     // as `v8_trailingSlashAwareDataRequests` in @react-router/dev
     // 7.16's later patches — the runtime config loader throws when
