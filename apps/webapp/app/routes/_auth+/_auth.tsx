@@ -1,6 +1,6 @@
 import { Link, useMatches, Outlet } from "react-router";
 import { ErrorContent } from "~/components/errors";
-import { ShelfSymbolLogo } from "~/components/marketing/logos";
+import { ShelfFullLogo } from "~/components/marketing/logos";
 import SubHeading from "~/components/shared/sub-heading";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
@@ -22,7 +22,7 @@ export default function App() {
       <div className="flex size-full flex-col items-center justify-center p-6 lg:p-10">
         <div className=" mb-8 text-center">
           <Link to="/" reloadDocument>
-            <ShelfSymbolLogo />
+            <ShelfFullLogo className="mx-auto h-auto w-[260px] object-contain sm:w-[300px]" />
           </Link>
 
           <h1>{title}</h1>
