@@ -80,6 +80,8 @@ declare global {
       COMPANION_SERVERS: string;
       INSTANCE_NAME: string;
       MIN_COMPANION_VERSION: string;
+      CASLA_TEST_USER_EMAIL: string;
+      CASLA_TEST_USER_PASSWORD: string;
     }
   }
 }
@@ -266,6 +268,23 @@ export const INSTANCE_NAME = getEnv("INSTANCE_NAME", {
   isSecret: false,
   isRequired: false,
 });
+
+/**
+ * Local/dev login defaults for the internal Casla Assets test account.
+ * Password remains server-side and is only surfaced by the login loader in
+ * non-production internal mode.
+ */
+export const CASLA_TEST_USER_EMAIL =
+  getEnv("CASLA_TEST_USER_EMAIL", {
+    isSecret: false,
+    isRequired: false,
+  }) || "ducknguyen1010@gmail.com";
+
+export const CASLA_TEST_USER_PASSWORD =
+  getEnv("CASLA_TEST_USER_PASSWORD", {
+    isSecret: true,
+    isRequired: false,
+  }) || "";
 
 /**
  * Lowest companion-app version this instance will accept, e.g. "1.4.0".
