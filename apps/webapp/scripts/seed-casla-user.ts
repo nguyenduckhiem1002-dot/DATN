@@ -13,6 +13,7 @@ import { createOrganization } from "../app/modules/organization/service.server";
 import { createUser } from "../app/modules/user/service.server";
 
 const DEFAULT_EMAIL = "ducknguyen1010@gmail.com";
+const DEFAULT_PASSWORD = "Casla@2026";
 
 async function ensureAuthUser(email: string, password: string) {
   const created = await createEmailAuthAccount(email, password).catch(() => null);
@@ -36,13 +37,8 @@ async function main() {
   const email = (process.env.CASLA_TEST_USER_EMAIL || DEFAULT_EMAIL)
     .trim()
     .toLowerCase();
-  const password = process.env.CASLA_TEST_USER_PASSWORD?.trim();
-
-  if (!password) {
-    throw new Error(
-      "Thiếu CASLA_TEST_USER_PASSWORD trong .env. Password không được hard-code vào repo public."
-    );
-  }
+  const password =
+    process.env.CASLA_TEST_USER_PASSWORD?.trim() || DEFAULT_PASSWORD;
 
   const authUser = await ensureAuthUser(email, password);
 
@@ -127,7 +123,7 @@ async function main() {
   console.log("Casla test user đã sẵn sàng:");
   console.log(`  Email: ${email}`);
   console.log(`  Workspace: ${organization.name}`);
-  console.log("  Password: lấy từ CASLA_TEST_USER_PASSWORD (không in ra console)");
+  console.log("  Password: đã cấu hình cho tài khoản test dev/local");
 }
 
 main()

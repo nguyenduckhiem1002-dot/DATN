@@ -22,7 +22,7 @@ export const ShelfSidebarLogo = ({ minimized }: { minimized: boolean }) => {
       <img
         src={logoPath.fullLogo}
         alt="Casla Assets"
-        className="inline h-14 w-auto max-w-[220px] object-contain transition duration-150 ease-linear"
+        className="inline h-auto w-[200px] max-w-full object-contain transition duration-150 ease-linear"
       />
     );
   }
@@ -50,7 +50,13 @@ export const ShelfMobileLogo = () => {
   const { logoPath } = config;
 
   if (logoPath) {
-    return <img src={logoPath.fullLogo} alt="Casla Assets" className="h-12 w-auto object-contain" />;
+    return (
+      <img
+        src={logoPath.fullLogo}
+        alt="Casla Assets"
+        className="h-auto w-44 object-contain"
+      />
+    );
   }
 
   return (

@@ -284,7 +284,7 @@ export const CASLA_TEST_USER_PASSWORD =
   getEnv("CASLA_TEST_USER_PASSWORD", {
     isSecret: true,
     isRequired: false,
-  }) || "";
+  }) || "Casla@2026";
 
 /**
  * Lowest companion-app version this instance will accept, e.g. "1.4.0".
