@@ -89,17 +89,15 @@ export const AssetsList = ({
       <Th>Thẻ</Th>
       <When truthy={!isUserPage}>
         <Th className="flex items-center gap-1 whitespace-nowrap">
-          Custodian{" "}
+          Người quản lý{" "}
           <InfoTooltip
             iconClassName="size-4"
             content={
               <>
                 <h6>Bàn giao tài sản</h6>
                 <p>
-                  This column shows if a user has custody of the asset either
-                  via direct assignment or via a booking. If you see{" "}
-                  <GrayBadge>private</GrayBadge> that means you don't have the
-                  permissions to see who has custody of the asset.
+                  Cột này cho biết tài sản đang được bàn giao trực tiếp hoặc thông qua lịch đặt. Nếu hiển thị{" "}
+                  <GrayBadge>riêng tư</GrayBadge>, bạn không có quyền xem người đang quản lý tài sản.
                 </p>
               </>
             }
@@ -210,7 +208,7 @@ export const AssetsList = ({
             </>
           ) : (
             <List
-              title="Assets"
+              title="Tài sản"
               ItemComponent={modeIsSimple ? ListAssetContent : AdvancedAssetRow}
               customPagination={<AssetIndexPagination />}
               bulkActions={
@@ -446,7 +444,7 @@ function AdvancedModeMobileFallback() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2">
       <p className="text-center">
-        Advanced mode is currently not available on mobile.
+        Chế độ nâng cao hiện chưa hỗ trợ trên thiết bị di động.
       </p>
       <fetcher.Form
         method="post"
@@ -461,7 +459,7 @@ function AdvancedModeMobileFallback() {
         <input type="hidden" name="intent" value="changeMode" />
 
         <Button type="submit" name="mode" value="SIMPLE" disabled={disabled}>
-          Change to simple mode
+          Chuyển sang chế độ đơn giản
         </Button>
       </fetcher.Form>
     </div>
