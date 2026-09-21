@@ -21,7 +21,7 @@ export const config: Config = {
   enableScim: ENABLE_SCIM || false,
 
   logoPath: {
-    fullLogo: "/static/images/casla-logo-compact.svg",
+    fullLogo: "/static/images/casla-logo.svg",
     symbol: "/static/images/casla-mark.svg",
   },
   faviconPath: "/static/images/casla-mark.svg",
