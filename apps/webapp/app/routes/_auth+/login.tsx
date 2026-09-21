@@ -45,18 +45,37 @@ import {
   parseData,
   safeRedirect,
 } from "~/utils/http.server";
+import {
+  CASLA_TEST_USER_EMAIL,
+  CASLA_TEST_USER_PASSWORD,
+} from "~/utils/env";
 import { validEmail } from "~/utils/misc";
 
 export function loader({ context }: LoaderFunctionArgs) {
   const title = "Đăng nhập";
   const subHeading = "Chào mừng bạn quay lại! Nhập thông tin bên dưới để đăng nhập.";
-  const { disableSignup, disableSSO } = config;
+  const { disableSignup, disableSSO, internalMode } = config;
+  const testLoginDefaults =
+    internalMode && process.env.NODE_ENV !== "production"
+      ? {
+          email: CASLA_TEST_USER_EMAIL,
+          password: CASLA_TEST_USER_PASSWORD,
+        }
+      : undefined;
 
   if (context.isAuthenticated) {
     return redirect("/assets");
   }
 
-  return data(payload({ title, subHeading, disableSignup, disableSSO }));
+  return data(
+    payload({
+      title,
+      subHeading,
+      disableSignup,
+      disableSSO,
+      testLoginDefaults,
+    })
+  );
 }
 
 const LoginFormSchema = z.object({
@@ -168,7 +187,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 ];
 
 export default function IndexLoginForm() {
-  const { disableSignup, disableSSO } = useLoaderData<typeof loader>();
+  const { disableSignup, disableSSO, testLoginDefaults } =
+    useLoaderData<typeof loader>();
   const zo = useZorm("NewQuestionWizardScreen", LoginFormSchema);
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") ?? undefined;
@@ -203,7 +223,8 @@ export default function IndexLoginForm() {
             ref={emailInputRef}
             data-test-id="email"
             label="Địa chỉ email"
-            placeholder="zaans@huisje.com"
+            placeholder="ducknguyen1010@gmail.com"
+            defaultValue={testLoginDefaults?.email}
             required
             name={zo.fields.email()}
             type="email"
@@ -216,6 +237,7 @@ export default function IndexLoginForm() {
         <PasswordInput
           label="Mật khẩu"
           placeholder="**********"
+          defaultValue={testLoginDefaults?.password}
           data-test-id="password"
           name={zo.fields.password()}
           autoComplete="current-password"

@@ -64,7 +64,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -q 'fullLogo: "/static/images/casla-logo-compact.svg"' apps/webapp/app/config/shelf.config.ts
+          grep -q 'fullLogo: "/static/images/casla-logo.svg"' apps/webapp/app/config/shelf.config.ts
           grep -q 'symbol: "/static/images/casla-mark.svg"' apps/webapp/app/config/shelf.config.ts
           grep -q 'faviconPath: "/static/images/casla-mark.svg"' apps/webapp/app/config/shelf.config.ts
 
