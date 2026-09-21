@@ -1,4 +1,4 @@
-import type { AssetStatus } from "@prisma/client";
+import { Prisma, type AssetStatus } from "@prisma/client";
 import {
   assetStatusColorMap,
   userFriendlyAssetStatus,
@@ -211,6 +211,99 @@ export function getCustodiansOrderedByTotalCustodies({
     count,
     custodian,
   }));
+}
+
+// ---------------------------------------------------------------------------
+// getDashboardSummaryCounts — one round trip for dashboard KPI/checklist counts
+// ---------------------------------------------------------------------------
+
+export async function getDashboardSummaryCounts({
+  organizationId,
+}: {
+  organizationId: string;
+}) {
+  const defaultCategoryNames = defaultUserCategories.map((category) => category.name);
+  const customCategoryPredicate =
+    defaultCategoryNames.length > 0
+      ? Prisma.sql`AND name NOT IN (${Prisma.join(defaultCategoryNames)})`
+      : Prisma.empty;
+
+  try {
+    const rows = await db.$queryRaw<
+      Array<{
+        teamMembersCount: number;
+        locationsCount: number;
+        categoriesCount: number;
+        valueKnownAssets: number;
+        customCategoriesCount: number;
+        tagsCount: number;
+        checklistTeamMembersCount: number;
+        customFieldsCount: number;
+      }>
+    >(Prisma.sql`
+      SELECT
+        (SELECT COUNT(*)::int
+           FROM "TeamMember"
+          WHERE "organizationId" = ${organizationId}
+            AND "deletedAt" IS NULL) AS "teamMembersCount",
+        (SELECT COUNT(*)::int
+           FROM "Location"
+          WHERE "organizationId" = ${organizationId}) AS "locationsCount",
+        (SELECT COUNT(*)::int
+           FROM "Category"
+          WHERE "organizationId" = ${organizationId}) AS "categoriesCount",
+        (SELECT COUNT(*)::int
+           FROM "Asset"
+          WHERE "organizationId" = ${organizationId}
+            AND value IS NOT NULL) AS "valueKnownAssets",
+        (SELECT COUNT(*)::int
+           FROM "Category"
+          WHERE "organizationId" = ${organizationId}
+          ${customCategoryPredicate}) AS "customCategoriesCount",
+        (SELECT COUNT(*)::int
+           FROM "Tag"
+          WHERE "organizationId" = ${organizationId}) AS "tagsCount",
+        (SELECT COUNT(*)::int
+           FROM "TeamMember"
+          WHERE "organizationId" = ${organizationId}) AS "checklistTeamMembersCount",
+        (SELECT COUNT(*)::int
+           FROM "CustomField"
+          WHERE "organizationId" = ${organizationId}
+            AND "deletedAt" IS NULL) AS "customFieldsCount"
+    `);
+
+    const row = rows[0] ?? {
+      teamMembersCount: 0,
+      locationsCount: 0,
+      categoriesCount: 0,
+      valueKnownAssets: 0,
+      customCategoriesCount: 0,
+      tagsCount: 0,
+      checklistTeamMembersCount: 0,
+      customFieldsCount: 0,
+    };
+
+    return {
+      teamMembersCount: Number(row.teamMembersCount),
+      locationsCount: Number(row.locationsCount),
+      categoriesCount: Number(row.categoriesCount),
+      valueKnownAssets: Number(row.valueKnownAssets),
+      checklistData: {
+        hasCategories: Number(row.customCategoriesCount) > 0,
+        hasTags: Number(row.tagsCount) > 0,
+        hasTeamMembers: Number(row.checklistTeamMembersCount) > 0,
+        hasCustomFields: Number(row.customFieldsCount) > 0,
+      },
+    };
+  } catch (cause) {
+    throw new ShelfError({
+      cause,
+      message:
+        "Không thể tải số liệu tổng hợp cho bảng điều khiển. Vui lòng thử lại.",
+      additionalData: { organizationId },
+      label: "Dashboard",
+    });
+  }
 }
 
 // ---------------------------------------------------------------------------

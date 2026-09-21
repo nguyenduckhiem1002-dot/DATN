@@ -76,7 +76,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         title: "Không có quyền",
         message:
           "Bạn không thể tạo lịch đặt trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
-        label: "Đặt lịch",
+        label: "Booking",
         status: 403,
         shouldBeCaptured: false,
       });
@@ -160,7 +160,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         title: "Không có quyền",
         message:
           "Bạn không thể tạo lịch đặt trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
-        label: "Đặt lịch",
+        label: "Booking",
         status: 403,
         shouldBeCaptured: false,
       });
@@ -228,7 +228,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         title: "Không tìm thấy thành viên",
         message: "Không tìm thấy thành viên đã chọn.",
         additionalData: { userId, custodian },
-        label: "Đặt lịch",
+        label: "Booking",
         status: 404,
       });
     });
@@ -241,7 +241,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
       throw new ShelfError({
         cause: null,
         message: "Người dùng tự phục vụ chỉ có thể tạo lịch đặt cho chính mình.",
-        label: "Đặt lịch",
+        label: "Booking",
       });
     }
 
@@ -254,7 +254,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         cause: null,
         message: "Ngày bắt đầu và kết thúc lịch đặt là bắt buộc.",
         additionalData: { userId, organizationId },
-        label: "Đặt lịch",
+        label: "Booking",
         status: 400,
         shouldBeCaptured: false,
       });
@@ -298,7 +298,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           title: "Không tìm thấy bộ tài sản",
           message:
             "Không thể xác định bộ tài sản đã chọn. Vui lòng tải lại trang và thử lại.",
-          label: "Đặt lịch",
+          label: "Booking",
           status: 409,
           shouldBeCaptured: false,
         });

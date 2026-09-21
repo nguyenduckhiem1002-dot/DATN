@@ -15,14 +15,14 @@ export const ShelfSidebarLogo = ({ minimized }: { minimized: boolean }) => {
     return minimized ? (
       <img
         src={logoPath.symbol}
-        alt="Shelf Logo"
-        className="mx-1.5 inline h-[32px] transition duration-150 ease-linear"
+        alt="Casla Assets"
+        className="mx-auto inline h-9 w-9 object-contain transition duration-150 ease-linear"
       />
     ) : (
       <img
         src={logoPath.fullLogo}
-        alt="Shelf Logo"
-        className="mx-1.5 inline h-[32px] transition duration-150 ease-linear"
+        alt="Casla Assets"
+        className="inline h-12 w-auto max-w-[180px] object-contain transition duration-150 ease-linear"
       />
     );
   }
@@ -31,7 +31,7 @@ export const ShelfSidebarLogo = ({ minimized }: { minimized: boolean }) => {
     <>
       <img
         src="/static/images/shelf-symbol.png"
-        alt="Shelf Logo"
+        alt="Casla Assets"
         className="mx-1.5 inline h-[32px]"
       />
       <When truthy={!minimized}>
@@ -50,7 +50,7 @@ export const ShelfMobileLogo = () => {
   const { logoPath } = config;
 
   if (logoPath) {
-    return <img src={logoPath.fullLogo} alt="Shelf Logo" className="h-full" />;
+    return <img src={logoPath.fullLogo} alt="Casla Assets" className="h-10 w-auto object-contain" />;
   }
 
   return (
@@ -70,7 +70,7 @@ export const ShelfSymbolLogo = ({ className }: { className?: string }) => {
   const classes = tw("mx-auto mb-2 size-12", className);
 
   if (logoPath) {
-    return <img src={logoPath.symbol} alt="Shelf Logo" className={classes} />;
+    return <img src={logoPath.symbol} alt="Casla Assets" className={classes} />;
   }
 
   return (
@@ -86,7 +86,7 @@ export const ShelfFullLogo = ({ className }: { className?: string }) => {
   const classes = tw(className);
 
   if (logoPath) {
-    return <img src={logoPath.fullLogo} alt="Shelf Logo" className={classes} />;
+    return <img src={logoPath.fullLogo} alt="Casla Assets" className={classes} />;
   }
 
   return (

@@ -78,7 +78,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           confirmation,
           expected: customField.name,
         },
-        label: "Trường tùy chỉnh",
+        label: "Custom fields",
         status: 400,
         shouldBeCaptured: false,
       });

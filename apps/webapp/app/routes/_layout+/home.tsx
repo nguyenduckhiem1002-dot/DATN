@@ -44,7 +44,7 @@ import { userPrefs } from "~/utils/cookies.server";
 import {
   buildAssetsByStatusChart,
   buildMonthlyGrowthData,
-  checklistOptions,
+  getDashboardSummaryCounts,
   getCustodiansOrderedByTotalCustodies,
 } from "~/utils/dashboard.server";
 import { ShelfError, makeShelfError } from "~/utils/error";
@@ -77,7 +77,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     const [
       // 1a. Aggregated asset stats
       assetAggregation,
-      valueKnownAssets,
+      dashboardSummary,
       // 1b. Assets by status
       statusGroups,
       // 1c. Monthly growth data
@@ -89,23 +89,14 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       { bookings: ongoingAndOverdueBookings },
       // Upcoming bookings
       { bookings: upcomingBookings },
-      // Overdue bookings
-      { bookings: overdueBookings },
-      // Active/ongoing bookings
-      { bookings: activeBookings },
       // 1e. Newest 5 assets
       newAssets,
       // Upcoming reminders
       upcomingReminders,
       // Announcement
       announcement,
-      // KPI counts
-      teamMembersCount,
+      // Location distribution
       locationDistribution,
-      locationsCount,
-      categoriesCount,
-      // Onboarding checklist booleans
-      checklistData,
       // Cookie
       cookieResult,
     ] = await Promise.all([
@@ -154,10 +145,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         totalValuation: Number(valuationRows[0]?.total ?? 0),
       })),
 
-      // 1a. Count of assets with known valuation
-      db.asset.count({
-        where: { organizationId, valuation: { not: null } },
-      }),
+      // KPI + onboarding counts share one SQL round trip.
+      getDashboardSummaryCounts({ organizationId }),
 
       // 1b. Assets grouped by status
       db.asset.groupBy({
@@ -200,10 +189,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         take: 20,
       }),
 
-      // 1d. Ongoing + overdue bookings for custodian merge
-      // The four booking calls below render booking scalars, the custodian and
-      // `_count.bookingAssets` — never an asset row — so they all skip the
-      // per-booking asset payload.
+      // 1d. Ongoing + overdue bookings are loaded once and reused for
+      // custodians plus the Active/Overdue dashboard widgets.
       getBookings({
         organizationId,
         userId,
@@ -231,36 +218,6 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         statuses: ["RESERVED"],
         bookingFrom: new Date(),
         bookingTo: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-        includeAssets: false,
-        extraInclude: {
-          custodianTeamMember: true,
-          custodianUser: true,
-          _count: { select: { bookingAssets: true } },
-        },
-      }),
-
-      // Overdue bookings
-      getBookings({
-        organizationId,
-        userId,
-        page: 1,
-        perPage: 5,
-        statuses: ["OVERDUE"],
-        includeAssets: false,
-        extraInclude: {
-          custodianTeamMember: true,
-          custodianUser: true,
-          _count: { select: { bookingAssets: true } },
-        },
-      }),
-
-      // Active/ongoing bookings
-      getBookings({
-        organizationId,
-        userId,
-        page: 1,
-        perPage: 5,
-        statuses: ["ONGOING"],
         includeAssets: false,
         extraInclude: {
           custodianTeamMember: true,
@@ -310,11 +267,6 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           });
         }),
 
-      // KPI: team members
-      db.teamMember.count({
-        where: { organizationId, deletedAt: null },
-      }),
-
       // Location distribution (top 5)
       // Counts pivot rows (one per asset placed at this location). Aggregating
       // the pivot once and then resolving five names beats a correlated count
@@ -357,28 +309,29 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
           });
         }),
 
-      // KPI: total locations
-      db.location.count({
-        where: { organizationId },
-      }),
-
-      // KPI: total categories
-      db.category.count({
-        where: { organizationId },
-      }),
-
-      // Onboarding checklist counts
-      // Joins this `Promise.all` rather than being awaited after it: nothing
-      // above feeds it, so serialising it just added a round trip to the
-      // loader's critical path.
-      checklistOptions({ organizationId }),
-
       // Cookie
       userPrefs.parse(request.headers.get("Cookie")).then((c: any) => c || {}),
     ]);
 
     const totalAssets = assetAggregation._count._all;
     const totalValuation = assetAggregation.totalValuation;
+    const {
+      teamMembersCount,
+      locationsCount,
+      categoriesCount,
+      valueKnownAssets,
+      checklistData,
+    } = dashboardSummary;
+
+    // Reuse the combined ONGOING/OVERDUE result instead of issuing two more
+    // booking queries. Filtering preserves the server-side ordering within
+    // each status because the source list is already ordered by getBookings.
+    const overdueBookings = ongoingAndOverdueBookings
+      .filter((booking) => booking.status === "OVERDUE")
+      .slice(0, 5);
+    const activeBookings = ongoingAndOverdueBookings
+      .filter((booking) => booking.status === "ONGOING")
+      .slice(0, 5);
 
     const header: HeaderData = {
       title: "Trang chủ",

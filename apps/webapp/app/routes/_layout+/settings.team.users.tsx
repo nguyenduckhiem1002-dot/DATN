@@ -232,7 +232,7 @@ function UserRow({ item }: { item: TeamMembersWithUserOrInvite }) {
         <InviteStatusBadge status={item.status} />
       </Td>
       <Td className="text-right">
-        {item.role !== "Chủ sở hữu" ? (
+        {item.role !== "Owner" ? (
           <TeamUsersActionsDropdown
             inviteStatus={item.status}
             userId={item.userId}

@@ -114,7 +114,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
               cause,
               message: "Không tìm thấy người dùng",
               additionalData: { userId, organizationId },
-              label: "Cài đặt",
+              label: "Settings",
             });
           }),
         /* Check the tier limit */
@@ -284,7 +284,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           throw new ShelfError({
             cause: null,
             message: "Bạn không có quyền chỉnh sửa tổ chức này.",
-            label: "Tổ chức",
+            label: "Organization",
             shouldBeCaptured: false,
           });
         }
@@ -311,7 +311,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
                 DEFAULT_MAX_IMAGE_UPLOAD_SIZE / (1024 * 1024)
               }MB`,
               status: 400,
-              label: "Tổ chức",
+              label: "Organization",
               additionalData: { organizationId, field: "image" },
               shouldBeCaptured: false,
             });
@@ -367,7 +367,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           throw new ShelfError({
             cause: null,
             message: "Bạn không có quyền chỉnh sửa tổ chức này.",
-            label: "Tổ chức",
+            label: "Organization",
             shouldBeCaptured: false,
           });
         }
@@ -397,7 +397,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             cause: null,
             title: "Không có quyền",
             message: "Bạn không có quyền chỉnh sửa cài đặt SSO.",
-            label: "Cài đặt",
+            label: "Settings",
           });
         }
 
@@ -405,7 +405,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           throw new ShelfError({
             cause: null,
             message: "SSO chưa được bật cho tổ chức này.",
-            label: "Cài đặt",
+            label: "Settings",
           });
         }
         const schema = EditWorkspaceSSOSettingsFormSchema(
@@ -424,7 +424,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           throw new ShelfError({
             cause: null,
             message: "Bạn không có quyền chỉnh sửa tổ chức này.",
-            label: "Tổ chức",
+            label: "Organization",
             shouldBeCaptured: false,
           });
         }
@@ -458,7 +458,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             cause: null,
             title: "Không có quyền",
             message: "Chỉ chủ sở hữu không gian làm việc mới có thể chuyển quyền sở hữu.",
-            label: "Cài đặt",
+            label: "Settings",
             status: 403,
             // why: a blocked privilege escalation attempt is a client error, not
             // a server fault — it should not page anyone via Sentry
@@ -585,7 +585,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           cause: null,
           message: "Thao tác không hợp lệ",
           additionalData: { intent },
-          label: "Nhóm",
+          label: "Team",
         });
       }
     }

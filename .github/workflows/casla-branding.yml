@@ -12,6 +12,9 @@ on:
       - "apps/webapp/app/utils/client-hints.tsx"
       - "apps/webapp/public/static/images/casla-logo.svg"
       - "apps/webapp/public/static/images/casla-logo-white.svg"
+      - "apps/webapp/public/static/images/casla-logo-compact.svg"
+      - "apps/webapp/public/static/images/casla-logo-white-compact.svg"
+      - "apps/webapp/public/static/images/casla-mark.svg"
       - ".github/workflows/casla-branding.yml"
   push:
     branches:
@@ -24,6 +27,9 @@ on:
       - "apps/webapp/app/utils/client-hints.tsx"
       - "apps/webapp/public/static/images/casla-logo.svg"
       - "apps/webapp/public/static/images/casla-logo-white.svg"
+      - "apps/webapp/public/static/images/casla-logo-compact.svg"
+      - "apps/webapp/public/static/images/casla-logo-white-compact.svg"
+      - "apps/webapp/public/static/images/casla-mark.svg"
       - ".github/workflows/casla-branding.yml"
 
 permissions:
@@ -50,13 +56,17 @@ jobs:
           set -euo pipefail
           test -s apps/webapp/public/static/images/casla-logo.svg
           test -s apps/webapp/public/static/images/casla-logo-white.svg
+          test -s apps/webapp/public/static/images/casla-logo-compact.svg
+          test -s apps/webapp/public/static/images/casla-logo-white-compact.svg
+          test -s apps/webapp/public/static/images/casla-mark.svg
 
       - name: Kiểm tra cấu hình logo
         shell: bash
         run: |
           set -euo pipefail
-          grep -q 'fullLogo: "/static/images/casla-logo.svg"' apps/webapp/app/config/shelf.config.ts
-          grep -q 'symbol: "/static/images/casla-logo.svg"' apps/webapp/app/config/shelf.config.ts
+          grep -q 'fullLogo: "/static/images/casla-logo-compact.svg"' apps/webapp/app/config/shelf.config.ts
+          grep -q 'symbol: "/static/images/casla-mark.svg"' apps/webapp/app/config/shelf.config.ts
+          grep -q 'faviconPath: "/static/images/casla-mark.svg"' apps/webapp/app/config/shelf.config.ts
 
           if grep -Eq 'logo-full-color\(x2\)\.png|shelf-symbol\.png' apps/webapp/app/config/shelf.config.ts; then
             echo "Phát hiện cấu hình logo Shelf cũ."

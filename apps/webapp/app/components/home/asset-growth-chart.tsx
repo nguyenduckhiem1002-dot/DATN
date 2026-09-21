@@ -11,9 +11,9 @@ export default function AssetGrowthChart() {
 
   // Build short month labels: "Mar '25"
   const chartData = assetGrowthData.map(
-    (d: { month: string; year: number; "Tổng tài sản": number }) => ({
+    (d: { month: string; year: number; "Total assets": number }) => ({
       date: `${d.month.slice(0, 3)} '${String(d.year).slice(2)}`,
-      "Tổng tài sản": d["Tổng tài sản"],
+      "Tổng tài sản": d["Total assets"],
     })
   );
 

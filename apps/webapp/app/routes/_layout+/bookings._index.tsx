@@ -84,7 +84,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         title: "Không có quyền",
         message:
           "Bạn không thể sử dụng đặt lịch trong không gian làm việc cá nhân. Hãy tạo không gian làm việc Nhóm để sử dụng tính năng này.",
-        label: "Đặt lịch",
+        label: "Booking",
         shouldBeCaptured: false,
       });
     }
@@ -119,7 +119,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     }
 
     const [
-      { bookings, bookingCount },
+      { bookings: decoratedBookings, bookingCount },
       teamMembersData,
       teamMembersForFormData,
       tags,
@@ -163,7 +163,13 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
             },
           },
         },
-      }),
+      }).then(async ({ bookings, bookingCount }) => ({
+        bookings: await decorateBookingsForList({
+          bookings,
+          organizationId,
+        }),
+        bookingCount,
+      })),
 
       // team members for filter dropdown
       getTeamMemberForCustodianFilter({
@@ -202,18 +208,6 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     ]);
 
     const totalPages = Math.ceil(bookingCount / perPage);
-
-    /**
-     * The two row pills — amber "Stock conflict" (≥1 over-committed
-     * QUANTITY_TRACKED asset in this booking's window) and "Includes
-     * unavailable assets" — both need a query the booking row cannot answer.
-     * `decorateBookingsForList` runs them concurrently, bounded to the current
-     * page's bookings. See `~/modules/booking/list-flags.server`.
-     */
-    const decoratedBookings = await decorateBookingsForList({
-      bookings,
-      organizationId,
-    });
 
     const header: HeaderData = {
       title: "Đặt lịch",

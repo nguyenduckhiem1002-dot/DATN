@@ -153,7 +153,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 
     let subscription = null;
 
-    if (user.customerId && stripe) {
+    if (!config.internalMode && user.customerId && stripe) {
       const customer = (await getStripeCustomer(
         user.customerId
       )) as CustomerWithSubscriptions;
@@ -218,7 +218,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       await Promise.all([
         getBookingSettingsForOrganization(currentOrganization.id),
         getWorkingHoursForOrganization(currentOrganization.id),
-        currentOrganizationUserRoles?.[0]
+        !config.internalMode && currentOrganizationUserRoles?.[0]
           ? getUnreadCountForUser({
               userId: authSession.userId,
               userRole: currentOrganizationUserRoles[0],
@@ -248,7 +248,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         warnForNoPaymentMethod: user.warnForNoPaymentMethod,
         needsSequentialIdMigration,
         /** THis is used to disable team organizations when the currentOrg is Team and no subscription is present  */
-        disabledTeamOrg: isAdmin
+        disabledTeamOrg: config.internalMode || isAdmin
           ? false
           : currentOrganization.workspaceDisabled ||
             (await disabledTeamOrg({
@@ -332,26 +332,28 @@ export default function App() {
         <AtomsResetHandler />
         <AppSidebar id="navigation" />
         <SidebarInset id="main-content" tabIndex={-1}>
-          {warnForNoPaymentMethod ? <MissingPaymentMethodBanner /> : null}
-          {hasUnpaidInvoice ? <UnpaidInvoiceBanner /> : null}
+          {!config.internalMode && warnForNoPaymentMethod ? (
+            <MissingPaymentMethodBanner />
+          ) : null}
+          {!config.internalMode && hasUnpaidInvoice ? <UnpaidInvoiceBanner /> : null}
           {disabledTeamOrg ? (
             <NoSubscription />
           ) : workspaceSwitching ? (
             <div className="flex size-full flex-col items-center justify-center text-center">
               <Spinner />
-              <p className="mt-2">Activating workspace...</p>
+              <p className="mt-2">Đang mở không gian làm việc...</p>
             </div>
           ) : (
             <>
               <header className="flex items-center justify-between border-b bg-white py-4 md:hidden">
-                <Link to="." title="Home" className="block h-8">
+                <Link to="." title="Trang chủ" className="block h-8">
                   <ShelfMobileLogo />
                 </Link>
                 <div className="flex items-center space-x-2">
                   <CommandPaletteButton variant="icon" />
                   <NavLink
                     to="/scanner"
-                    title="Scan QR Code"
+                    title="Quét mã QR"
                     className={({ isActive }) =>
                       tw(
                         "relative flex items-center justify-center px-2 transition",

@@ -345,7 +345,7 @@ export async function simpleModeLoader({
       new ShelfError({
         cause,
         message: "Failed to batch refresh expired asset images",
-        label: "Tài sản",
+        label: "Assets",
         additionalData: { assetCount: assets.length },
         shouldBeCaptured: true,
       })
@@ -374,7 +374,7 @@ export async function simpleModeLoader({
         new ShelfError({
           cause,
           message: "Failed to attach kit names to booking assets",
-          label: "Tài sản",
+          label: "Assets",
           additionalData: { organizationId, assetCount: assets.length },
           shouldBeCaptured: true,
         })
@@ -699,7 +699,7 @@ export async function advancedModeLoader({
       new ShelfError({
         cause,
         message: "Failed to batch refresh expired asset images",
-        label: "Tài sản",
+        label: "Assets",
         additionalData: { assetCount: refreshedAssets.length },
         shouldBeCaptured: true,
       })
