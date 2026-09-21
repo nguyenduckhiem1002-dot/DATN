@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useMemo } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { m } from "framer-motion";
 import { Package } from "lucide-react";
 import { useFetcher, useFetchers, useLoaderData } from "react-router";
@@ -44,10 +44,13 @@ import { AssetIndexPagination } from "./asset-index-pagination";
 import AssetQuickActions from "./asset-quick-actions";
 import { AssetIndexFilters } from "./filters";
 import { ListItemTagsColumn } from "./list-item-tags-column";
-import AvailabilityCalendar from "../../availability-calendar/availability-calendar";
 import { ResourceTitleLink } from "../../availability-calendar/resource-title-link";
 import { CategoryBadge } from "../category-badge";
 import { useAssetAvailabilityData } from "./use-asset-availability-data";
+
+const AvailabilityCalendar = lazy(
+  () => import("../../availability-calendar/availability-calendar")
+);
 
 export const AssetsList = ({
   customEmptyStateContent,
@@ -144,8 +147,19 @@ export const AssetsList = ({
           />
           {isAvailabilityView && shouldShowAvailabilityView ? (
             <>
-              <AvailabilityCalendar
-                resources={resources}
+              <Suspense
+                fallback={
+                  <div
+                    className="flex h-[520px] items-center justify-center gap-2 rounded border bg-white"
+                    aria-live="polite"
+                  >
+                    <Spinner />
+                    <span className="text-sm text-gray-600">Đang tải lịch...</span>
+                  </div>
+                }
+              >
+                <AvailabilityCalendar
+                  resources={resources}
                 events={events}
                 resourceLabelContent={({ resource }) => {
                   const displayCode = currentOrganization
@@ -202,8 +216,9 @@ export const AssetsList = ({
                       </div>
                     </div>
                   );
-                }}
-              />
+                  }}
+                />
+              </Suspense>
               <AssetIndexPagination />
             </>
           ) : (
@@ -303,6 +318,7 @@ export const ListAssetContent = ({
               <span className="word-break mb-1 block ">
                 <Button
                   to={`/assets/${item.id}`}
+                  prefetch="intent"
                   variant="link"
                   className="text-left font-medium text-gray-900 hover:text-gray-700"
                 >
