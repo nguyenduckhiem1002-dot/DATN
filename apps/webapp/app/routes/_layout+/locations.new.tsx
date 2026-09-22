@@ -27,7 +27,7 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-const title = "New Location";
+const title = "Vị trí mới";
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
