@@ -76,21 +76,21 @@ function LearnMoreLink() {
       rel="noopener noreferrer"
       className="underline"
     >
-      Learn more
+      Tìm hiểu thêm
     </Link>
   );
 }
 
 export const TransferOwnershipSchema = z.object({
-  newOwner: z.string().min(1, "New owner is required"),
+  newOwner: z.string().min(1, "Vui lòng chọn chủ sở hữu mới"),
   agreeConditions: z
     .string({
-      required_error: "You must agree to changing the owner of the workspace",
+      required_error: "Bạn phải xác nhận đồng ý chuyển chủ sở hữu không gian làm việc",
     })
     .transform((value) => value === "on")
     .pipe(
       z.boolean().refine((value) => value, {
-        message: "You must agree to changing the owner of the workspace",
+        message: "Bạn phải xác nhận đồng ý chuyển chủ sở hữu không gian làm việc",
       })
     ),
   transferSubscription: z
@@ -152,15 +152,15 @@ export default function TransferOwnershipCard({
     return (
       <Card className={tw(className)} id="transfer-ownership">
         <h4 className="mb-1 text-text-lg font-semibold">
-          Transfer workspace ownership
+          Chuyển chủ sở hữu không gian làm việc
         </h4>
         <p className="mb-2 text-sm text-gray-600">
-          Personal workspaces cannot be transferred. To hand over this account
-          to someone else, change the email address on your account instead.{" "}
+          Không gian làm việc cá nhân không thể chuyển chủ sở hữu. Nếu cần bàn giao
+          tài khoản, hãy thay đổi địa chỉ email của tài khoản.{" "}
           <LearnMoreLink />
         </p>
         <Button to="/account-details/general" variant="secondary">
-          Go to account settings
+          Mở cài đặt tài khoản
         </Button>
       </Card>
     );
@@ -171,12 +171,12 @@ export default function TransferOwnershipCard({
     return (
       <Card className={tw(className)} id="transfer-ownership">
         <h4 className="mb-1 text-text-lg font-semibold">
-          Transfer workspace ownership
+          Chuyển chủ sở hữu không gian làm việc
         </h4>
         <p className="text-sm text-gray-600">
-          Only the workspace owner
-          {ownerEmail ? ` (${ownerEmail})` : ""} can transfer ownership of this
-          workspace. <LearnMoreLink />
+          Chỉ chủ sở hữu không gian làm việc
+          {ownerEmail ? ` (${ownerEmail})` : ""} mới có thể chuyển quyền sở hữu.
+          <LearnMoreLink />
         </p>
       </Card>
     );
@@ -188,8 +188,8 @@ export default function TransferOwnershipCard({
         Transfer workspace ownership
       </h4>
       <p className="mb-2 text-sm text-gray-600">
-        Transfer workspace to another user. To transfer the workspace, the new
-        owner must already be part of the workspace as an admin.{" "}
+        Chuyển quyền sở hữu cho người dùng khác. Người nhận phải đang là
+        quản trị viên của không gian làm việc.{" "}
         <LearnMoreLink />
       </p>
 
@@ -200,26 +200,26 @@ export default function TransferOwnershipCard({
             type="button"
             disabled={{
               reason:
-                "No admins found in this workspace. Change a team member's role to Administrator first, then transfer ownership.",
+                "Chưa có quản trị viên phù hợp. Hãy đổi vai trò của một thành viên thành Quản trị viên trước khi chuyển quyền sở hữu.",
             }}
           >
-            Transfer Ownership
+            Chuyển chủ sở hữu
           </Button>
         }
       >
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button type="button" variant="secondary">
-              Transfer Ownership
+              Chuyển chủ sở hữu
             </Button>
           </AlertDialogTrigger>
 
-          <AlertDialogContent aria-describedby="Transfer ownership">
+          <AlertDialogContent aria-describedby="Chuyển chủ sở hữu">
             <AlertDialogHeader>
-              <AlertDialogTitle>Transfer Workspace Ownership</AlertDialogTitle>
+              <AlertDialogTitle>Chuyển chủ sở hữu không gian làm việc</AlertDialogTitle>
               <AlertDialogDescription>
-                Transfer workspace to another user. To transfer the workspace,
-                the new owner must already be part of the workspace as an admin.
+                Chuyển quyền sở hữu cho người dùng khác. Người nhận phải đang là
+                quản trị viên của không gian làm việc.
               </AlertDialogDescription>
             </AlertDialogHeader>
 
@@ -236,7 +236,7 @@ export default function TransferOwnershipCard({
                 <p className="mb-4 text-sm text-error-500">{serverError}</p>
               </When>
 
-              <InnerLabel>New owner</InnerLabel>
+              <InnerLabel>Chủ sở hữu mới</InnerLabel>
               <Select
                 name={zo.fields.newOwner()}
                 onValueChange={(value) => {
@@ -247,7 +247,7 @@ export default function TransferOwnershipCard({
                 }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select new owner" />
+                  <SelectValue placeholder="Chọn chủ sở hữu mới" />
                 </SelectTrigger>
 
                 <SelectContent>
@@ -279,7 +279,7 @@ export default function TransferOwnershipCard({
                   <div className="mt-4 rounded-md border border-gray-200 bg-gray-50 p-4">
                     <div className="flex items-center gap-2 font-medium">
                       <Icon icon="coins" />
-                      <span>Subscription Information</span>
+                      <span>Thông tin gói dịch vụ</span>
                     </div>
                     <p className="mt-2 text-sm text-gray-600">
                       You have the following active{" "}
@@ -345,7 +345,7 @@ export default function TransferOwnershipCard({
                   >
                     <WarningBox className="mt-3">
                       <span className="font-semibold">
-                        Multiple workspaces affected
+                        Nhiều không gian làm việc bị ảnh hưởng
                       </span>
                       <p className="mt-1 text-sm">
                         You own {ownerOtherTeamWorkspacesCount} other team{" "}
@@ -360,20 +360,20 @@ export default function TransferOwnershipCard({
                 </When>
 
                 <p className="mb-2 mt-4">
-                  You are about to transfer ownership of this workspace to
+                  Bạn sắp chuyển quyền sở hữu không gian làm việc này cho
                   <span className="ml-1 font-semibold">
                     {resolveTeamMemberName(
                       { name: "", user: selectedOwner },
                       true
                     )}
                   </span>
-                  . This action cannot be undone.
+                  . Thao tác này không thể hoàn tác.
                 </p>
-                <p>Warning - You will:</p>
+                <p>Lưu ý - Sau khi chuyển, bạn sẽ:</p>
                 <ul className="mb-2 list-inside list-disc">
-                  <li>Lose owner control of this workspace</li>
-                  <li>No longer be able to manage billing</li>
-                  <li>Become an admin member</li>
+                  <li>Mất quyền chủ sở hữu của không gian làm việc này</li>
+                  <li>Không còn quyền quản lý thanh toán</li>
+                  <li>Trở thành thành viên quản trị</li>
                   <When truthy={transferSubscription}>
                     <li>
                       Transfer your{" "}
@@ -391,19 +391,18 @@ export default function TransferOwnershipCard({
 
                 <div className="mb-2">
                   <p>
-                    To confirm this transfer, type the workspace name exactly as
-                    shown:
+                    Để xác nhận, hãy nhập chính xác tên không gian làm việc như hiển thị:
                   </p>
                   <Input
                     label=""
-                    placeholder="Enter workspace name to confirm"
+                    placeholder="Nhập tên không gian làm việc để xác nhận"
                     value={confirmationInput}
                     onChange={(event) => {
                       setConfirmationInput(event.target.value);
                     }}
                   />
                   <p className="text-sm text-gray-500">
-                    Expected input: {confirmationOrgName}
+                    Nội dung cần nhập: {confirmationOrgName}
                   </p>
                 </div>
 
@@ -421,7 +420,7 @@ export default function TransferOwnershipCard({
                       className="rounded-sm checked:bg-primary focus-within:ring-primary checked:hover:bg-primary checked:focus:bg-primary"
                     />
 
-                    <span>I understand this action cannot be undone.</span>
+                    <span>Tôi hiểu rằng thao tác này không thể hoàn tác.</span>
                   </label>
                   <When
                     truthy={
@@ -447,7 +446,7 @@ export default function TransferOwnershipCard({
                     variant="secondary"
                     type="button"
                   >
-                    Cancel
+                    Hủy
                   </Button>
                 </AlertDialogCancel>
 
@@ -456,15 +455,15 @@ export default function TransferOwnershipCard({
                   className="flex-1"
                   disabled={
                     !selectedOwner
-                      ? { reason: "Please select a new owner." }
+                      ? { reason: "Vui lòng chọn chủ sở hữu mới." }
                       : confirmationInput !== confirmationOrgName
                       ? {
-                          reason: "Please type the workspace name to confirm.",
+                          reason: "Vui lòng nhập đúng tên không gian làm việc để xác nhận.",
                         }
                       : disabled
                   }
                 >
-                  Transfer ownership
+                  Chuyển chủ sở hữu
                 </Button>
               </AlertDialogFooter>
             </Form>

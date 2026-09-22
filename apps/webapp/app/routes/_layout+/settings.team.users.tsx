@@ -71,12 +71,12 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
       });
 
     const header: HeaderData = {
-      title: `Settings - ${organization.name}`,
+      title: `Cài đặt - ${organization.name}`,
     };
 
     const modelName = {
-      singular: "user",
-      plural: "users",
+      singular: "người dùng",
+      plural: "người dùng",
     };
 
     return {
@@ -127,7 +127,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
 
 export const handle = {
   name: "settings.team.users",
-  breadcrumb: () => <Link to="/settings/team">Team</Link>,
+  breadcrumb: () => <Link to="/settings/team">Nhân sự</Link>,
 };
 
 export default function UserTeamSetting() {
@@ -152,16 +152,8 @@ export default function UserTeamSetting() {
       <ContextualModal />
 
       <p className="mb-6 text-xs text-gray-600">
-        Users by default have a mail registered in shelf and can get reminders,
-        log in or perform other actions. Read more about our{" "}
-        <Link
-          to="https://www.shelf.nu/knowledge-base/user-roles-and-their-permissions"
-          target="_blank"
-          className="underline"
-        >
-          permissions here
-        </Link>
-        .
+        Người dùng có tài khoản đăng nhập, có thể nhận thông báo và thực hiện
+        các thao tác theo quyền được cấp.
       </p>
 
       <ListContentWrapper>
@@ -197,7 +189,7 @@ export default function UserTeamSetting() {
             <>
               <Th>
                 <div className="flex items-center gap-1 [&_svg]:size-[15px]">
-                  Custodies{" "}
+                  Đang bàn giao{" "}
                   <InfoTooltip content="Số lượng bàn giao chỉ tính tài sản được bàn giao trực tiếp, không tính tài sản được giao thông qua lịch đặt." />
                 </div>
               </Th>
@@ -227,7 +219,7 @@ function UserRow({ item }: { item: TeamMembersWithUserOrInvite }) {
         )}
       </Td>
       <Td>{item.custodies || 0}</Td>
-      <Td>{item.role}</Td>
+      <Td>{getRoleLabel(item.role)}</Td>
       <Td>
         <InviteStatusBadge status={item.status} />
       </Td>
@@ -269,7 +261,7 @@ const InviteStatusBadge = ({ status }: { status: InviteStatuses }) => {
         colorClasses
       )}
     >
-      <span>{status}</span>
+      <span>{getInviteStatusLabel(status)}</span>
     </span>
   );
 };
@@ -282,7 +274,7 @@ const TeamMemberDetails = ({
   <div className="flex justify-between gap-3 p-4 md:justify-normal md:px-6">
     <div className="flex items-center gap-3">
       <div className="flex size-12 shrink-0 items-center justify-center">
-        <img src={details.img} alt="custodian" className="size-10 rounded" />
+        <img src={details.img} alt="thành viên" className="size-10 rounded" />
       </div>
       <div className="min-w-[130px]">
         <span className="word-break mb-1 block font-medium">
@@ -297,3 +289,31 @@ const TeamMemberDetails = ({
     </div>
   </div>
 );
+
+function getRoleLabel(role: string) {
+  switch (role) {
+    case "Owner":
+      return "Chủ sở hữu";
+    case "Administrator":
+      return "Quản trị viên";
+    case "Base":
+      return "Người dùng";
+    case "Self service":
+      return "Tự phục vụ";
+    default:
+      return role;
+  }
+}
+
+function getInviteStatusLabel(status: InviteStatuses) {
+  switch (status) {
+    case "PENDING":
+      return "Đang chờ";
+    case "ACCEPTED":
+      return "Đã chấp nhận";
+    case "REJECTED":
+      return "Đã từ chối";
+    default:
+      return status;
+  }
+}

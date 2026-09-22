@@ -29,7 +29,7 @@ import {
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
 
-const title = "Edit asset model";
+const title = "Chỉnh sửa mẫu tài sản";
 
 export async function loader({ context, request, params }: LoaderFunctionArgs) {
   const authSession = context.getSession();
@@ -124,8 +124,8 @@ export async function action({ context, request, params }: LoaderFunctionArgs) {
     });
 
     sendNotification({
-      title: "Asset model updated",
-      message: "Your asset model has been updated successfully",
+      title: "Đã cập nhật mẫu tài sản",
+      message: "Mẫu tài sản đã được cập nhật thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });

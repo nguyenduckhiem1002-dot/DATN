@@ -29,23 +29,20 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-import { assertUserCanImportNRM } from "~/utils/subscription.server";
 
-export const meta = () => [{ title: appendToMetaTitle("Import team members") }];
+export const meta = () => [{ title: appendToMetaTitle("Nhập danh sách thành viên") }];
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
   const { userId } = authSession;
 
   try {
-    const { organizationId, organizations } = await requirePermission({
+    const { organizationId } = await requirePermission({
       userId,
       request,
       entity: PermissionEntity.teamMember,
       action: PermissionAction.create,
     });
-    await assertUserCanImportNRM({ organizationId, organizations });
-
     return payload({
       showModal: true,
     });
@@ -67,12 +64,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
       action: PermissionAction.create,
     });
 
-    // Subscription assertion and form data parsing are independent — run in parallel
-    const [, formData] = await Promise.all([
-      assertUserCanImportNRM({ organizationId, organizations }),
-      // Files are automatically stored in memory with parseFormData
-      parseFormData(request),
-    ]);
+    const formData = await parseFormData(request);
 
     const csvFile = formData.get("file") as File;
     const text = await csvFile.text();
@@ -112,19 +104,18 @@ export default function ImportNRMs() {
           <UserIcon />
         </div>
         <div className="mb-5">
-          <h4>Import team members</h4>
+          <h4>Nhập danh sách thành viên</h4>
           <p>
-            Team members just have 1 field and that is a name field. Importing
-            team members just requires you to upload a txt file with member
-            names separated by comas.
+            Mỗi thành viên chỉ cần tên. Hãy tải lên tệp TXT chứa danh sách tên
+            thành viên, phân tách bằng dấu phẩy.
             <br />
             <ul className="list-inside list-disc pl-4">
-              <li>Names which are already in the system will be ignored.</li>
-              <li>Duplicates will be skipped.</li>
+              <li>Tên đã tồn tại trong hệ thống sẽ được bỏ qua.</li>
+              <li>Các tên trùng lặp sẽ được bỏ qua.</li>
             </ul>
             <WarningBox className="my-2">
-              Import is final and cannot be reverted. If you want to later edit
-              team members, you can do so from the Team settings page.
+              Sau khi nhập, dữ liệu không thể hoàn tác hàng loạt. Bạn vẫn có thể
+              chỉnh sửa từng thành viên trong phần cài đặt Nhân sự.
             </WarningBox>
           </p>
         </div>
@@ -135,12 +126,12 @@ export default function ImportNRMs() {
 }
 
 function ImportForm() {
-  const [agreed, setAgreed] = useState<"I AGREE" | "">("");
+  const [agreed, setAgreed] = useState<"XÁC NHẬN" | "">("");
   const formRef = useRef<HTMLFormElement>(null);
   const fetcher = useFetcher<typeof action>();
 
   const { data, state } = fetcher;
-  const disabled = isFormProcessing(state) || agreed !== "I AGREE";
+  const disabled = isFormProcessing(state) || agreed !== "XÁC NHẬN";
   const isSuccessful = data && !data.error && data.success;
 
   /** We use a controlled field for the file, because of the confirmation dialog we have.
@@ -163,7 +154,7 @@ function ImportForm() {
       <Input
         type="file"
         name="file"
-        label="Select a txt file"
+        label="Chọn tệp TXT"
         required
         onChange={handleFileSelect}
         accept=".txt"
@@ -173,11 +164,11 @@ function ImportForm() {
         <AlertDialogTrigger asChild>
           <Button
             type="button"
-            title={"Confirm NRM import"}
+            title={"Xác nhận nhập thành viên"}
             disabled={!selectedFile}
             className="mt-4 w-full"
           >
-            Confirm Non-registered members import
+            Xác nhận nhập thành viên chưa đăng ký
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -188,19 +179,17 @@ function ImportForm() {
             {!isSuccessful ? (
               <>
                 <AlertDialogDescription>
-                  You need to type: <b>"I AGREE"</b> in the field below to
-                  accept the import. By doing this you agree that you have read
-                  the requirements and you understand the limitations and
-                  consequences of using this feature.
+                  Hãy nhập <b>"XÁC NHẬN"</b> vào ô bên dưới để tiếp tục.
+                  Thao tác này xác nhận rằng bạn đã kiểm tra tệp và hiểu việc nhập dữ liệu.
                 </AlertDialogDescription>
                 <Input
                   type="text"
-                  label={"Confirmation"}
+                  label={"Xác nhận"}
                   name="agree"
                   value={agreed}
                   onChange={(e) => setAgreed(e.target.value as any)}
-                  placeholder="I AGREE"
-                  pattern="^I AGREE$" // We use a regex to make sure the user types the exact string
+                  placeholder="XÁC NHẬN"
+                  pattern="^XÁC NHẬN$" // We use a regex to make sure the user types the exact string
                   required
                 />
               </>
@@ -210,29 +199,28 @@ function ImportForm() {
             <div>
               <b className="text-red-500">{data.error.message}</b>
               <p>
-                Please fix your txt file and try again. If the issue persists,
-                don't hesitate to get in touch with us.
+                Vui lòng kiểm tra lại tệp TXT và thử lại.
               </p>
             </div>
           ) : null}
 
           {isSuccessful ? (
             <div>
-              <b className="text-green-500">Success!</b>
-              <p>Your Non-registered members have been imported.</p>
+              <b className="text-green-500">Thành công!</b>
+              <p>Danh sách thành viên chưa đăng ký đã được nhập.</p>
             </div>
           ) : null}
 
           <AlertDialogFooter>
             {isSuccessful ? (
               <Button to="/settings/team/nrm" variant="secondary">
-                Close
+                Đóng
               </Button>
             ) : (
               <>
                 <AlertDialogCancel asChild>
                   <Button type="button" variant="secondary">
-                    Cancel
+                    Hủy
                   </Button>
                 </AlertDialogCancel>
                 <Button
@@ -243,7 +231,7 @@ function ImportForm() {
                   }}
                   disabled={disabled}
                 >
-                  {isFormProcessing(fetcher.state) ? "Importing..." : "Import"}
+                  {isFormProcessing(fetcher.state) ? "Đang nhập..." : "Nhập dữ liệu"}
                 </Button>
               </>
             )}

@@ -14,8 +14,8 @@ export default function BulkReleaseCustodyDialog() {
     <BulkUpdateDialogContent
       ref={zo.ref}
       type="release-custody"
-      title="Release custody over kits"
-      description="Are you sure you want to release custody of all selected kits?"
+      title="Thu hồi bộ tài sản"
+      description="Bạn có chắc muốn thu hồi toàn bộ các bộ tài sản đã chọn?"
       actionUrl="/api/kits/bulk-actions"
       arrayFieldId="kitIds"
     >
@@ -35,7 +35,7 @@ export default function BulkReleaseCustodyDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -43,7 +43,7 @@ export default function BulkReleaseCustodyDialog() {
               width="full"
               disabled={disabled}
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </div>

@@ -20,7 +20,7 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-export const meta = () => [{ title: appendToMetaTitle("Add team member") }];
+export const meta = () => [{ title: appendToMetaTitle("Thêm thành viên") }];
 
 /**
  * Opens the add-member modal for callers who may create team members.
@@ -52,7 +52,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 export const NewOrEditMemberSchema = z.object({
   // Trim BEFORE the length check: `" "` is one character, so it satisfies
   // `min(1)` and is then stored as the empty string.
-  name: z.string().trim().min(1, "Name is required"),
+  name: z.string().trim().min(1, "Tên thành viên là bắt buộc"),
 });
 
 /**
@@ -84,8 +84,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     });
 
     sendNotification({
-      title: "Successfully added a new team member",
-      message: "You are now able to give this team member custody over assets.",
+      title: "Đã thêm thành viên",
+      message: "Bạn có thể bàn giao tài sản cho thành viên này.",
       icon: { name: "success", variant: "success" },
       senderId: userId,
     });
@@ -118,10 +118,9 @@ export default function AddMember() {
           <UserIcon />
         </div>
         <div className="mb-5">
-          <h4>Add team member</h4>
+          <h4>Thêm thành viên</h4>
           <p>
-            Team members are added to your environment but do not have an
-            account to log in with.
+            Thành viên chưa đăng ký có thể được bàn giao tài sản nhưng không có tài khoản đăng nhập.
           </p>
         </div>
         <Form method="post" ref={zo.ref}>
@@ -129,9 +128,9 @@ export default function AddMember() {
             ref={nameInputRef}
             name={zo.fields.name()}
             type="text"
-            label="Name"
+            label="Tên"
             className="mb-8"
-            placeholder="Enter team member’s name"
+            placeholder="Nhập tên thành viên"
             required
             error={zo.errors.name()?.message}
             disabled={disabled}
@@ -142,7 +141,7 @@ export default function AddMember() {
             type="submit"
             disabled={disabled}
           >
-            Add team member
+            Thêm thành viên
           </Button>
         </Form>
         {actionData?.error && (

@@ -25,7 +25,7 @@ export default function BulkActionsDropdown() {
     return (
       <Button variant="secondary" to="#">
         <span className="flex items-center gap-2">
-          Actions <ChevronRight className="chev rotate-90" />
+          Thao tác <ChevronRight className="chev rotate-90" />
         </span>
       </Button>
     );
@@ -89,7 +89,7 @@ function ConditionalDropdown() {
           disabled={disabled}
         >
           <Button type="button" variant="secondary">
-            <span className="flex items-center gap-2">Actions</span>
+            <span className="flex items-center gap-2">Thao tác</span>
           </Button>
         </DropdownMenuTrigger>
 
@@ -101,7 +101,7 @@ function ConditionalDropdown() {
           disabled={disabled}
           type="button"
         >
-          <span className="flex items-center gap-2">Actions</span>
+          <span className="flex items-center gap-2">Thao tác</span>
         </Button>
 
         <MobileDropdownStyles open={open} />
@@ -121,13 +121,13 @@ function ConditionalDropdown() {
             >
               <BulkUpdateDialogTrigger
                 type="activate"
-                label="Activate"
+                label="Kích hoạt"
                 onClick={closeMenu}
                 disabled={
                   someFieldsActivated
                     ? {
                         reason:
-                          "Some of the selected fields are already activated. Please make sure you are selecting deactivated fields only.",
+                          "Một số trường đã được kích hoạt. Vui lòng chỉ chọn các trường đang tắt.",
                       }
                     : isLoading
                 }
@@ -141,13 +141,13 @@ function ConditionalDropdown() {
             >
               <BulkUpdateDialogTrigger
                 type="deactivate"
-                label="Deactivate"
+                label="Tắt"
                 onClick={closeMenu}
                 disabled={
                   someFieldsDeactivated
                     ? {
                         reason:
-                          "Some of the selected fields are already deactivated. Please make sure you are selecting activated fields only.",
+                          "Một số trường đã bị tắt. Vui lòng chỉ chọn các trường đang hoạt động.",
                       }
                     : isLoading
                 }

@@ -21,34 +21,25 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-import { assertUserCanCreateMoreCustomFields } from "~/utils/subscription.server";
 
-const title = "New Custom Field";
+const title = "Trường tùy chỉnh mới";
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
   const { userId } = authSession;
 
   try {
-    const { organizationId, organizations } = await requirePermission({
+    const { organizationId } = await requirePermission({
       userId: authSession.userId,
       request,
       entity: PermissionEntity.customField,
       action: PermissionAction.create,
     });
 
-    // Subscription assertion and categories lookup are independent — run in parallel
-    const [, categoriesResult] = await Promise.all([
-      assertUserCanCreateMoreCustomFields({
-        organizations,
-        organizationId,
-      }),
-      getCategoriesForCreateAndEdit({
-        organizationId,
-        request,
-      }),
-    ]);
-    const { categories, totalCategories } = categoriesResult;
+    const { categories, totalCategories } = await getCategoriesForCreateAndEdit({
+      organizationId,
+      request,
+    });
 
     const header = {
       title,
@@ -79,16 +70,11 @@ export async function action({ context, request }: LoaderFunctionArgs) {
   const { userId } = authSession;
 
   try {
-    const { organizationId, organizations } = await requirePermission({
+    const { organizationId } = await requirePermission({
       userId: authSession.userId,
       request,
       entity: PermissionEntity.customField,
       action: PermissionAction.create,
-    });
-
-    await assertUserCanCreateMoreCustomFields({
-      organizations,
-      organizationId,
     });
 
     const payload = parseData(
@@ -112,8 +98,8 @@ export async function action({ context, request }: LoaderFunctionArgs) {
     });
 
     sendNotification({
-      title: "Custom Field created",
-      message: "Your Custom Field has been created successfully",
+      title: "Đã tạo trường tùy chỉnh",
+      message: "Trường tùy chỉnh đã được tạo thành công",
       icon: { name: "success", variant: "success" },
       senderId: userId,
     });
@@ -132,7 +118,7 @@ export default function NewCustomFieldPage() {
     <>
       <Header
         hideBreadcrumbs
-        title={title ? title : "Untitled custom field"}
+        title={title ? title : "Trường tùy chỉnh chưa đặt tên"}
         classNames="-mt-5"
       />
       <div>

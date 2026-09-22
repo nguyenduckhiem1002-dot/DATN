@@ -47,8 +47,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     if (currentOrganization.type === OrganizationType.PERSONAL) {
       throw new ShelfError({
         cause: null,
-        title: "Not allowed",
-        message: "Email settings are not available for personal workspaces.",
+        title: "Không có quyền",
+        message: "Cài đặt email không khả dụng cho không gian làm việc cá nhân.",
         label: "Settings",
         shouldBeCaptured: false,
         status: 403,
@@ -56,7 +56,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     }
 
     const header: HeaderData = {
-      title: "Email settings",
+      title: "Cài đặt email",
     };
 
     return payload({
@@ -70,7 +70,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => "Emails",
+  breadcrumb: () => "Email",
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
@@ -104,7 +104,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         error(
           new ShelfError({
             cause: null,
-            message: result.error || "Invalid email footer",
+            message: result.error || "Nội dung chân trang email không hợp lệ",
             label: "Settings",
             shouldBeCaptured: false,
             additionalData: {
@@ -125,8 +125,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
     });
 
     sendNotification({
-      title: "Settings updated",
-      message: "Email footer has been updated successfully",
+      title: "Đã cập nhật cài đặt",
+      message: "Chân trang email đã được cập nhật thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
@@ -160,42 +160,35 @@ export default function EmailSettingsPage() {
       {/* Left column: Form */}
       <div className="flex flex-1 flex-col gap-4">
         <div>
-          <h3 className="text-text-lg font-semibold">Custom email footer</h3>
+          <h3 className="text-text-lg font-semibold">Chân trang email tùy chỉnh</h3>
           <p className="text-sm text-gray-600">
-            Add a custom message that appears at the bottom of all workspace
-            emails sent to team members.
+            Thêm nội dung tùy chỉnh hiển thị ở cuối các email hệ thống gửi tới thành viên.
           </p>
         </div>
 
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
           <p className="mb-2 text-sm font-medium text-gray-700">
-            This footer will appear on the following emails:
+            Chân trang sẽ xuất hiện trong các loại email sau:
           </p>
           <ul className="space-y-1 text-sm text-gray-600">
             <li>
-              <span className="font-medium">Bookings:</span> Reserved, checkout
-              reminder, check-in reminder, overdue, completed, extended,
-              cancelled, updated, deleted
+              <span className="font-medium">Đặt lịch:</span> tạo lịch, nhắc bàn giao,
+              nhắc nhận lại, quá hạn, hoàn thành, gia hạn, hủy và cập nhật
             </li>
             <li>
-              <span className="font-medium">Asset reminders:</span> Reminder
-              notifications
+              <span className="font-medium">Nhắc việc tài sản:</span> thông báo nhắc việc
             </li>
             <li>
-              <span className="font-medium">Invitations:</span> Workspace invite
-              emails
+              <span className="font-medium">Lời mời:</span> email mời tham gia không gian làm việc
             </li>
             <li>
-              <span className="font-medium">Access:</span> Access revocation
-              notices
+              <span className="font-medium">Quyền truy cập:</span> thông báo thu hồi quyền
             </li>
             <li>
-              <span className="font-medium">Audits:</span> Assignment,
-              cancelled, completed, reminder, overdue notifications
+              <span className="font-medium">Kiểm kê:</span> phân công, hủy, hoàn thành, nhắc việc và quá hạn
             </li>
             <li>
-              <span className="font-medium">Role changes:</span> Role change
-              notifications
+              <span className="font-medium">Thay đổi vai trò:</span> thông báo thay đổi quyền
             </li>
           </ul>
         </div>
@@ -206,7 +199,7 @@ export default function EmailSettingsPage() {
               htmlFor={zo.fields.customEmailFooter()}
               className="mb-1.5 block text-sm font-medium text-gray-700"
             >
-              Footer message
+              Nội dung chân trang
             </label>
             <textarea
               id={zo.fields.customEmailFooter()}
@@ -231,23 +224,21 @@ export default function EmailSettingsPage() {
             )}
             <div className="mt-1 flex items-center justify-between">
               <p className="text-xs text-gray-500">
-                Links are not allowed. Email addresses and phone numbers are
-                permitted.
+                Không cho phép chèn liên kết. Có thể nhập địa chỉ email và số điện thoại.
               </p>
               <span className="text-xs text-gray-500">
-                {charCount} / {EMAIL_FOOTER_MAX_LENGTH} characters
+                {charCount} / {EMAIL_FOOTER_MAX_LENGTH} ký tự
               </span>
             </div>
           </div>
 
           <p className="text-xs text-gray-500">
-            Note: Custom footers with certain content may affect email
-            deliverability and spam scores.
+            Lưu ý: Nội dung chân trang có thể ảnh hưởng tới khả năng email được gửi vào hộp thư chính.
           </p>
 
           <div>
             <Button type="submit" disabled={disabled}>
-              {disabled ? "Saving..." : "Save"}
+              {disabled ? "Đang lưu..." : "Lưu"}
             </Button>
           </div>
         </Form>
@@ -256,11 +247,11 @@ export default function EmailSettingsPage() {
       {/* Right column: Email preview */}
       <div className="flex-1">
         <div className="mb-2 flex items-center justify-between">
-          <p className="text-sm font-medium text-gray-700">Preview</p>
+          <p className="text-sm font-medium text-gray-700">Xem trước</p>
           <ViewButtonGroup
             views={[
-              { label: "Desktop", value: "desktop" },
-              { label: "Mobile", value: "mobile" },
+              { label: "Máy tính", value: "desktop" },
+              { label: "Điện thoại", value: "mobile" },
             ]}
             currentView={previewMode}
             onViewChange={(v) => setPreviewMode(v as "desktop" | "mobile")}
@@ -323,19 +314,19 @@ function EmailPreview({
       {/* Email header — From / To / Subject */}
       <div className="border-b border-gray-200 bg-gray-100 px-5 py-3 text-[13px] leading-relaxed text-gray-600">
         <p>
-          <span className="text-gray-400">From:</span>{" "}
+          <span className="text-gray-400">Từ:</span>{" "}
           <span className="text-gray-700">
             Shelf &lt;notifications@shelf.nu&gt;
           </span>
         </p>
         <p>
-          <span className="text-gray-400">To:</span>{" "}
+          <span className="text-gray-400">Đến:</span>{" "}
           <span className="text-gray-700">jane@example.com</span>
         </p>
         <p>
-          <span className="text-gray-400">Subject:</span>{" "}
+          <span className="text-gray-400">Tiêu đề:</span>{" "}
           <span className="text-gray-700">
-            ✅ Booking reserved (Office Equipment Booking) - shelf.nu
+            ✅ Đã đặt lịch (Thiết bị văn phòng)
           </span>
         </p>
       </div>
@@ -370,7 +361,7 @@ function EmailPreview({
             >
               <img
                 src="/static/images/logo-full-color(x2).png"
-                alt="Shelf logo"
+                alt="Logo hệ thống"
                 style={{ height: "32px", width: "auto" }}
               />
             </div>
@@ -385,7 +376,7 @@ function EmailPreview({
                   marginBottom: "16px",
                 }}
               >
-                Booking reservation for Jane Doe
+                Lịch đặt tài sản cho Nguyễn Văn A
               </h1>
               <h2
                 style={{
@@ -395,29 +386,29 @@ function EmailPreview({
                   marginBottom: "16px",
                 }}
               >
-                Office Equipment Booking | 3 assets
+                Thiết bị văn phòng | 3 tài sản
               </h2>
               <p style={{ fontSize: "16px", color: "#344054" }}>
                 <span style={{ color: "#101828", fontWeight: "600" }}>
-                  Custodian:
+                  Người giữ:
                 </span>{" "}
                 Jane Doe
               </p>
               <p style={{ fontSize: "16px", color: "#344054" }}>
                 <span style={{ color: "#101828", fontWeight: "600" }}>
-                  From:
+                  Từ:
                 </span>{" "}
                 01/15/26, 9:00 AM
               </p>
               <p style={{ fontSize: "16px", color: "#344054" }}>
-                <span style={{ color: "#101828", fontWeight: "600" }}>To:</span>{" "}
+                <span style={{ color: "#101828", fontWeight: "600" }}>Đến:</span>{" "}
                 01/17/26, 5:00 PM
               </p>
             </div>
 
             {/* View button */}
             <div style={EMAIL_PREVIEW_VIEW_BUTTON_STYLE}>
-              View booking in app
+              Xem lịch đặt trong ứng dụng
             </div>
 
             {/* Custom footer - live preview */}

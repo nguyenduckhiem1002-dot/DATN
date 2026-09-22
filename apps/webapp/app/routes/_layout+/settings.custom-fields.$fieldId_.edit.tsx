@@ -28,14 +28,13 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-import { assertUserCanCreateMoreCustomFields } from "~/utils/subscription.server";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
   { title: data ? appendToMetaTitle(data.header.title) : "" },
 ];
 
 export const handle = {
-  breadcrumb: () => <span>Edit</span>,
+  breadcrumb: () => <span>Chỉnh sửa</span>,
 };
 
 export async function loader({ context, request, params }: LoaderFunctionArgs) {
@@ -70,7 +69,7 @@ export async function loader({ context, request, params }: LoaderFunctionArgs) {
     );
 
     const header: HeaderData = {
-      title: `Edit | ${customField.name}`,
+      title: `Chỉnh sửa | ${customField.name}`,
       subHeading: FIELD_TYPE_NAME[customField.type],
     };
 
@@ -94,7 +93,7 @@ export async function action({ context, request, params }: ActionFunctionArgs) {
   });
 
   try {
-    const { organizationId, organizations } = await requirePermission({
+    const { organizationId } = await requirePermission({
       userId: authSession.userId,
       request,
       entity: PermissionEntity.customField,
@@ -109,18 +108,6 @@ export async function action({ context, request, params }: ActionFunctionArgs) {
     const { name, helpText, active, required, options, categories } =
       parsedData;
 
-    const field = await getCustomField({ organizationId, id });
-
-    /** If they are activating a field, we have to make sure that they are not already at the limit */
-    const isActivatingField = !field.active && active !== field.active;
-
-    if (isActivatingField) {
-      await assertUserCanCreateMoreCustomFields({
-        organizationId,
-        organizations,
-      });
-    }
-
     await updateCustomField({
       id,
       name,
@@ -133,8 +120,8 @@ export async function action({ context, request, params }: ActionFunctionArgs) {
     });
 
     sendNotification({
-      title: "Custom field updated",
-      message: "Your custom field  has been updated successfully",
+      title: "Đã cập nhật trường tùy chỉnh",
+      message: "Trường tùy chỉnh đã được cập nhật thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });

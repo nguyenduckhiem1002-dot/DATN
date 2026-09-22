@@ -42,7 +42,7 @@ export default function ItemsWithViewMore<T>({
   className,
   items,
   showCount = 2,
-  emptyMessage = "No items",
+  emptyMessage = "Không có dữ liệu",
   ...restProps
 }: ItemsWithViewMoreProps<T>) {
   // Filter out any null/undefined items first

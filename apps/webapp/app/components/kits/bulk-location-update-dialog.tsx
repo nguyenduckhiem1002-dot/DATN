@@ -6,7 +6,7 @@ import { Button } from "../shared/button";
 
 export const KitBulkLocationUpdateSchema = z.object({
   kitIds: z.array(z.string()).min(1),
-  newLocationId: z.string({ required_error: "Please select a location" }),
+  newLocationId: z.string({ required_error: "Vui lòng chọn vị trí" }),
 });
 
 export default function KitBulkLocationUpdateDialog() {
@@ -37,9 +37,9 @@ export default function KitBulkLocationUpdateDialog() {
 
           <div className="mb-6 rounded-md border border-blue-200 bg-blue-50 p-3">
             <p className="text-sm text-blue-800">
-              <strong>Location Update Notice:</strong> Changing kit locations
-              will also automatically update the location of all assets within
-              those kits.
+              <strong>Lưu ý khi cập nhật vị trí:</strong> Thay đổi vị trí của bộ tài sản
+              cũng sẽ tự động cập nhật vị trí của toàn bộ tài sản bên trong
+              các bộ đã chọn.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export default function KitBulkLocationUpdateDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -59,7 +59,7 @@ export default function KitBulkLocationUpdateDialog() {
               width="full"
               disabled={disabled}
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </div>

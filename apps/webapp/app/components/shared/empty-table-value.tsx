@@ -3,7 +3,7 @@ import type { HTMLAttributes } from "react";
 import { tw } from "~/utils/tw";
 
 export function EmptyTableValue({
-  label = "No data",
+  label = "Không có dữ liệu",
   symbol = "—",
   className,
   ...rest

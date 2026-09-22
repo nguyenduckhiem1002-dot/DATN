@@ -126,7 +126,7 @@ const ConditionalActionsDropdown = ({
                     }}
                   >
                     <span className="flex items-center gap-2">
-                      <Icon icon="start-audit" /> Create audit
+                      <Icon icon="start-audit" /> Tạo đợt kiểm kê
                     </span>
                   </Button>
                 </div>
@@ -143,7 +143,7 @@ const ConditionalActionsDropdown = ({
                   width="full"
                   onClick={handleMenuClose}
                 >
-                  Edit
+                  Chỉnh sửa
                 </Button>
               </div>
 
@@ -160,7 +160,7 @@ const ConditionalActionsDropdown = ({
                       className="justify-start px-4 py-3 text-gray-700 hover:bg-slate-100 hover:text-gray-700"
                       width="full"
                     >
-                      Delete
+                      Xóa
                     </Button>
                   }
                 />
@@ -175,7 +175,7 @@ const ConditionalActionsDropdown = ({
                   width="full"
                   onClick={handleMenuClose}
                 >
-                  Close
+                  Đóng
                 </Button>
               </div>
             </div>

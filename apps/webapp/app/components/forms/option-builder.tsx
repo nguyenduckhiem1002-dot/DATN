@@ -21,7 +21,7 @@ function OptionBuilder({ options, onAdd, onRemove, disabled }: Props) {
           onChange={({ target }) => setOpt(target.value)}
           label=""
           value={opt}
-          placeholder="Type an option here and press enter"
+          placeholder="Nhập lựa chọn và nhấn Enter"
           disabled={disabled}
           className="w-full"
           error={error}
@@ -31,7 +31,7 @@ function OptionBuilder({ options, onAdd, onRemove, disabled }: Props) {
               e.preventDefault();
               if (opt) {
                 if (options.includes(opt)) {
-                  setError("Option already exists");
+                  setError("Lựa chọn này đã tồn tại");
                 } else {
                   onAdd(opt);
                   setOpt("");

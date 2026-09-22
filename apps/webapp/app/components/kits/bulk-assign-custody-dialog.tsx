@@ -25,7 +25,7 @@ export default function BulkAssignCustodyDialog() {
     <BulkUpdateDialogContent
       ref={zo.ref}
       type="assign-custody"
-      title={`${isSelfService ? "Take" : "Assign"} custody of kit`}
+      title={isSelfService ? "Nhận bộ tài sản" : "Bàn giao bộ tài sản"}
       description={`These kits are currently available. You're about to assign custody to ${
         isSelfService ? "yourself" : "one of your team members"
       }.`}
@@ -58,10 +58,10 @@ export default function BulkAssignCustodyDialog() {
                   custodyPurpose: "custody-assignment",
                 }}
                 fieldName="custodian"
-                contentLabel="Team members"
+                contentLabel="Thành viên"
                 initialDataKey="teamMembers"
                 countKey="totalTeamMembers"
-                placeholder="Select a team member"
+                placeholder="Chọn thành viên"
                 closeOnSelect
                 transformItem={(item) => ({
                   ...item,
@@ -91,7 +91,7 @@ export default function BulkAssignCustodyDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -99,7 +99,7 @@ export default function BulkAssignCustodyDialog() {
               width="full"
               disabled={disabled}
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </div>

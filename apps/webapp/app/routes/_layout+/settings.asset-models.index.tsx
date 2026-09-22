@@ -60,13 +60,13 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     const totalPages = Math.ceil(totalAssetModels / perPage);
 
     const header: HeaderData = {
-      title: "Asset Models",
+      title: "Mẫu tài sản",
       subHeading:
-        "Asset models are templates for grouping similar assets. Use them to define default values and track groups of identical items like laptop models or equipment types.",
+        "Mẫu tài sản giúp nhóm các tài sản tương tự, thiết lập giá trị mặc định và quản lý các thiết bị cùng loại.",
     };
     const modelName = {
-      singular: "asset model",
-      plural: "asset models",
+      singular: "mẫu tài sản",
+      plural: "mẫu tài sản",
     };
 
     return data(
@@ -101,19 +101,19 @@ export default function AssetModelsIndexPage() {
     <>
       <div className="mb-2.5 flex items-center justify-between bg-white md:rounded md:border md:border-gray-200 md:px-6 md:py-5">
         <div>
-          <h2 className="text-lg text-gray-900">Asset Models</h2>
+          <h2 className="text-lg text-gray-900">Mẫu tài sản</h2>
           <p className="text-sm text-gray-600">
-            Asset models are templates for grouping similar assets. Use them to
-            define default values and track groups of identical items.
+            Mẫu tài sản giúp nhóm các tài sản tương tự, thiết lập giá trị mặc định
+            và quản lý các thiết bị cùng loại.
           </p>
         </div>
         <Button
           to="new"
           role="link"
-          aria-label="new asset model"
+          aria-label="Tạo mẫu tài sản mới"
           data-test-id="createNewAssetModel"
         >
-          New asset model
+          Mẫu tài sản mới
         </Button>
       </div>
       <List
@@ -123,10 +123,10 @@ export default function AssetModelsIndexPage() {
         ItemComponent={AssetModelItem}
         headerChildren={
           <>
-            <Th>Description</Th>
-            <Th>Default category</Th>
-            <Th>Assets</Th>
-            <Th>Actions</Th>
+            <Th>Mô tả</Th>
+            <Th>Danh mục mặc định</Th>
+            <Th>Tài sản</Th>
+            <Th>Thao tác</Th>
           </>
         }
       />
@@ -149,7 +149,7 @@ const AssetModelItem = ({
   };
 }) => (
   <>
-    <Td title={`Asset model: ${item.name}`} className="w-1/4">
+    <Td title={`Mẫu tài sản: ${item.name}`} className="w-1/4">
       {/*
         Image + name in one cell, matching the kit and asset list rows: the
         picture is the fastest way to confirm you're looking at the right
@@ -162,7 +162,7 @@ const AssetModelItem = ({
           <ImageWithPreview
             imageUrl={item.image}
             thumbnailUrl={item.thumbnailImage ?? item.image}
-            alt={`${item.name} image`}
+            alt={`Ảnh ${item.name}`}
             className="size-10 shrink-0 rounded border object-cover"
             withPreview
           />

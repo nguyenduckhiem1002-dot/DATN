@@ -22,7 +22,6 @@ import { useUserRoleHelper } from "~/hooks/user-user-role-helper";
 import { getPaginatedAndFilterableSettingTeamMembers } from "~/modules/settings/service.server";
 import { getHeldCustodyCount } from "~/modules/team-member/custody-count";
 import { deleteNRM } from "~/modules/team-member/service.server";
-import { getOrganizationTierLimit } from "~/modules/tier/service.server";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import { makeShelfError, ShelfError } from "~/utils/error";
 import { error, parseData, payload } from "~/utils/http.server";
@@ -32,37 +31,27 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-import { canImportNRM } from "~/utils/subscription.server";
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
   const { userId } = authSession;
 
   try {
-    const { organizationId, organizations, currentOrganization } =
-      await requirePermission({
+    const { organizationId, currentOrganization } = await requirePermission({
         userId,
         request,
         entity: PermissionEntity.teamMember,
         action: PermissionAction.read,
       });
 
-    const [
-      tierLimit,
-      { page, perPage, search, totalPages, teamMembers, totalTeamMembers },
-    ] = await Promise.all([
-      getOrganizationTierLimit({
-        organizationId,
-        organizations,
-      }),
-      getPaginatedAndFilterableSettingTeamMembers({
+    const { page, perPage, search, totalPages, teamMembers, totalTeamMembers } =
+      await getPaginatedAndFilterableSettingTeamMembers({
         organizationId,
         request,
-      }),
-    ]);
+      });
 
     const header: HeaderData = {
-      title: `Settings - Manage Team Members`,
+      title: "Cài đặt - Quản lý thành viên",
     };
 
     const modelName = {
@@ -79,7 +68,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       totalPages,
       items: teamMembers,
       totalItems: totalTeamMembers,
-      canImportNRM: canImportNRM(tierLimit),
+      canImportNRM: true,
       isPersonalOrg: checkIsPersonalOrg(currentOrganization),
     });
   } catch (cause) {
@@ -159,8 +148,8 @@ export default function NrmSettings() {
   return (
     <div>
       <p className="mb-6 text-xs text-gray-600">
-        Non-registered members can be given custody of an asset. If you want
-        them to get reminders, invite them via email.
+        Thành viên chưa đăng ký vẫn có thể được bàn giao tài sản. Nếu cần họ
+        đăng nhập hoặc nhận thông báo, hãy mời họ bằng email.
       </p>
 
       <ListContentWrapper>

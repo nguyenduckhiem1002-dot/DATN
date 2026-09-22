@@ -368,7 +368,7 @@ export const CodeScanner = ({
                     <ErrorIcon />
                   </span>
                   <h5 className="mb-2">
-                    {errorTitle || "Unsupported Barcode detected"}
+                    {errorTitle || "Phát hiện mã không được hỗ trợ"}
                   </h5>
                   <p className="mb-4 max-w-[300px] text-red-600">
                     {errorMessage}
@@ -379,22 +379,22 @@ export const CodeScanner = ({
                     variant="secondary"
                     className="mt-2"
                   >
-                    Scan again
+                    Quét lại
                   </Button>
                 </>
               ) : (
                 <>
-                  <h5>Code detected</h5>
+                  <h5>Đã nhận diện mã</h5>
 
                   {typeof scanMessage === "string" ? (
                     <>
                       <ClientOnly fallback={null}>
                         {() => <SuccessAnimation />}
                       </ClientOnly>
-                      <p>{scanMessage || "Scanner paused"}</p>
+                      <p>{scanMessage || "Máy quét đã tạm dừng"}</p>
                     </>
                   ) : (
-                    scanMessage || <p>Scanner paused</p>
+                    scanMessage || <p>Máy quét đã tạm dừng</p>
                   )}
                 </>
               )}
@@ -495,7 +495,7 @@ function ScannerMode({
           name="code"
           label={
             paused
-              ? "Scanner paused"
+              ? "Máy quét đã tạm dừng"
               : inputIsFocused
               ? "Waiting for scan..."
               : "Please click on the text field before scanning"
@@ -832,13 +832,13 @@ function CameraMode({
             <Camera className="size-12 text-white/50" />
           </div>
           <p className="mb-4">{error}</p>
-          <p className="mb-4">If the issue persists, please contact support.</p>
+          <p className="mb-4">Nếu sự cố vẫn tiếp diễn, vui lòng kiểm tra quyền camera hoặc tải lại trang.</p>
           <Button
             type="button"
             onClick={() => window.location.reload()}
             variant="secondary"
           >
-            Reload Page
+            Tải lại trang
           </Button>
         </InfoOverlay>
       )}
@@ -855,7 +855,7 @@ function CameraMode({
 
           /** Error when there is no video element.  */
           if (!video || !canvas) {
-            setError("Canvas or video element not found");
+            setError("Không tìm thấy vùng hiển thị camera");
             setIsLoading(false);
             return;
           }
@@ -874,7 +874,7 @@ function CameraMode({
 
           video.addEventListener("error", (e) => {
             setError(
-              `Error playing video: ${e instanceof Error ? e.message : e}`
+              `Lỗi phát video: ${e instanceof Error ? e.message : e}`
             );
             setIsLoading(false);
           });
@@ -919,8 +919,8 @@ function Initializing() {
       </div>
       <Spinner className="mx-auto mb-2" />
       {expired
-        ? "Camera initialization is taking longer than expected. Please reload the page"
-        : "Initializing camera..."}
+        ? "Khởi tạo camera lâu hơn dự kiến. Vui lòng tải lại trang"
+        : "Đang khởi tạo camera..."}
       {expired && (
         <div>
           <Button
@@ -929,7 +929,7 @@ function Initializing() {
             onClick={() => window.location.reload()}
             className={"mt-4"}
           >
-            Reload page
+            Tải lại trang
           </Button>
         </div>
       )}

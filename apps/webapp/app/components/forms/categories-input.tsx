@@ -58,10 +58,10 @@ export default function CategoriesInput({
                 fieldName={name(i)}
                 defaultValue={category}
                 model={{ name: "category", queryKey: "name" }}
-                contentLabel="Category"
+                contentLabel="Danh mục"
                 initialDataKey="categories"
                 countKey="totalCategories"
-                placeholder="Select Category"
+                placeholder="Chọn danh mục"
                 className="flex-1"
                 excludeItems={siblingValues}
                 onChange={(value) => {
@@ -74,8 +74,8 @@ export default function CategoriesInput({
                 extraContent={({ onItemCreated, closePopover }) => (
                   <InlineEntityCreationDialog
                     type="category"
-                    title="Create new category"
-                    buttonLabel="Create new category"
+                    title="Tạo danh mục mới"
+                    buttonLabel="Tạo danh mục mới"
                     onCreated={(created) => {
                       if (created?.type !== "category") return;
 
@@ -128,7 +128,7 @@ export default function CategoriesInput({
           ]);
         }}
       >
-        Add another category
+        Thêm danh mục khác
       </Button>
     </div>
   );

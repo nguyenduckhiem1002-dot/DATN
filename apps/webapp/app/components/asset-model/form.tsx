@@ -44,7 +44,7 @@ const PAGE_IMAGE_HELP_ID = "asset-model-image-help";
 
 /** Zod schema for creating/editing an asset model. */
 export const AssetModelFormSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  name: z.string().min(2, "Tên mẫu tài sản là bắt buộc"),
   description: z.string().optional(),
   defaultCategoryId: z.string().optional(),
   defaultValuation: z
@@ -164,8 +164,8 @@ export default function AssetModelForm({
         <div className="gap-4 md:flex md:items-end">
           <Input
             ref={nameInputRef}
-            label="Name"
-            placeholder="Asset model name"
+            label="Tên"
+            placeholder="Tên mẫu tài sản"
             className="mb-4 lg:mb-0 lg:max-w-[180px]"
             name={zo.fields.name()}
             disabled={disabled}
@@ -175,8 +175,8 @@ export default function AssetModelForm({
             defaultValue={assetModel?.name}
           />
           <Input
-            label="Description"
-            placeholder="Description (optional)"
+            label="Mô tả"
+            placeholder="Mô tả (không bắt buộc)"
             name={zo.fields.description()}
             disabled={disabled}
             className="mb-4 lg:mb-0"
@@ -188,7 +188,7 @@ export default function AssetModelForm({
         {/* Same cover-image field as the settings form, in a compact layout. */}
         <div className="mt-4">
           <Input
-            label="Image"
+            label="Ảnh"
             // Input spreads unknown props straight onto the <input> and adds no
             // describedby of its own, so this is the only link between the field
             // and its format/size requirements for assistive tech.
@@ -221,7 +221,7 @@ export default function AssetModelForm({
                 className="flex-1"
                 disabled={disabled}
               >
-                Cancel
+                Hủy
               </Button>
             ) : null}
             <Button
@@ -230,7 +230,7 @@ export default function AssetModelForm({
               className="flex-1"
               disabled={disabled}
             >
-              {disabled ? "Creating..." : "Create"}
+              {disabled ? "Đang tạo..." : "Tạo"}
             </Button>
           </div>
 
@@ -311,7 +311,7 @@ function FullPageForm({
             <h2 className="mb-1 text-[18px] font-semibold">Asset model</h2>
             <p>
               {assetModel
-                ? "Edit the details of your asset model."
+                ? "Chỉnh sửa thông tin của mẫu tài sản."
                 : "Define a reusable template for your assets."}
             </p>
           </div>
@@ -322,13 +322,13 @@ function FullPageForm({
 
         {/* -- Name -- */}
         <FormRow
-          rowLabel="Name"
+          rowLabel="Tên"
           className="border-b-0 pb-[10px]"
           required={true}
         >
           <Input
             ref={nameInputRef}
-            label="Name"
+            label="Tên"
             hideLabel
             name={zo.fields.name()}
             disabled={disabled}
@@ -342,27 +342,27 @@ function FullPageForm({
 
         {/* -- Description -- */}
         <FormRow
-          rowLabel="Description"
+          rowLabel="Mô tả"
           subHeading="A short description of this asset model. Maximum 1000 characters."
           className="border-b-0 pb-[10px]"
         >
           <Input
             inputType="textarea"
             maxLength={1000}
-            label="Description"
+            label="Mô tả"
             hideLabel
             name={zo.fields.description()}
             disabled={disabled}
             className="w-full"
-            placeholder="Add a description for this asset model."
+            placeholder="Nhập mô tả cho mẫu tài sản."
             defaultValue={assetModel?.description || ""}
           />
         </FormRow>
 
         {/* -- Default Category -- */}
         <FormRow
-          rowLabel="Default category"
-          subHeading="Assets created from this model will inherit this category."
+          rowLabel="Danh mục mặc định"
+          subHeading="Tài sản tạo từ mẫu này sẽ tự động dùng danh mục này."
           className="border-b-0 pb-[10px]"
         >
           <DynamicSelect
@@ -370,8 +370,8 @@ function FullPageForm({
             defaultValue={assetModel?.defaultCategoryId ?? undefined}
             model={{ name: "category", queryKey: "name" }}
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left"
-            contentLabel="Categories"
-            label="Category"
+            contentLabel="Danh mục"
+            label="Danh mục"
             hideLabel
             fieldName="defaultCategoryId"
             initialDataKey="categories"
@@ -384,14 +384,14 @@ function FullPageForm({
 
         {/* -- Default Valuation -- */}
         <FormRow
-          rowLabel="Default valuation"
-          subHeading="Assets created from this model will inherit this value."
+          rowLabel="Giá trị mặc định"
+          subHeading="Tài sản tạo từ mẫu này sẽ tự động dùng giá trị này."
           className="border-b-0 py-[10px]"
         >
           <div className="relative w-full">
             <Input
               type="number"
-              label="Default valuation"
+              label="Giá trị mặc định"
               inputClassName="pl-[70px] valuation-input"
               hideLabel
               name={zo.fields.defaultValuation()}
@@ -414,7 +414,7 @@ function FullPageForm({
 
         {/* -- Image -- */}
         <FormRow
-          rowLabel="Image"
+          rowLabel="Ảnh"
           subHeading="Uploaded once and shown on every asset of this model that has no image of its own."
           className="border-b-0 pt-[10px]"
         >
@@ -440,7 +440,7 @@ function FullPageForm({
               name="image"
               type="file"
               onChange={validateFile}
-              label="Image"
+              label="Ảnh"
               hideLabel
               /**
                * The requirements text is duplicated for the two breakpoints, so
@@ -496,7 +496,7 @@ function Actions({ disabled }: { disabled: boolean }) {
     <>
       {/* Save is first in DOM so Enter triggers it */}
       <Button type="submit" disabled={disabled} className="order-last">
-        {disabled ? "Saving..." : "Save"}
+        {disabled ? "Đang lưu..." : "Lưu"}
       </Button>
       <Button
         variant="secondary"

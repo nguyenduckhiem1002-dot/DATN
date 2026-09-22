@@ -100,7 +100,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
     ]);
 
     const header: HeaderData = {
-      title: "Bookings settings",
+      title: "Cài đặt đặt lịch",
     };
 
     return payload({
@@ -117,7 +117,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => "Bookings",
+  breadcrumb: () => "Đặt lịch",
 };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
@@ -165,7 +165,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
     ) {
       throw new ShelfError({
         cause: null,
-        message: "Invalid action",
+        message: "Thao tác không hợp lệ",
         additionalData: { intent },
         label: "Working hours",
       });
@@ -193,8 +193,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
-          message: "Booking time restrictions have been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Giới hạn thời gian đặt lịch đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -220,8 +220,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
-          message: "Tags requirement setting has been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Yêu cầu gắn thẻ cho lịch đặt đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -247,8 +247,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
-          message: "Auto-archive setting has been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Thiết lập tự động lưu trữ đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -295,7 +295,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
                 message:
                   "Failed to schedule auto-archive for existing reservations",
                 additionalData: { organizationId },
-                label: "Booking Settings",
+                label: "Cài đặt đặt lịch",
                 shouldBeCaptured: false,
               })
             );
@@ -303,8 +303,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         }
 
         sendNotification({
-          title: "Settings updated",
-          message: "Auto-archive setting has been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Thiết lập tự động lưu trữ đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -326,8 +326,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
-          message: "Auto-archive days setting has been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Số ngày tự động lưu trữ đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -347,8 +347,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Workspace updated",
-          message: "Your workspace has been updated successfully",
+          title: "Đã cập nhật không gian làm việc",
+          message: "Không gian làm việc đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -367,8 +367,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         if (!validation.success) {
           throw new ShelfError({
             cause: validation.error,
-            title: "Invalid Schedule",
-            message: "Please check your working hours schedule for errors",
+            title: "Lịch làm việc không hợp lệ",
+            message: "Vui lòng kiểm tra lại lịch giờ làm việc",
             additionalData: {
               userId,
               organizationId,
@@ -460,9 +460,9 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
+          title: "Đã cập nhật cài đặt",
           message:
-            "Booking creator notification setting has been updated successfully",
+            "Thiết lập thông báo cho người tạo lịch đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -482,8 +482,8 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
-          message: "Admin notification setting has been updated successfully",
+          title: "Đã cập nhật cài đặt",
+          message: "Thiết lập thông báo cho quản trị viên đã được cập nhật thành công",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
         });
@@ -507,7 +507,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
+          title: "Đã cập nhật cài đặt",
           message: "Always-notify users have been updated successfully",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
@@ -525,7 +525,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             message:
               "Only the workspace owner can change explicit check-in settings",
             status: 403,
-            label: "Booking Settings",
+            label: "Cài đặt đặt lịch",
             shouldBeCaptured: false,
           });
         }
@@ -548,7 +548,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
+          title: "Đã cập nhật cài đặt",
           message: "Explicit check-in settings have been updated successfully",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
@@ -566,7 +566,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
             message:
               "Only the workspace owner can change explicit check-out settings",
             status: 403,
-            label: "Booking Settings",
+            label: "Cài đặt đặt lịch",
             shouldBeCaptured: false,
           });
         }
@@ -589,7 +589,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
+          title: "Đã cập nhật cài đặt",
           message: "Explicit check-out settings have been updated successfully",
           icon: { name: "success", variant: "success" },
           senderId: authSession.userId,
@@ -617,7 +617,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
         });
 
         sendNotification({
-          title: "Settings updated",
+          title: "Đã cập nhật cài đặt",
           message:
             "Progressive check-in counting setting has been updated successfully",
           icon: { name: "success", variant: "success" },
@@ -630,7 +630,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
       default: {
         throw new ShelfError({
           cause: null,
-          message: "Invalid action",
+          message: "Thao tác không hợp lệ",
           additionalData: { intent },
           label: "Working hours",
         });
@@ -652,9 +652,9 @@ export default function GeneralPage() {
       {/* Explicit check-in settings form */}
       <ExplicitCheckinSettings
         header={{
-          title: "Explicit check-in requirement",
+          title: "Yêu cầu nhận lại tài sản rõ ràng",
           subHeading:
-            "Control whether specific roles must use the scanner-based explicit check-in flow instead of the one-click quick check-in. Only workspace owners can change this setting.",
+            "Quy định vai trò nào phải dùng quy trình quét để nhận lại tài sản thay vì xác nhận nhanh một chạm. Chỉ chủ sở hữu có thể thay đổi thiết lập này.",
         }}
         defaultValues={{
           requireExplicitCheckinForAdmin:
@@ -667,9 +667,9 @@ export default function GeneralPage() {
       {/* Explicit check-out settings form */}
       <ExplicitCheckoutSettings
         header={{
-          title: "Explicit check-out requirement",
+          title: "Yêu cầu bàn giao tài sản rõ ràng",
           subHeading:
-            "Control whether specific roles must use the scanner-based or selection-based explicit check-out flow instead of the one-click check-out. Only workspace owners can change this setting.",
+            "Quy định vai trò nào phải dùng quy trình quét hoặc chọn tài sản để bàn giao thay vì thao tác nhanh một chạm. Chỉ chủ sở hữu có thể thay đổi thiết lập này.",
         }}
         defaultValues={{
           requireExplicitCheckoutForAdmin:
@@ -683,9 +683,9 @@ export default function GeneralPage() {
       <div>
         <ProgressiveCheckinSettings
           header={{
-            title: "Counting options",
+            title: "Cách tính tiến độ",
             subHeading:
-              "Choose how kits are counted when visualising booking check-in/out progress.",
+              "Chọn cách tính bộ tài sản khi hiển thị tiến độ bàn giao và nhận lại.",
           }}
           defaultValue={bookingSettings.countKitsAsSingleUnit}
         />
@@ -694,9 +694,9 @@ export default function GeneralPage() {
       {/* Tags required settings form */}
       <TagsRequiredSettings
         header={{
-          title: "Tags requirement",
+          title: "Yêu cầu gắn thẻ",
           subHeading:
-            "Control whether users must add tags to their bookings. This helps with categorization and organization of bookings.",
+            "Quy định người dùng có bắt buộc gắn thẻ cho lịch đặt hay không để dễ phân loại và quản lý.",
         }}
         defaultValue={bookingSettings.tagsRequired}
       />
@@ -704,9 +704,9 @@ export default function GeneralPage() {
       {/* Auto-archive settings form */}
       <AutoArchiveSettings
         header={{
-          title: "Automation",
+          title: "Tự động hóa",
           subHeading:
-            "Configure automatic actions for completed bookings to keep your workspace clean.",
+            "Cấu hình tự động xử lý các lịch đặt đã hoàn thành để danh sách luôn gọn gàng.",
         }}
         defaultAutoArchiveBookings={bookingSettings.autoArchiveBookings}
         defaultAutoArchiveExpiredReservations={
@@ -718,9 +718,9 @@ export default function GeneralPage() {
       {/* Time settings form */}
       <TimeSettings
         header={{
-          title: "Booking time restrictions",
+          title: "Giới hạn thời gian đặt lịch",
           subHeading:
-            "Control booking timing constraints including minimum advance notice and maximum booking duration.",
+            "Cấu hình thời gian báo trước tối thiểu và thời lượng đặt lịch tối đa.",
         }}
         defaultBufferValue={bookingSettings.bufferStartTime}
         defaultMaxLengthValue={bookingSettings.maxBookingLength}
@@ -733,9 +733,9 @@ export default function GeneralPage() {
       <EnableWorkingHoursForm
         enabled={workingHours.enabled}
         header={{
-          title: "Working hours",
+          title: "Giờ làm việc",
           subHeading:
-            "Manage your workspace's working hours. This will allow you to limit when bookings' start and end times and dates.",
+            "Quản lý giờ làm việc để giới hạn thời điểm bắt đầu và kết thúc của lịch đặt.",
         }}
       />
       {/* New weekly schedule form - only show if working hours are enabled */}

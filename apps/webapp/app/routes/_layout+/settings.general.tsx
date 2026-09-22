@@ -307,7 +307,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
           if (parseError instanceof MaxFileSizeExceededError) {
             const reason = new ShelfError({
               cause: parseError,
-              message: `Image size exceeds maximum allowed size of ${
+              message: `Kích thước ảnh vượt quá giới hạn cho phép ${
                 DEFAULT_MAX_IMAGE_UPLOAD_SIZE / (1024 * 1024)
               }MB`,
               status: 400,
@@ -619,16 +619,13 @@ export default function GeneralPage() {
       />
 
       <Card className={tw("mb-0")}>
-        <h4 className="text-text-lg font-semibold">Asset backup</h4>
+        <h4 className="text-text-lg font-semibold">Sao lưu tài sản</h4>
         <p className=" text-sm text-gray-600">
-          Download a backup of your assets. If you want to restore a backup,
-          please get in touch with support.
+          Tải xuống bản sao lưu dữ liệu tài sản dưới dạng CSV để lưu trữ hoặc đối soát.
         </p>
         <p className=" font-italic mb-2 text-sm text-gray-600">
-          IMPORTANT NOTE: QR codes will not be included in the export. Due to
-          the nature of how Shelf's QR codes work, they currently cannot be
-          exported with assets because they have unique ids. <br />
-          Importing a backup will just create a new QR code for each asset.
+          LƯU Ý: Mã QR không được xuất kèm trong bản sao lưu vì mỗi mã có định danh
+          riêng trong hệ thống. Khi nhập lại dữ liệu, tài sản sẽ được cấp mã QR mới.
         </p>
         <ExportBackupButton canExportAssets={canExportAssets} />
       </Card>

@@ -42,7 +42,7 @@ import {
 } from "~/utils/stripe.server";
 import { canUseAudits } from "~/utils/subscription.server";
 
-export const meta = () => [{ title: appendToMetaTitle("Audits") }];
+export const meta = () => [{ title: appendToMetaTitle("Kiểm kê") }];
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
@@ -304,7 +304,7 @@ export function shouldRevalidate({
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/audits">Audits</Link>,
+  breadcrumb: () => <Link to="/audits">Kiểm kê</Link>,
 };
 
 export default function AuditsPage() {

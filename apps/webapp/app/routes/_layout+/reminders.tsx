@@ -2,14 +2,14 @@ import { Link, Outlet } from "react-router";
 import { ErrorContent } from "~/components/errors";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 
-export const meta = () => [{ title: appendToMetaTitle("Reminders") }];
+export const meta = () => [{ title: appendToMetaTitle("Nhắc việc") }];
 
 export function loader() {
   return null;
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/reminders">Reminders</Link>,
+  breadcrumb: () => <Link to="/reminders">Nhắc việc</Link>,
 };
 
 export default function RemindersPage() {

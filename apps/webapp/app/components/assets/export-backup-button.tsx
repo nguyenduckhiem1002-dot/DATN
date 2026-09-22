@@ -26,7 +26,7 @@ export const ExportBackupButton = ({
             }
           : false
       }
-      title={totalItems === 0 ? "No assets to export" : "Export assets"}
+      title={totalItems === 0 ? "Không có tài sản để xuất" : "Xuất dữ liệu tài sản"}
     >
       Download CSV
     </Button>

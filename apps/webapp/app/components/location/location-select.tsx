@@ -95,8 +95,8 @@ export const LocationSelect = ({
           fieldName={fieldName}
           defaultValue={locationId ?? undefined}
           model={{ name: "location", queryKey: "name" }}
-          contentLabel="Locations"
-          placeholder={placeholder || "Without location"}
+          contentLabel="Vị trí"
+          placeholder={placeholder || "Chưa chọn vị trí"}
           initialDataKey="locations"
           countKey="totalLocations"
           closeOnSelect
@@ -110,8 +110,8 @@ export const LocationSelect = ({
               : ({ onItemCreated, closePopover }) => (
                   <InlineEntityCreationDialog
                     type="location"
-                    title="Create new location"
-                    buttonLabel="Create new location"
+                    title="Tạo vị trí mới"
+                    buttonLabel="Tạo vị trí mới"
                     onCreated={(created) => {
                       if (created?.type !== "location") return;
                       const createdLocation = created.entity;

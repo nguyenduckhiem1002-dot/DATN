@@ -280,13 +280,13 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         modelName,
         search,
         hasActiveFilters,
-        searchFieldLabel: "Search kits",
+        searchFieldLabel: "Tìm kiếm bộ tài sản",
         teamMembers,
         totalTeamMembers,
         currentUserTeamMember,
         searchFieldTooltip: {
-          title: "Search your kits database",
-          text: "Search kits based on name or description.",
+          title: "Tìm kiếm bộ tài sản",
+          text: "Tìm bộ tài sản theo tên hoặc mô tả.",
         },
         locations,
         totalLocations,
@@ -356,7 +356,7 @@ export default function KitsIndexPage() {
             <DynamicDropdown
               trigger={
                 <div className="my-2 flex cursor-pointer items-center gap-2 md:my-0">
-                  Custodian{" "}
+                  Người quản lý{" "}
                   <ChevronRight className="hidden rotate-90 md:inline" />
                 </div>
               }
@@ -367,8 +367,8 @@ export default function KitsIndexPage() {
                 // A read FILTER — the workspace custody override governs.
                 custodyPurpose: "custody-filter",
               }}
-              label="Filter by custodian"
-              placeholder="Search team members"
+              label="Lọc theo người quản lý"
+              placeholder="Tìm thành viên"
               countKey="totalTeamMembers"
               initialDataKey="teamMembers"
               /*
@@ -436,29 +436,27 @@ export default function KitsIndexPage() {
             bulkActions={isBase ? undefined : <BulkActionsDropdown />}
             customEmptyStateContent={{
               title: "Chưa có bộ tài sản",
-              text: "Kits let you group related assets together. Create a kit to bundle equipment that's typically used as a set.",
+              text: "Bộ tài sản giúp nhóm các thiết bị thường được sử dụng cùng nhau. Hãy tạo bộ để quản lý và bàn giao thuận tiện hơn.",
               newButtonRoute: "/kits/new",
               newButtonContent: "Tạo bộ tài sản đầu tiên",
             }}
             headerChildren={
               <>
-                <Th>Category</Th>
+                <Th>Danh mục</Th>
                 <Th>Vị trí</Th>
                 <Th>Mô tả</Th>
                 <Th>Tài sản</Th>
                 <Th className="flex items-center gap-1 whitespace-nowrap">
-                  Custodian{" "}
+                  Người quản lý{" "}
                   <InfoTooltip
                     iconClassName="size-4"
                     content={
                       <>
-                        <h6>Asset custody</h6>
+                        <h6>Bàn giao tài sản</h6>
                         <p>
-                          This column shows if a user has custody of the asset
-                          either via direct assignment or via a booking. If you
-                          see <GrayBadge>private</GrayBadge> that means you
-                          don't have the permissions to see who has custody of
-                          the asset.
+                          Cột này cho biết ai đang quản lý tài sản trong bộ thông qua bàn giao
+                          trực tiếp hoặc lịch đặt. Nếu hiển thị
+                          <GrayBadge>riêng tư</GrayBadge>, bạn không có quyền xem người quản lý.
                         </p>
                       </>
                     }

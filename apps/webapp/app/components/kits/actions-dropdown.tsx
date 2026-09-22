@@ -119,7 +119,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
           <Button
             type="button"
             variant="secondary"
-            aria-label="Actions Trigger"
+            aria-label="Mở menu thao tác"
           >
             <span className="flex items-center gap-2">
               Actions <ChevronRight className="chev" />
@@ -134,7 +134,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
           className="actions-dropdown sm:hidden"
           width="full"
           onClick={() => setOpen(true)}
-          aria-label="Actions Trigger"
+          aria-label="Mở menu thao tác"
         >
           <span className="flex items-center gap-2">
             Actions <ChevronRight className="chev" />
@@ -166,10 +166,10 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
                     width="full"
                     onClick={() => setOpen(false)}
                     disabled={disableReleaseForSelfService}
-                    aria-label="Release Custody"
+                    aria-label="Thu hồi tài sản"
                   >
                     <span className="flex items-center gap-1">
-                      <Icon icon="release-custody" /> Release custody
+                      <Icon icon="release-custody" /> Thu hồi tài sản
                     </span>
                   </Button>
                 ) : (
@@ -181,11 +181,11 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
                     width="full"
                     onClick={() => setOpen(false)}
                     disabled={someAssetIsNotAvailable}
-                    aria-label="Assign/Take Custody"
+                    aria-label="Bàn giao/nhận tài sản"
                   >
                     <span className="flex items-center gap-2">
                       <Icon icon="assign-custody" />{" "}
-                      {isSelfService ? "Take" : "Assign"} custody
+                      {isSelfService ? "Nhận tài sản" : "Bàn giao tài sản"}
                     </span>
                   </Button>
                 )}
@@ -212,7 +212,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
                   }}
                 >
                   <span className="flex items-center gap-2">
-                    <Icon icon="start-audit" /> Create audit
+                    <Icon icon="start-audit" /> Tạo đợt kiểm kê
                   </span>
                 </Button>
               </DropdownMenuItem>
@@ -254,7 +254,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
                 >
                   <span className="flex items-center gap-2">
                     <Icon icon="barcode" />
-                    Relink QR Code
+                    Liên kết lại mã QR
                   </span>
                 </Button>
               </DropdownMenuItem>
@@ -268,7 +268,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
                   width="full"
                 >
                   <span className="flex items-center gap-2">
-                    <Icon icon="pen" /> Edit
+                    <Icon icon="pen" /> Chỉnh sửa
                   </span>
                 </Button>
               </DropdownMenuItem>
@@ -287,7 +287,7 @@ function ConditionalActionsDropdown({ fullWidth }: { fullWidth?: boolean }) {
             <When truthy={!isSelfService}>
               {kitIsCheckedOut || someAssetIsNotAvailable ? (
                 <div className=" border-t p-2 text-left text-xs">
-                  Some actions are disabled due to asset(s) not being Available.
+                  Một số thao tác bị tắt vì có tài sản không ở trạng thái khả dụng.
                 </div>
               ) : null}
             </When>

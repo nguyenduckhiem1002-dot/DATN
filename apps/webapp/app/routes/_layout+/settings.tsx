@@ -17,7 +17,7 @@ import {
 import { requirePermission } from "~/utils/roles.server";
 
 export const handle = {
-  breadcrumb: () => <Link to="/settings">Settings</Link>,
+  breadcrumb: () => <Link to="/settings">Cài đặt</Link>,
 };
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
@@ -32,8 +32,8 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       action: PermissionAction.read,
     });
 
-    const title = "Settings";
-    const subHeading = "Manage your preferences here.";
+    const title = "Cài đặt";
+    const subHeading = "Quản lý cấu hình và tùy chọn của hệ thống.";
     const header = {
       title,
       subHeading,
@@ -58,12 +58,12 @@ export const shouldRevalidate = () => false;
 export default function SettingsPage() {
   const { _isPersonalOrg } = useLoaderData<typeof loader>();
   let items = [
-    { to: "general", content: "General" },
-    ...(!_isPersonalOrg ? [{ to: "bookings", content: "Bookings" }] : []),
-    ...(!_isPersonalOrg ? [{ to: "emails", content: "Emails" }] : []),
-    { to: "custom-fields", content: "Custom fields" },
-    { to: "asset-models", content: "Asset models" },
-    { to: "team", content: "Team" },
+    { to: "general", content: "Chung" },
+    ...(!_isPersonalOrg ? [{ to: "bookings", content: "Đặt lịch" }] : []),
+    ...(!_isPersonalOrg ? [{ to: "emails", content: "Email" }] : []),
+    { to: "custom-fields", content: "Trường tùy chỉnh" },
+    { to: "asset-models", content: "Mẫu tài sản" },
+    { to: "team", content: "Nhân sự" },
   ];
 
   const { isBaseOrSelfService } = useUserRoleHelper();
