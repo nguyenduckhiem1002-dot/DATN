@@ -74,7 +74,7 @@ export const EditGeneralWorkspaceSettingsFormSchema = (
     id: z.string(),
     name: personalOrg
       ? z.string().optional()
-      : z.string().min(2, "Name is required"),
+      : z.string().min(2, "Tên không gian làm việc là bắt buộc"),
     logo: z.any().optional(),
     currency: z.custom<Currency>(),
     qrIdDisplayPreference: z.custom<QrIdDisplayPreference>(),
@@ -167,21 +167,21 @@ const WorkspaceGeneralEditForms = ({
     >
       <Card className={tw("my-0", className)}>
         <div className="mb-6">
-          <h3 className="text-text-lg font-semibold">General</h3>
+          <h3 className="text-text-lg font-semibold">Chung</h3>
           <p className="text-sm text-gray-600">
-            Manage general workspace settings.
+            Quản lý các thiết lập chung của không gian làm việc.
           </p>
         </div>
         <input type="hidden" value={organization.id} name="id" />
 
         <FormRow
-          rowLabel={"Name"}
+          rowLabel={"Tên"}
           className="border-b-0 pb-[10px] pt-0"
           required={zodFieldIsRequired(schema.shape.name)}
         >
           <Input
             ref={nameInputRef}
-            label="Name"
+            label="Tên"
             hideLabel
             name={zo.fields.name()}
             disabled={isPersonalWorkspace || disabled}
@@ -194,10 +194,10 @@ const WorkspaceGeneralEditForms = ({
           />
         </FormRow>
 
-        <FormRow rowLabel={"Main image"} className="border-b-0">
+        <FormRow rowLabel={"Ảnh đại diện"} className="border-b-0">
           <div>
             <p className="hidden lg:block">
-              Accepts PNG, JPG, JPEG, or WebP (max.4 MB)
+              Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 4 MB)
             </p>
             <Input
               // disabled={disabled}
@@ -205,25 +205,25 @@ const WorkspaceGeneralEditForms = ({
               name="image"
               type="file"
               onChange={validateFile}
-              label={"Main image"}
+              label={"Ảnh đại diện"}
               hideLabel
               error={imageError}
               className="mt-2"
               inputClassName="border-0 shadow-none p-0 rounded-none"
             />
             <p className="mt-2 lg:hidden">
-              Accepts PNG, JPG, JPEG, or WebP (max.4 MB)
+              Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 4 MB)
             </p>
           </div>
         </FormRow>
 
         <div>
           <FormRow
-            rowLabel={"Currency"}
+            rowLabel={"Tiền tệ"}
             className={"border-b-0"}
-            subHeading="Choose the currency for your workspace. All ISO 4217 currencies are supported."
+            subHeading="Chọn đơn vị tiền tệ sử dụng trong hệ thống. Hỗ trợ các mã tiền tệ ISO 4217."
           >
-            <InnerLabel hideLg>Currency</InnerLabel>
+            <InnerLabel hideLg>Tiền tệ</InnerLabel>
             <CurrencySelector
               defaultValue={currency || "USD"}
               name={zo.fields.currency()}
@@ -380,7 +380,7 @@ const WorkspaceGeneralEditForms = ({
             value="general"
             name="intent"
           >
-            {disabled ? <Spinner /> : "Save"}
+            {disabled ? <Spinner /> : "Lưu"}
           </Button>
         </div>
       </Card>
@@ -420,22 +420,20 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
     <fetcher.Form ref={zo.ref} method="post" className="flex flex-col gap-2">
       <Card className={tw("my-0 w-full", className)}>
         <div className="border-b pb-5">
-          <h3 className="text-text-lg font-semibold">Permissions</h3>
+          <h3 className="text-text-lg font-semibold">Phân quyền</h3>
           <p className="text-sm text-gray-600">
-            Adjust specific permissions for <b>Self Service</b> and <b>Base</b>{" "}
-            users.
+            Điều chỉnh quyền xem dữ liệu cho nhóm <b>Tự phục vụ</b> và <b>Người dùng cơ bản</b>.
           </p>
         </div>
         <input type="hidden" value={organization.id} name="id" />
 
-        <h4 className="mt-5 text-text-md">Self service users</h4>
+        <h4 className="mt-5 text-text-md">Người dùng tự phục vụ</h4>
         <FormRow
-          rowLabel={`View custody`}
+          rowLabel={`Xem bàn giao`}
           subHeading={
             <div>
-              Allow <b>self service</b> users to <b>see</b> custody of assets
-              and kits which are not assigned to them. By default they can only
-              see custodian for assets that they are the custodian of.
+              Cho phép người dùng <b>Tự phục vụ</b> xem thông tin bàn giao của
+              tài sản và bộ tài sản không được giao cho họ.
             </div>
           }
           className="border-b-0 pb-[10px]"
@@ -452,18 +450,17 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
               htmlFor={`selfServiceCustody`}
               className=" hidden text-gray-500"
             >
-              Allow
+              Cho phép
             </label>
           </div>
         </FormRow>
 
         <FormRow
-          rowLabel={`View bookings`}
+          rowLabel={`Xem lịch đặt`}
           subHeading={
             <div>
-              Allow <b>self service</b> users to <b>see</b> bookings which are
-              not assigned to them. By default they can only see bookings that
-              they are the custodian of.
+              Cho phép người dùng <b>Tự phục vụ</b> xem các lịch đặt không được
+              giao cho họ.
             </div>
           }
           className="border-b-0 pb-[10px]"
@@ -480,19 +477,18 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
               htmlFor={`selfServiceBookings`}
               className=" hidden text-gray-500"
             >
-              Allow
+              Cho phép
             </label>
           </div>
         </FormRow>
 
-        <h4 className="border-t pt-5 text-text-md">Base users</h4>
+        <h4 className="border-t pt-5 text-text-md">Người dùng cơ bản</h4>
         <FormRow
-          rowLabel={`View custody`}
+          rowLabel={`Xem bàn giao`}
           subHeading={
             <div>
-              Allow <b>base</b> users to <b>see</b> custody of assets and kits
-              which are not assigned to them. By default they can only see
-              custodian for assets that they are the custodian of.
+              Cho phép <b>Người dùng cơ bản</b> xem thông tin bàn giao của tài
+              sản và bộ tài sản không được giao cho họ.
             </div>
           }
           className="border-b-0 pb-[10px]"
@@ -509,18 +505,17 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
               htmlFor={`baseUserCustody`}
               className=" hidden text-gray-500"
             >
-              Allow
+              Cho phép
             </label>
           </div>
         </FormRow>
 
         <FormRow
-          rowLabel={`View bookings`}
+          rowLabel={`Xem lịch đặt`}
           subHeading={
             <div>
-              Allow <b>base</b> users to <b>see</b> bookings which are not
-              assigned to them. By default they can only see bookings that they
-              are the custodian of.
+              Cho phép <b>Người dùng cơ bản</b> xem các lịch đặt không được
+              giao cho họ.
             </div>
           }
           className="border-b-0 pb-[10px]"
@@ -537,7 +532,7 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
               htmlFor={`baseUserBookings`}
               className=" hidden text-gray-500"
             >
-              Allow
+              Cho phép
             </label>
           </div>
         </FormRow>
@@ -549,7 +544,7 @@ const WorkspacePermissionsEditForm = ({ className }: Props) => {
             name="intent"
             value="permissions"
           >
-            {disabled ? <Spinner /> : "Save"}
+            {disabled ? <Spinner /> : "Lưu"}
           </Button>
         </div>
       </Card>
@@ -621,9 +616,9 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
     <fetcher.Form ref={zo.ref} method="post" className="flex flex-col gap-2">
       <Card className={tw("my-0 ", className)}>
         <div className=" border-b pb-5">
-          <h2 className=" text-[18px] font-semibold">SSO details</h2>
+          <h2 className=" text-[18px] font-semibold">Cấu hình SSO</h2>
           <p>
-            This workspace has SSO enabled so you can see your SSO settings.
+            Không gian làm việc đã bật SSO. Bạn có thể cấu hình ánh xạ nhóm người dùng tại đây.
           </p>
         </div>
         <input type="hidden" value={organization.id} name="id" />
@@ -633,9 +628,8 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
             Spell out the convention so owners don't paste the wrong value. */}
         <div className="rounded border border-gray-200 bg-gray-50 p-3 text-[14px] text-gray-600">
           <p>
-            Map your identity provider's groups to Shelf roles below. You only
-            need to map the roles you use — <b>at least one</b> mapping is
-            required, the rest can be left blank.
+            Ánh xạ nhóm từ nhà cung cấp danh tính sang vai trò trong hệ thống.
+            Chỉ cần cấu hình các vai trò đang sử dụng và cần ít nhất một ánh xạ.
           </p>
           <p className="mt-2">
             Enter the value(s) your identity provider sends in the user's{" "}
@@ -651,22 +645,21 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
             your IdP sends them.
           </p>
           <p className="mt-2">
-            Each field accepts <b>one or more group IDs, separated by commas</b>{" "}
-            (e.g. <b>it-admins, shelf-admins</b>) — useful when more than one
-            IdP group should map to the same role.
+            Mỗi trường chấp nhận <b>một hoặc nhiều ID nhóm, phân tách bằng dấu phẩy</b>,
+            hữu ích khi nhiều nhóm IdP cùng ánh xạ tới một vai trò.
           </p>
         </div>
 
         <FormRow
-          rowLabel={"SSO Domain"}
+          rowLabel={"Tên miền SSO"}
           className="border-b-0 pb-[10px]"
           subHeading={
-            "The domain that this workspace is linked to. If you want it changed, please contact support."
+            "Tên miền đang liên kết với SSO của không gian làm việc."
           }
           required
         >
           <Input
-            label="SSO Domain"
+            label="Tên miền SSO"
             hideLabel
             disabled={true}
             className="disabled w-full"
@@ -676,17 +669,16 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
         </FormRow>
 
         <FormRow
-          rowLabel={`Administrator role group`}
+          rowLabel={`Nhóm vai trò Quản trị viên`}
           subHeading={
             <div>
-              The group identifier that should be mapped to the{" "}
-              <b>Administrator</b> role.
+              Mã nhóm được ánh xạ tới vai trò <b>Quản trị viên</b>.
             </div>
           }
           className="border-b-0 pb-[10px]"
         >
           <Input
-            label={"Administrator role group"}
+            label={"Nhóm vai trò Quản trị viên"}
             hideLabel
             className="w-full"
             name={zo.fields.adminGroupId()}
@@ -699,17 +691,16 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
         </FormRow>
 
         <FormRow
-          rowLabel={`Self service role group`}
+          rowLabel={`Nhóm vai trò Tự phục vụ`}
           subHeading={
             <div>
-              The group identifier that should be mapped to the{" "}
-              <b>Self service</b> role.
+              Mã nhóm được ánh xạ tới vai trò <b>Tự phục vụ</b>.
             </div>
           }
           className="border-b-0 pb-[10px]"
         >
           <Input
-            label={"Self service role group"}
+            label={"Nhóm vai trò Tự phục vụ"}
             hideLabel
             name={zo.fields.selfServiceGroupId()}
             error={
@@ -723,17 +714,16 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
           />
         </FormRow>
         <FormRow
-          rowLabel={`Base user role group`}
+          rowLabel={`Nhóm vai trò Người dùng cơ bản`}
           subHeading={
             <div>
-              The group identifier that should be mapped to the <b>Base</b>{" "}
-              role.
+              Mã nhóm được ánh xạ tới vai trò <b>Người dùng cơ bản</b>.
             </div>
           }
           className="border-b-0 pb-[10px]"
         >
           <Input
-            label={"Base user role group"}
+            label={"Nhóm vai trò Người dùng cơ bản"}
             hideLabel
             name={zo.fields.baseUserGroupId()}
             error={
@@ -746,7 +736,7 @@ const WorkspaceSSOEditForm = ({ className }: Props) => {
         </FormRow>
         <div className="text-right">
           <Button type="submit" disabled={disabled} name="intent" value="sso">
-            {disabled ? <Spinner /> : "Save"}
+            {disabled ? <Spinner /> : "Lưu"}
           </Button>
         </div>
       </Card>
@@ -813,10 +803,9 @@ const WorkspaceScimTokensSection = ({
     <>
       <Card className={tw("my-0", className)}>
         <div className="border-b pb-5">
-          <h2 className="text-[18px] font-semibold">SCIM provisioning</h2>
+          <h2 className="text-[18px] font-semibold">Cấp phát người dùng SCIM</h2>
           <p className="text-sm text-gray-600">
-            Manage bearer tokens for SCIM user provisioning (e.g. Microsoft
-            Entra ID).
+            Quản lý token dùng để đồng bộ và cấp phát người dùng qua SCIM, ví dụ Microsoft Entra ID.
           </p>
         </div>
 
@@ -826,10 +815,10 @@ const WorkspaceScimTokensSection = ({
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b text-xs text-gray-500">
-                  <th className="pb-2 font-medium">Label</th>
-                  <th className="pb-2 font-medium">Created</th>
-                  <th className="pb-2 font-medium">Last used</th>
-                  <th className="pb-2 text-right font-medium">Actions</th>
+                  <th className="pb-2 font-medium">Nhãn</th>
+                  <th className="pb-2 font-medium">Ngày tạo</th>
+                  <th className="pb-2 font-medium">Lần dùng cuối</th>
+                  <th className="pb-2 text-right font-medium">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -843,7 +832,7 @@ const WorkspaceScimTokensSection = ({
                       {token.lastUsedAt ? (
                         <DateS date={token.lastUsedAt} />
                       ) : (
-                        <span className="text-gray-400">Never</span>
+                        <span className="text-gray-400">Chưa dùng</span>
                       )}
                     </td>
                     <td className="py-3 text-right">
@@ -853,7 +842,7 @@ const WorkspaceScimTokensSection = ({
                         className="text-error-500 hover:text-error-600"
                         onClick={() => setTokenToDelete(token)}
                       >
-                        Delete
+                        Xóa
                       </Button>
                     </td>
                   </tr>
@@ -863,7 +852,7 @@ const WorkspaceScimTokensSection = ({
           </div>
         ) : (
           <p className="mt-4 text-sm text-gray-500">
-            No active SCIM tokens. Generate one to enable SCIM provisioning.
+            Chưa có token SCIM đang hoạt động. Hãy tạo token để bật đồng bộ SCIM.
           </p>
         )}
 
@@ -898,7 +887,7 @@ const WorkspaceScimTokensSection = ({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete SCIM token</AlertDialogTitle>
+            <AlertDialogTitle>Xóa token SCIM</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you want to delete the token &ldquo;
               {tokenToDelete?.label}&rdquo;? Any SCIM integration using this
