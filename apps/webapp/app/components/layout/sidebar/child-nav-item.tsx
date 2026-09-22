@@ -29,6 +29,7 @@ export default function ChildNavItem({
         <NavLink
           to={route.to}
           target={route.target}
+          prefetch={route.target === "_blank" ? "none" : "intent"}
           className={tw(
             "font-semibold",
             isActive ? "bg-transparent font-bold text-primary" : ""

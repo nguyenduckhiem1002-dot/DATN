@@ -132,6 +132,7 @@ function NestedRouteRenderer({
         <NavLink
           to={nested.to}
           target={nested.target}
+          prefetch={nested.target === "_blank" ? "none" : "intent"}
           className={tw(
             "font-medium hover:bg-gray-100",
             isChildActive && "bg-transparent font-bold !text-primary"

@@ -77,7 +77,7 @@ export const NewAssetFormSchema = z.object({
   // (the bulk action ignores `title` and uses `nameTemplate` instead).
   title: z
     .string()
-    .min(2, "Name is required")
+    .min(2, "Tên tài sản là bắt buộc")
     .transform((val) => val.trim()), // We trim to avoid white spaces at start and end
 
   description: z.string().transform((val) => val.trim()),
@@ -128,9 +128,9 @@ export const NewAssetFormSchema = z.object({
     .transform((val) => (val === "" || val === undefined ? undefined : +val))
     .pipe(
       z
-        .number({ invalid_type_error: "Quantity must be a number" })
-        .int("Quantity must be a whole number")
-        .positive("Quantity is required and must be at least 1")
+        .number({ invalid_type_error: "Số lượng phải là một số" })
+        .int("Số lượng phải là số nguyên")
+        .positive("Số lượng là bắt buộc và phải từ 1 trở lên")
         .optional()
     ),
   minQuantity: z
@@ -139,14 +139,14 @@ export const NewAssetFormSchema = z.object({
     .transform((val) => (val === "" || val === undefined ? null : +val))
     .pipe(
       z
-        .number({ invalid_type_error: "Min quantity must be a number" })
-        .int("Min quantity must be a whole number")
-        .positive("Min quantity must be at least 1")
+        .number({ invalid_type_error: "Số lượng tối thiểu phải là một số" })
+        .int("Số lượng tối thiểu phải là số nguyên")
+        .positive("Số lượng tối thiểu phải từ 1 trở lên")
         .nullable()
     ),
   consumptionType: z
     .nativeEnum(ConsumptionType, {
-      errorMap: () => ({ message: "Please select a consumption type" }),
+      errorMap: () => ({ message: "Vui lòng chọn loại sử dụng" }),
     })
     .optional(),
   unitOfMeasure: z
@@ -175,10 +175,10 @@ export const NewAssetFormSchema = z.object({
  * server-side validation messages line up.
  */
 export const NewAssetBulkFormSchema = NewAssetFormSchema.extend({
-  assetModelId: z.string().min(1, "Please select an asset model"),
+  assetModelId: z.string().min(1, "Vui lòng chọn mẫu tài sản"),
   nameTemplate: z
     .string()
-    .min(1, "Name template is required")
+    .min(1, "Mẫu tên là bắt buộc")
     .transform((val) => val.trim()),
   count: z
     .string()
@@ -187,10 +187,10 @@ export const NewAssetBulkFormSchema = NewAssetFormSchema.extend({
     )
     .pipe(
       z
-        .number({ invalid_type_error: "Count must be a number" })
-        .int("Count must be a whole number")
-        .min(2, "Count must be at least 2")
-        .max(100, "Count must be at most 100")
+        .number({ invalid_type_error: "Số lượng tạo phải là một số" })
+        .int("Số lượng tạo phải là số nguyên")
+        .min(2, "Số lượng tạo phải từ 2 trở lên")
+        .max(100, "Số lượng tạo tối đa là 100")
     ),
 });
 
@@ -395,7 +395,7 @@ export const AssetForm = ({
     count: number;
     startNumber: number;
   }>({
-    nameTemplate: bulkMode ? "Asset {i}" : "",
+    nameTemplate: bulkMode ? "Tài sản {i}" : "",
     count: 5,
     startNumber: 1,
   });
@@ -642,7 +642,7 @@ export const AssetForm = ({
           if (isQtyTracked) {
             const formData = new FormData(e.currentTarget);
             if (!formData.get("consumptionType")) {
-              setConsumptionTypeError("Please select a consumption type");
+              setConsumptionTypeError("Vui lòng chọn loại sử dụng");
               e.preventDefault();
               e.stopPropagation();
               return false;
@@ -678,12 +678,12 @@ export const AssetForm = ({
         <div className="flex items-start justify-between border-b pb-5">
           <div className=" ">
             <h2 className="mb-1 text-[18px] font-semibold">
-              {bulkMode ? "Bulk create from model" : "Basic fields"}
+              {bulkMode ? "Tạo hàng loạt từ mẫu" : "Thông tin cơ bản"}
             </h2>
             <p>
               {bulkMode
-                ? "Create multiple assets from a model in one go. Common fields below apply to every asset created."
-                : "Basic information about your asset."}
+                ? "Tạo nhiều tài sản từ một mẫu trong một lần. Các trường chung bên dưới sẽ áp dụng cho mọi tài sản được tạo."
+                : "Thông tin cơ bản về tài sản."}
             </p>
           </div>
           <div className="hidden flex-1 justify-end gap-2 md:flex">
@@ -697,7 +697,7 @@ export const AssetForm = ({
 
         <When truthy={!bulkMode}>
           <FormRow
-            rowLabel={"Name"}
+            rowLabel={"Tên"}
             className="border-b-0 pb-[10px]"
             required={true}
           >
@@ -726,15 +726,15 @@ export const AssetForm = ({
 
         <When truthy={bulkMode}>
           <FormRow
-            rowLabel="Batch"
+            rowLabel="Tạo hàng loạt"
             className="border-b-0 pb-[10px]"
             subHeading={
               <p>
-                Each asset will be named using the template below. Use{" "}
+                Mỗi tài sản sẽ được đặt tên theo mẫu bên dưới. Dùng{" "}
                 <code className="rounded bg-gray-100 px-1 py-0.5 text-xs">
                   {"{i}"}
                 </code>{" "}
-                to substitute the asset number; otherwise it&apos;s appended.
+                để chèn số thứ tự tài sản; nếu không có, số sẽ được thêm vào cuối tên.
               </p>
             }
             required={true}
@@ -743,7 +743,7 @@ export const AssetForm = ({
               <div className="flex flex-col gap-3 md:flex-row md:items-end">
                 <div className="flex-1">
                   <Input
-                    label="Name template"
+                    label="Mẫu tên"
                     name="nameTemplate"
                     disabled={disabled}
                     value={bulkNameTemplate}
@@ -763,7 +763,7 @@ export const AssetForm = ({
                 <div className="w-full md:w-32">
                   <Input
                     type="number"
-                    label="Count"
+                    label="Số lượng tạo"
                     name="count"
                     disabled={disabled}
                     value={bulkCount}
@@ -790,7 +790,7 @@ export const AssetForm = ({
                 <div className="w-full md:w-32">
                   <Input
                     type="number"
-                    label="Start at"
+                    label="Bắt đầu từ"
                     name="startNumber"
                     disabled={disabled}
                     value={bulkStartNumber}
@@ -813,12 +813,12 @@ export const AssetForm = ({
 
         <When truthy={!bulkMode}>
           <FormRow
-            rowLabel={"Tracking method"}
+            rowLabel={"Phương thức theo dõi"}
             className="border-b-0 pb-[10px]"
             subHeading={
               isEditMode
                 ? "Không thể thay đổi phương thức theo dõi sau khi tạo tài sản."
-                : "Choose how this asset is tracked. This cannot be changed later."
+                : "Chọn cách theo dõi tài sản. Không thể thay đổi phương thức này sau khi tạo."
             }
             required={true}
           >
@@ -840,14 +840,14 @@ export const AssetForm = ({
         <When truthy={isQtyTracked}>
           <div className="flex flex-col gap-2">
             <FormRow
-              rowLabel="Quantity"
+              rowLabel="Số lượng"
               className="border-b-0 pb-[10px]"
-              subHeading="Total number of items in this pool."
+              subHeading="Tổng số vật phẩm trong nhóm tài sản này."
               required={true}
             >
               <Input
                 type="number"
-                label="Quantity"
+                label="Số lượng"
                 hideLabel
                 name="quantity"
                 disabled={disabled}
@@ -864,29 +864,29 @@ export const AssetForm = ({
             </FormRow>
 
             <FormRow
-              rowLabel="Unit of measure"
+              rowLabel="Đơn vị tính"
               className="border-b-0 pb-[10px]"
-              subHeading="Label for the unit (e.g. pcs, boxes, liters)."
+              subHeading="Đơn vị dùng để tính số lượng, ví dụ: cái, hộp, lít."
             >
               <Input
-                label="Unit of measure"
+                label="Đơn vị tính"
                 hideLabel
                 name="unitOfMeasure"
                 disabled={disabled}
                 className="w-full"
-                placeholder="e.g., pcs, boxes, liters"
+                placeholder="Ví dụ: cái, hộp, lít"
                 defaultValue={unitOfMeasure ?? ""}
               />
             </FormRow>
 
             <FormRow
-              rowLabel="Min quantity"
+              rowLabel="Số lượng tối thiểu"
               className="border-b-0 pb-[10px]"
-              subHeading="Low-stock alert threshold. You will be notified when available quantity falls to or below this number."
+              subHeading="Ngưỡng cảnh báo sắp hết. Hệ thống sẽ thông báo khi số lượng khả dụng giảm xuống bằng hoặc thấp hơn mức này."
             >
               <Input
                 type="number"
-                label="Min quantity"
+                label="Số lượng tối thiểu"
                 hideLabel
                 name="minQuantity"
                 disabled={disabled}
@@ -898,10 +898,10 @@ export const AssetForm = ({
             </FormRow>
 
             <FormRow
-              rowLabel="Consumption type"
+              rowLabel="Loại sử dụng"
               className="border-b-0 pb-[10px]"
               subHeading={
-                'Choose "Used up (one-way)" for items that are consumed and not returned, or "Returnable (two-way)" for items that are checked out and returned.'
+                'Chọn "Tiêu hao (một chiều)" cho vật phẩm được sử dụng hết và không hoàn trả, hoặc "Có hoàn trả (hai chiều)" cho vật phẩm được xuất ra rồi nhận lại.'
               }
               required={true}
             >
@@ -921,18 +921,18 @@ export const AssetForm = ({
             from the same sequence. Hide entirely under bulkMode. */}
         <When truthy={!bulkMode}>
           <FormRow
-            rowLabel={"Asset ID"}
+            rowLabel={"Mã tài sản"}
             className="border-b-0 pb-[10px]"
             subHeading={
               id
-                ? "This is the unique identifier for this asset"
-                : "This sequential ID will be assigned when the asset is created"
+                ? "Đây là mã định danh duy nhất của tài sản"
+                : "Mã thứ tự sẽ được cấp khi tài sản được tạo"
             }
           >
             <div className="flex items-center gap-2">
               <div className="shrink-0">
                 <Input
-                  label="Prefix"
+                  label="Tiền tố"
                   hideLabel
                   name="sequentialIdPrefix"
                   disabled={true}
@@ -944,7 +944,7 @@ export const AssetForm = ({
               <span className="font-medium text-gray-400">-</span>
               <div className="grow">
                 <Input
-                  label="Number"
+                  label="Số"
                   hideLabel
                   name="sequentialIdNumber"
                   disabled={true}
@@ -960,7 +960,7 @@ export const AssetForm = ({
           </FormRow>
         </When>
 
-        <FormRow rowLabel={"Main image"} className="pt-[10px]">
+        <FormRow rowLabel={"Ảnh chính"} className="pt-[10px]">
           <div className="flex items-center gap-2">
             {/*
               One preview for both tiers of the cascade. `clearMainImage` makes
@@ -982,7 +982,7 @@ export const AssetForm = ({
                     : null,
                   assetModel: inheritableAssetModelImage,
                 }}
-                alt={`${title} main image`}
+                alt={`Ảnh chính của ${title}`}
               />
             ) : inheritableAssetModelImage ? (
               <AssetImage
@@ -994,8 +994,8 @@ export const AssetForm = ({
                   mainImageExpiration: null,
                   assetModel: inheritableAssetModelImage,
                 }}
-                alt={`Image from asset model ${
-                  selectedAssetModel?.name ?? "selected model"
+                alt={`Ảnh từ mẫu tài sản ${
+                  selectedAssetModel?.name ?? "mẫu tài sản đã chọn"
                 }`}
               />
             ) : null}
@@ -1004,23 +1004,23 @@ export const AssetForm = ({
                 <p className="mb-1 text-sm text-gray-600">
                   {showOwnImagePreview ? (
                     <>
-                      This asset uses its own image.{" "}
+                      Tài sản này đang dùng ảnh riêng.{" "}
                       <Button
                         type="button"
                         variant="link"
                         className="!p-0 text-sm"
                         onClick={() => setClearMainImage(true)}
                       >
-                        Use the model's image instead
+                        Dùng ảnh của mẫu tài sản
                       </Button>
                     </>
                   ) : (
                     <>
-                      Using the image from{" "}
+                      Đang dùng ảnh từ{" "}
                       <span className="font-medium text-gray-700">
-                        {selectedAssetModel?.name ?? "the selected model"}
+                        {selectedAssetModel?.name ?? "mẫu tài sản đã chọn"}
                       </span>
-                      . Upload one below to override it for this asset.
+                      . Tải ảnh bên dưới để dùng ảnh riêng cho tài sản này.
                       <When truthy={clearMainImage}>
                         {" "}
                         <Button
@@ -1029,7 +1029,7 @@ export const AssetForm = ({
                           className="!p-0 text-sm"
                           onClick={() => setClearMainImage(false)}
                         >
-                          Undo
+                          Hoàn tác
                         </Button>
                       </When>
                     </>
@@ -1056,19 +1056,18 @@ export const AssetForm = ({
                     className="!p-0 text-sm"
                     onClick={() => setClearMainImage(!clearMainImage)}
                   >
-                    {clearMainImage ? "Undo remove image" : "Remove image"}
+                    {clearMainImage ? "Hoàn tác xóa ảnh" : "Xóa ảnh"}
                   </Button>
                 </p>
               </When>
               <p className="hidden lg:block">
                 <HoverCard openDelay={50} closeDelay={50}>
                   <HoverCardTrigger className={tw("inline-flex w-full  ")}>
-                    Accepts PNG, JPG, JPEG, or WebP (max.8 MB)
+                    Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 8 MB)
                   </HoverCardTrigger>
                   <HoverCardContent side="left">
-                    Images will be automatically resized on upload. Width will
-                    be set at 1200px and height will be adjusted accordingly to
-                    keep the aspect ratio.
+                    Ảnh sẽ được tự động thay đổi kích thước khi tải lên. Chiều rộng tối đa là
+                    1200px và chiều cao được điều chỉnh tương ứng để giữ đúng tỷ lệ.
                   </HoverCardContent>
                 </HoverCard>
               </p>
@@ -1078,14 +1077,14 @@ export const AssetForm = ({
                 name="mainImage"
                 type="file"
                 onChange={validateFile}
-                label={"Main image"}
+                label={"Ảnh chính"}
                 hideLabel
                 error={mainImageError}
                 className="mt-2"
                 inputClassName="border-0 shadow-none p-0 rounded-none"
               />
               <p className="mt-2 lg:hidden">
-                Accepts PNG, JPG, JPEG, or WebP (max.8 MB)
+                Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 8 MB)
               </p>
             </div>
           </div>
@@ -1093,12 +1092,11 @@ export const AssetForm = ({
 
         <div>
           <FormRow
-            rowLabel={"Description"}
+            rowLabel={"Mô tả"}
             subHeading={
               <p>
-                This is the initial object description. It will be shown on the
-                asset’s overview page. You can always change it. Maximum 1000
-                characters.
+                Mô tả này sẽ hiển thị trên trang tổng quan của tài sản và có thể chỉnh sửa
+                bất cứ lúc nào. Tối đa 1000 ký tự.
               </p>
             }
             className="border-b-0"
@@ -1106,11 +1104,11 @@ export const AssetForm = ({
             <Input
               inputType="textarea"
               maxLength={1000}
-              label={"Description"}
+              label={"Mô tả"}
               name="description"
               defaultValue={description || ""}
               hideLabel
-              placeholder="Add a description for your asset."
+              placeholder="Nhập mô tả cho tài sản."
               disabled={disabled}
               data-test-id="assetDescription"
               className="w-full"
@@ -1129,15 +1127,14 @@ export const AssetForm = ({
           rowLabel="Danh mục"
           subHeading={
             <p>
-              Make it unique. Each asset can have 1 category. It will show on
-              your index.{" "}
+              Mỗi tài sản có thể thuộc một danh mục để dễ phân loại và tìm kiếm.{" "}
               <Button
                 to="/categories/new"
                 variant="link-gray"
                 className="text-gray-600 underline"
                 target="_blank"
               >
-                Create categories
+                Tạo danh mục
               </Button>
             </p>
           }
@@ -1151,6 +1148,7 @@ export const AssetForm = ({
               undefined
             }
             model={{ name: "category", queryKey: "name" }}
+            placeholder="Chọn danh mục"
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
             contentLabel="Danh mục"
             label="Danh mục"
@@ -1210,8 +1208,7 @@ export const AssetForm = ({
           rowLabel="Vị trí"
           subHeading={
             <p>
-              A location is a place where an item is supposed to be located.
-              This is different than the last scanned location{" "}
+              Vị trí là nơi tài sản được bố trí hoặc lưu trữ theo nghiệp vụ, khác với vị trí quét gần nhất.{" "}
               <Button
                 to="/locations/new"
                 className="text-gray-600 underline"
@@ -1234,9 +1231,8 @@ export const AssetForm = ({
               triggerClassName="disabled w-full cursor-not-allowed"
               reason={
                 <>
-                  This asset's location is managed by its parent kit{" "}
-                  <strong>"{kitMembership?.name}"</strong>. Update the kit's
-                  location instead.
+                  Vị trí của tài sản này được quản lý theo bộ tài sản cha{" "}
+                  <strong>"{kitMembership?.name}"</strong>. Hãy cập nhật vị trí của bộ tài sản thay vì chỉnh trực tiếp tại đây.
                 </>
               }
             >
@@ -1247,6 +1243,7 @@ export const AssetForm = ({
                 triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
                 defaultValue={locationId || undefined}
                 model={{ name: "location", queryKey: "name" }}
+                placeholder="Chọn vị trí"
                 contentLabel="Vị trí"
                 label="Vị trí"
                 hideLabel
@@ -1264,6 +1261,7 @@ export const AssetForm = ({
               triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
               defaultValue={locationId || undefined}
               model={{ name: "location", queryKey: "name" }}
+              placeholder="Chọn vị trí"
               contentLabel="Vị trí"
               label="Vị trí"
               hideLabel
@@ -1308,8 +1306,7 @@ export const AssetForm = ({
           rowLabel={"Giá trị"}
           subHeading={
             <p>
-              Specify the value of assets to get an idea of the total value of
-              your inventory.
+              Nhập giá trị tài sản để hệ thống có thể tổng hợp giá trị toàn bộ kho tài sản.
             </p>
           }
           className="border-b-0 py-[10px]"
@@ -1345,7 +1342,7 @@ export const AssetForm = ({
               <FormRow
                 rowLabel={"Mã vạch"}
                 className="border-b-0"
-                subHeading="Add additional barcodes to this asset (Code 128, Code 39, or Data Matrix). Note: Each asset automatically gets a default Shelf QR code for tracking."
+                subHeading="Thêm mã vạch bổ sung cho tài sản (Code 128, Code 39 hoặc Data Matrix). Mỗi tài sản vẫn tự động có mã QR mặc định để theo dõi."
               >
                 <BarcodesInput
                   ref={barcodesInputRef}
@@ -1417,7 +1414,7 @@ const Actions = ({
   <>
     {/* Save button is first in DOM order so Enter key triggers it by default */}
     <Button type="submit" disabled={disabled} className="order-last">
-      Save
+      Lưu
     </Button>
 
     <ButtonGroup>

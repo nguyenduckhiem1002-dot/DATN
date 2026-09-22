@@ -5,26 +5,26 @@
  */
 
 export const BARCODE_ADDON = {
-  label: "Alternative Barcodes",
+  label: "Mã vạch thay thế",
 
   /** One-liner used in cards, banners, and onboarding toggles */
   description:
-    "Generate new barcodes or use your existing ones. Supports Code128, Code39, EAN-13, DataMatrix & QR codes — ideal for migrations.",
+    "Tạo mã vạch mới hoặc sử dụng mã hiện có. Hỗ trợ Code128, Code39, EAN-13, DataMatrix và QR.",
 
   /** Shorter subtitle for modal headers */
   subtitle:
-    "Add support for industry-standard barcode formats to your workspace.",
+    "Bổ sung hỗ trợ các định dạng mã vạch tiêu chuẩn cho không gian làm việc.",
 
   /** Non-owner banner — tells the user to contact the owner */
   nonOwnerDescription:
-    "Generate new barcodes or use your existing ones. Supports Code128, Code39, EAN-13, DataMatrix & QR codes — ideal for migrations. Contact your workspace owner to enable this feature.",
+    "Tạo mã vạch mới hoặc sử dụng mã hiện có. Hỗ trợ Code128, Code39, EAN-13, DataMatrix và QR. Liên hệ chủ không gian làm việc để bật tính năng này.",
 
   /** Bullet-point features for modals and emails */
   features: [
-    "Supports Code128, Code39, EAN-13, DataMatrix & QR codes",
-    "Generate new barcode labels or use your existing ones",
-    "Print barcode labels for your assets",
-    "Built-in barcode scanner for quick asset lookups",
+    "Hỗ trợ Code128, Code39, EAN-13, DataMatrix và QR",
+    "Tạo nhãn mã vạch mới hoặc sử dụng mã hiện có",
+    "In nhãn mã vạch cho tài sản",
+    "Quét mã vạch để tra cứu tài sản nhanh",
   ],
 } as const;
 

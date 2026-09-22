@@ -145,7 +145,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
       barcodes.forEach((barcode, index) => {
         // If a barcode row exists, value is required
         if (!barcode.value.trim()) {
-          errors[index] = "Barcode value is required";
+          errors[index] = "Giá trị mã vạch là bắt buộc";
           return;
         }
 
@@ -162,7 +162,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
           barcode.value
         );
         if (values.has(normalizedValue)) {
-          errors[index] = "Duplicate barcode values are not allowed";
+          errors[index] = "Không được nhập trùng giá trị mã vạch";
           return;
         }
 
@@ -242,7 +242,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
     return (
       <div className={tw("w-full", className)} style={style}>
         <div className=" border-t py-5 md:hidden">
-          <h2 className="mb-1 text-[18px] font-semibold">Barcodes</h2>
+          <h2 className="mb-1 text-[18px] font-semibold">Mã vạch</h2>
         </div>
         {barcodes.map((barcode, i) => {
           // Show server errors first (unless cleared), then client-side validation errors
@@ -263,7 +263,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
                     <PopoverTrigger asChild>
                       <div className="w-full">
                         <p className="inner-label mb-[6px] font-medium text-gray-700 lg:hidden">
-                          Select barcode type
+                          Chọn loại mã vạch
                         </p>
                         <Button
                           type="button"
@@ -275,7 +275,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
                           <span className="ml-2 text-text-md">
                             {BARCODE_TYPE_OPTIONS.find(
                               (opt) => opt.value === barcode.type
-                            )?.label || "Select barcode type"}
+                            )?.label || "Chọn loại mã vạch"}
                           </span>
                           <BarcodeTypeTooltip type={barcode.type} />
                         </Button>
@@ -337,12 +337,12 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
                 {/* Barcode Value Input */}
                 <div className="w-full md:w-auto md:flex-[2]">
                   <Input
-                    label="Barcode Value"
+                    label="Giá trị mã vạch"
                     hideLabel
                     disabled={disabled}
                     name={valueName(i)}
                     value={barcode.value}
-                    placeholder="Enter barcode value"
+                    placeholder="Nhập giá trị mã vạch"
                     onChange={(e) => {
                       barcodes[i].value = normalizeBarcodeValue(
                         barcodes[i].type,
@@ -390,7 +390,7 @@ const BarcodesInput = forwardRef<BarcodesInputRef, BarcodesInputProps>(
             ]);
           }}
         >
-          {barcodes.length === 0 ? "Add barcode" : "Add another barcode"}
+          {barcodes.length === 0 ? "Thêm mã vạch" : "Thêm mã vạch khác"}
         </Button>
       </div>
     );

@@ -267,6 +267,14 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
       "target" in props;
     const newTab = hasTarget(props) && props.target === "_blank";
 
+    // Internal links start prefetching route modules and loader data only when
+    // the user shows intent (hover/focus/touch). External/new-tab links stay
+    // opt-out by default.
+    const resolvedPrefetch = isLinkProps(props)
+      ? props.prefetch ??
+        (props.to.startsWith("/") && !newTab ? "intent" : "none")
+      : undefined;
+
     /**
      * Reverse-tabnabbing guard: a `target="_blank"` link without `rel` hands
      * the opened page a `window.opener` handle back to ours. Applied to every
@@ -341,7 +349,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
             // get the same explanation the hover card gives everyone else.
             aria-disabled={true}
             aria-describedby={disabledReasonId}
-            prefetch={isLinkProps(props) ? props.prefetch ?? "none" : undefined}
+            prefetch={resolvedPrefetch}
             ref={ref}
             onMouseDown={(e: MouseEvent) => e.preventDefault()}
             onClick={(e: MouseEvent) => e.preventDefault()}
@@ -362,9 +370,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
                 {...newTabRel}
                 className={finalStyles}
                 aria-label={ariaLabel}
-                prefetch={
-                  isLinkProps(props) ? props.prefetch ?? "none" : undefined
-                }
+                prefetch={resolvedPrefetch}
                 ref={ref}
                 disabled={isDisabled}
                 /** In the case when the button is disabled but there is no disabled reason, we still need to handle these events */
@@ -392,7 +398,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
           {...newTabRel}
           className={finalStyles}
           aria-label={ariaLabel}
-          prefetch={isLinkProps(props) ? props.prefetch ?? "none" : undefined}
+          prefetch={resolvedPrefetch}
           ref={ref}
           disabled={isDisabled}
           /** In the case when the button is disabled but there is no disabled reason, we still need to handle these events */
