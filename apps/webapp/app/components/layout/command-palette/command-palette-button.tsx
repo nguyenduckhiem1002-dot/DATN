@@ -9,6 +9,10 @@ import { useCommandPaletteSafe } from "./command-palette-context";
 
 type CommandPaletteButtonVariant = "default" | "icon";
 
+const preloadCommandPalette = () => {
+  void import("./command-palette");
+};
+
 function useShortcutLabel() {
   const [label, setLabel] = useState("⌘K");
 
@@ -59,7 +63,9 @@ export function CommandPaletteButton({
       <Button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Open command palette"
+        onMouseEnter={preloadCommandPalette}
+        onFocus={preloadCommandPalette}
+        aria-label="Mở tìm kiếm nhanh"
         variant={"secondary"}
         className={tw(
           "flex items-center justify-center rounded border-0 bg-white px-2  py-[2px] text-gray-600 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 md:border-gray-200",
@@ -75,6 +81,8 @@ export function CommandPaletteButton({
     <Button
       type="button"
       onClick={() => setOpen(true)}
+      onMouseEnter={preloadCommandPalette}
+      onFocus={preloadCommandPalette}
       variant={"secondary"}
       className={tw(
         "flex w-full items-center gap-2 rounded bg-white py-2 text-sm text-gray-600 transition hover:border-gray-300 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 md:w-64 md:border md:border-gray-200",
