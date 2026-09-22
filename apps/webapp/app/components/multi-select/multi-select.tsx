@@ -107,12 +107,12 @@ export default function MultiSelect<T>({
 
         <ReactTags
           isDisabled={disabled}
-          labelText={`Select ${label}`}
+          labelText={`Chọn ${label}`}
           selected={selected}
           suggestions={suggestions}
           onAdd={onAdd}
           onDelete={onDelete}
-          noOptionsText={`No matching ${label}`}
+          noOptionsText={`Không có ${label} phù hợp`}
           placeholderText={placeholder}
           isInvalid={!!error}
           renderRoot={({ children, isDisabled }) => (
