@@ -474,8 +474,8 @@ export default function DynamicSelect({
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    label={`Search ${contentLabel}`}
-                    placeholder={`Search ${contentLabel}`}
+                    label={`Tìm kiếm ${contentLabel}`}
+                    placeholder={`Tìm kiếm ${contentLabel}`}
                     hideLabel
                     className="text-gray-500"
                     icon={searchIcon}
