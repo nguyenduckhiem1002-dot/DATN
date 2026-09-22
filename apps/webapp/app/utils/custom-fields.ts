@@ -36,15 +36,15 @@ const getSchema = ({
   const text = required
     ? z.string(params).min(1, {
         message: field_name
-          ? `${field_name} is required`
-          : `This field is required`,
+          ? `${field_name} là bắt buộc`
+          : `Trường này là bắt buộc`,
       })
     : z.string(params).optional();
 
   const option = required
     ? z
         .string(params)
-        .min(1, `${field_name ? field_name : "This field"} is required`)
+        .min(1, `${field_name ? field_name : "Trường này"} là bắt buộc`)
     : z.string(params).optional();
 
   return {
@@ -60,16 +60,16 @@ const getSchema = ({
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: [`cf-${id}`],
-          message: `${v} is not a valid option`,
+          message: `${v} không phải lựa chọn hợp lệ`,
         });
       }
       return v;
     }),
     amount: required
-      ? z.coerce.number().refine((value) => value !== 0, "Please enter a value")
+      ? z.coerce.number().refine((value) => value !== 0, "Vui lòng nhập giá trị")
       : z.coerce.number(params).optional().nullable(),
     number: required
-      ? z.coerce.number().refine((value) => value !== 0, "Please enter a value")
+      ? z.coerce.number().refine((value) => value !== 0, "Vui lòng nhập giá trị")
       : z.coerce.number(params).optional().nullable(),
   } as Record<CustomFieldZodSchema["type"], z.ZodTypeAny>;
 };
@@ -101,7 +101,7 @@ function buildSchema(fields: CustomFieldZodSchema[]) {
           description: field.helpText,
           required_error: field.name
             ? `${field.name} is required`
-            : `This field is required`,
+            : `Trường này là bắt buộc`,
         },
         field_name: field.name,
         required: field.required,
@@ -477,7 +477,7 @@ export const getCustomFieldDisplayValue = (
   }
 
   if (Object.hasOwnProperty.call(value, "valueBoolean")) {
-    return value.valueBoolean ? "Yes" : "No";
+    return value.valueBoolean ? "Có" : "Không";
   }
 
   if (value.valueDate) {
@@ -611,11 +611,11 @@ export const getDefinitionFromCsvHeader = (
 
 // order of the keys control the UI form dorpdown order, so dont change unless u know what you are doing
 export const FIELD_TYPE_NAME: { [key in CustomFieldType]: string } = {
-  TEXT: "Single-line text",
-  MULTILINE_TEXT: "Multi-line text",
-  OPTION: "Option",
-  BOOLEAN: "Boolean",
-  DATE: "Date",
-  AMOUNT: "Amount",
-  NUMBER: "Number",
+  TEXT: "Văn bản một dòng",
+  MULTILINE_TEXT: "Văn bản nhiều dòng",
+  OPTION: "Lựa chọn",
+  BOOLEAN: "Có/Không",
+  DATE: "Ngày",
+  AMOUNT: "Số tiền",
+  NUMBER: "Số",
 };
