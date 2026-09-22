@@ -46,27 +46,24 @@ export function PreferredBarcodeFormRow({
 }: PreferredBarcodeFormRowProps) {
   return (
     <FormRow
-      rowLabel={"Preferred display code for this asset"}
+      rowLabel={"Mã hiển thị ưu tiên của tài sản"}
       className="border-b-0"
       subHeading={
         <p>
           <strong>
-            Only needed if you want this asset to behave differently from the
-            workspace default.
+            Chỉ cần thiết khi bạn muốn tài sản này sử dụng mã hiển thị khác với
+            mặc định của không gian làm việc.
           </strong>{" "}
-          Most assets should leave this on "Workspace default" — it'll
-          automatically use your workspace's{" "}
+          Thông thường nên giữ theo mặc định của không gian làm việc để tự động sử dụng{" "}
           <a
             href="/settings/general"
             className="text-primary-700 underline"
             target="_blank"
             rel="noreferrer"
           >
-            preferred display code setting
+            cấu hình mã hiển thị ưu tiên
           </a>
-          . Pick a specific barcode below to override that for this asset
-          (useful when an asset has multiple barcodes of the same type and you
-          want one in particular).
+          . Bạn có thể chọn một mã vạch cụ thể bên dưới để ghi đè riêng cho tài sản này.
         </p>
       }
     >
