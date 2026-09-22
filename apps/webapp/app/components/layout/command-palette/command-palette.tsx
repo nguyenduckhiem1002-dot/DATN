@@ -532,22 +532,6 @@ export function CommandPalette() {
   );
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault();
-        setOpen(!open);
-      }
-
-      if (event.key === "Escape") {
-        setOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open, setOpen]);
-
-  useEffect(() => {
     if (!open) {
       setQuery("");
       setDebouncedQuery("");
