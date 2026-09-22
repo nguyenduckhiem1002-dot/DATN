@@ -994,7 +994,7 @@ export const AssetForm = ({
                   mainImageExpiration: null,
                   assetModel: inheritableAssetModelImage,
                 }}
-                alt={`Image from asset model ${
+                alt={`Ảnh từ mẫu tài sản ${
                   selectedAssetModel?.name ?? "mẫu tài sản đã chọn"
                 }`}
               />
