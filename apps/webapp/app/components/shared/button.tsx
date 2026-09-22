@@ -267,6 +267,14 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
       "target" in props;
     const newTab = hasTarget(props) && props.target === "_blank";
 
+    // Internal links start prefetching route modules and loader data only when
+    // the user shows intent (hover/focus/touch). External/new-tab links stay
+    // opt-out by default.
+    const resolvedPrefetch = isLinkProps(props)
+      ? props.prefetch ??
+        (props.to.startsWith("/") && !newTab ? "intent" : "none")
+      : undefined;
+
     /**
      * Reverse-tabnabbing guard: a `target="_blank"` link without `rel` hands
      * the opened page a `window.opener` handle back to ours. Applied to every
