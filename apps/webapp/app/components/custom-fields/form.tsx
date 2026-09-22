@@ -31,7 +31,7 @@ import { Card } from "../shared/card";
 import { Spinner } from "../shared/spinner";
 
 export const NewCustomFieldFormSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  name: z.string().min(2, "Tên trường là bắt buộc"),
   helpText: z
     .string()
     .optional()
@@ -48,7 +48,7 @@ export const NewCustomFieldFormSchema = z.object({
   organizationId: z.string(),
   options: z.array(z.string()).optional(),
   categories: z
-    .array(z.string().min(1, "Please select a category"))
+    .array(z.string().min(1, "Vui lòng chọn danh mục"))
     .optional()
     .default([]),
 });
@@ -74,15 +74,15 @@ interface Props {
 const EMPTY_CATEGORIES: string[] = [];
 
 const FIELD_TYPE_DESCRIPTION: { [key in CustomFieldType]: string } = {
-  TEXT: "A place to store short information for your asset. For instance: Serial numbers, notes or anything you wish. No input validation. Any text is acceptable.",
-  OPTION: "A dropdown list of predefined options.",
-  BOOLEAN: "A true/false or yes/no value.",
-  DATE: "A date picker for selecting a date.",
+  TEXT: "Lưu thông tin ngắn của tài sản, ví dụ: số sê-ri, ghi chú hoặc thông tin bổ sung. Chấp nhận mọi nội dung văn bản.",
+  OPTION: "Danh sách lựa chọn được định nghĩa sẵn.",
+  BOOLEAN: "Giá trị đúng/sai hoặc có/không.",
+  DATE: "Trường chọn ngày.",
   MULTILINE_TEXT:
-    "A place to store longer, multiline information for your asset. For instance: Descriptions, comments, or detailed notes.",
+    "Lưu nội dung dài nhiều dòng, ví dụ: mô tả, bình luận hoặc ghi chú chi tiết.",
   AMOUNT:
-    "Enter numerical values to be formatted in your workspace's currency. Supports decimals.",
-  NUMBER: "Enter numerical values. Supports decimals.",
+    "Nhập giá trị số và hiển thị theo đơn vị tiền tệ của hệ thống. Hỗ trợ số thập phân.",
+  NUMBER: "Nhập giá trị số. Hỗ trợ số thập phân.",
 };
 
 export const CustomFieldForm = ({
@@ -129,13 +129,13 @@ export const CustomFieldForm = ({
         encType="multipart/form-data"
       >
         <FormRow
-          rowLabel={"Name"}
+          rowLabel={"Tên"}
           className="border-b-0 pb-[10px] pt-0"
           required={zodFieldIsRequired(NewCustomFieldFormSchema.shape.name)}
         >
           <Input
             ref={nameInputRef}
-            label="Name"
+            label="Tên"
             hideLabel
             name={zo.fields.name()}
             disabled={disabled}
@@ -143,17 +143,17 @@ export const CustomFieldForm = ({
             onChange={updateTitle}
             className="w-full"
             defaultValue={name || ""}
-            placeholder="Choose a field name"
+            placeholder="Nhập tên trường"
             required={zodFieldIsRequired(NewCustomFieldFormSchema.shape.name)}
           />
         </FormRow>
 
         <div>
           <label className="lg:hidden" htmlFor="custom-field-type">
-            Type
+            Loại
           </label>
           <FormRow
-            rowLabel={"Type"}
+            rowLabel={"Loại"}
             className="border-b-0 pb-[10px] pt-[6px]"
             required={zodFieldIsRequired(NewCustomFieldFormSchema.shape.type)}
           >
@@ -168,7 +168,7 @@ export const CustomFieldForm = ({
                 className="px-3.5 py-3"
                 id="custom-field-type"
               >
-                <SelectValue placeholder="Choose a field type" />
+                <SelectValue placeholder="Chọn loại trường" />
               </SelectTrigger>
               <SelectContent
                 position="popper"
@@ -228,7 +228,7 @@ export const CustomFieldForm = ({
               htmlFor="custom-field-required"
               className="text-base font-medium text-gray-700"
             >
-              Required
+              Bắt buộc
             </label>
           </div>
         </FormRow>
@@ -242,10 +242,9 @@ export const CustomFieldForm = ({
               defaultChecked={active === undefined || active}
             />
             <label htmlFor="custom-field-active">
-              <div className="text-base font-medium text-gray-700">Active</div>
+              <div className="text-base font-medium text-gray-700">Đang hoạt động</div>
               <p className="text-[14px] text-gray-600">
-                Deactivating a field will no longer show it on the asset form
-                and page
+                Khi tắt, trường này sẽ không còn hiển thị trên biểu mẫu và trang tài sản
               </p>
             </label>
           </div>
@@ -258,16 +257,15 @@ export const CustomFieldForm = ({
 
         <div>
           <FormRow
-            rowLabel="Category"
+            rowLabel="Danh mục"
             subHeading={
               <p>
-                Select asset categories for which you want to use this custom
-                field.{" "}
+                Chọn các danh mục tài sản sẽ sử dụng trường tùy chỉnh này.{" "}
                 <Link
                   to="https://www.shelf.nu/knowledge-base/linking-custom-fields-to-categories"
                   target="_blank"
                 >
-                  Read more
+                  Tìm hiểu thêm
                 </Link>
               </p>
             }
@@ -281,11 +279,10 @@ export const CustomFieldForm = ({
               />
               <label htmlFor="custom-field-use-categories">
                 <div className="text-base font-medium text-gray-700">
-                  Use for select categories
+                  Chỉ dùng cho danh mục đã chọn
                 </div>
                 <p className="text-[14px] text-gray-600">
-                  In case you only want to use this custom field for asset with
-                  certain categories.
+                  Bật tùy chọn này nếu trường chỉ áp dụng cho tài sản thuộc một số danh mục nhất định.
                 </p>
               </label>
             </div>
@@ -302,11 +299,10 @@ export const CustomFieldForm = ({
 
         <div>
           <FormRow
-            rowLabel="Help Text"
+            rowLabel="Nội dung trợ giúp"
             subHeading={
               <p>
-                This text will function as a help text that is visible when
-                filling the field
+                Nội dung này sẽ hiển thị như hướng dẫn khi người dùng nhập dữ liệu cho trường
               </p>
             }
             required={zodFieldIsRequired(
@@ -315,10 +311,10 @@ export const CustomFieldForm = ({
           >
             <Input
               inputType="textarea"
-              label="Help Text"
+              label="Nội dung trợ giúp"
               name={zo.fields.helpText()}
               defaultValue={helpText || ""}
-              placeholder="Add a help text for your custom field."
+              placeholder="Nhập nội dung hướng dẫn cho trường tùy chỉnh."
               disabled={disabled}
               data-test-id="fieldHelpText"
               className="w-full"
@@ -344,10 +340,10 @@ export const CustomFieldForm = ({
             disabled={disabled}
             className={"mr-2"}
           >
-            Cancel
+            Hủy
           </Button>
           <Button type="submit" disabled={disabled}>
-            {disabled ? <Spinner /> : "Save"}
+            {disabled ? <Spinner /> : "Lưu"}
           </Button>
         </div>
       </Form>
