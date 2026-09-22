@@ -166,7 +166,7 @@ export default function KitsForm({
           subHeading={
             <p>
               Briefly describe what is included and/or what is will be used for.
-              It will be shown on the kit’s overview page.
+              Mô tả sẽ hiển thị trên trang tổng quan của bộ tài sản.
             </p>
           }
           className="border-b-0"
@@ -175,11 +175,11 @@ export default function KitsForm({
           <Input
             inputType="textarea"
             maxLength={1000}
-            label={"Description"}
+            label={"Mô tả"}
             name={zo.fields.description()}
             defaultValue={description || ""}
             hideLabel
-            placeholder="Write your description here..."
+            placeholder="Nhập mô tả cho bộ tài sản..."
             disabled={disabled}
             className="w-full"
             required={zodFieldIsRequired(NewKitFormSchema.shape.description)}
@@ -190,15 +190,14 @@ export default function KitsForm({
           rowLabel="Danh mục"
           subHeading={
             <p>
-              Make it unique. Each kit can have 1 category. It will show on your
-              index.{" "}
+              Mỗi bộ tài sản có thể thuộc một danh mục để dễ phân loại và tìm kiếm.{" "}
               <Button
                 to="/categories/new"
                 variant="link-gray"
                 className="text-gray-600 underline"
                 target="_blank"
               >
-                Create categories
+                Tạo danh mục
               </Button>
             </p>
           }
@@ -209,6 +208,7 @@ export default function KitsForm({
             disabled={disabled}
             defaultValue={categoryId ?? undefined}
             model={{ name: "category", queryKey: "name" }}
+            placeholder="Chọn danh mục"
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
             contentLabel="Danh mục"
             label="Danh mục"
@@ -243,15 +243,15 @@ export default function KitsForm({
           rowLabel="Vị trí"
           subHeading={
             <p>
-              A location is a place where an item is supposed to be located.
-              This is different than the last scanned location{" "}
+              Vị trí là nơi bộ tài sản được bố trí hoặc lưu trữ theo nghiệp vụ,
+              khác với vị trí quét gần nhất.{" "}
               <Button
                 to="/locations/new"
                 className="text-gray-600 underline"
                 target="_blank"
                 variant="link-gray"
               >
-                Create locations
+                Tạo vị trí
               </Button>
             </p>
           }
@@ -264,6 +264,7 @@ export default function KitsForm({
             triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
             defaultValue={locationId ?? undefined}
             model={{ name: "location", queryKey: "name" }}
+            placeholder="Chọn vị trí"
             contentLabel="Vị trí"
             label="Vị trí"
             hideLabel
@@ -314,7 +315,7 @@ export default function KitsForm({
               name="image"
               type="file"
               onChange={validateFile}
-              label="Image"
+              label="Ảnh"
               hideLabel
               error={imageError}
               className="mt-2"
@@ -330,7 +331,7 @@ export default function KitsForm({
           <FormRow
             rowLabel={"Barcodes"}
             className="border-b-0"
-            subHeading="Add additional barcodes to this kit (Code 128, Code 39, or Data Matrix). Note: Each kit automatically gets a default Shelf QR code for tracking."
+            subHeading="Thêm mã vạch bổ sung cho bộ tài sản (Code 128, Code 39 hoặc Data Matrix). Mỗi bộ tài sản vẫn tự động có mã QR mặc định để theo dõi."
           >
             <BarcodesInput
               ref={barcodesInputRef}
@@ -349,7 +350,7 @@ export default function KitsForm({
               Hủy
             </Button>
             <Button type="submit" disabled={disabled}>
-              {disabled ? "Saving..." : "Save"}
+              {disabled ? "Đang lưu..." : "Lưu"}
             </Button>
           </div>
         </FormRow>
