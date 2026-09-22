@@ -42,7 +42,7 @@ import {
 } from "./scanner-sam-id";
 import type { AllowedModelNames } from "../api+/model-filters";
 
-const DEFAULT_ERROR_TITLE = "Unsupported Barcode detected";
+const DEFAULT_ERROR_TITLE = "Phát hiện mã không được hỗ trợ";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: scannerCss },
@@ -64,7 +64,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
         action: PermissionAction.read,
       });
     const header: HeaderData = {
-      title: "Locations",
+      title: "Quét mã QR",
     };
 
     const searchParams = getCurrentSearchParams(request);
@@ -141,18 +141,18 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/scanner">QR code scanner</Link>,
+  breadcrumb: () => <Link to="/scanner">Quét mã QR</Link>,
 };
 
 export const meta: MetaFunction<typeof loader> = () => [
-  { title: appendToMetaTitle("Qr code scanner") },
+  { title: appendToMetaTitle("Quét mã QR") },
 ];
 
 const QRScanner = () => {
   const navigate = useNavigate();
   const [paused, setPaused] = useState<boolean>(false);
   const [scanMessage, setScanMessage] = useState<string>(
-    "Processing QR code..."
+    "Đang xử lý mã..."
   );
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [errorTitle, setErrorTitle] = useState<string | undefined>(undefined);
@@ -195,7 +195,7 @@ const QRScanner = () => {
         if (!value) {
           setErrorMessage(undefined);
           setErrorTitle(undefined);
-          setScanMessage("Processing QR code...");
+          setScanMessage("Đang xử lý mã...");
         }
       }
     },
@@ -227,15 +227,15 @@ const QRScanner = () => {
         handleSetPaused(true);
         setErrorMessage(undefined); // Clear any previous errors
         setErrorTitle(undefined);
-        setScanMessage("Redirecting to mapped asset...");
+        setScanMessage("Đang mở tài sản tương ứng...");
 
         // Navigate to appropriate route based on code type
         if (type === "barcode") {
           if (!canUseBarcodes) {
             triggerError();
-            setErrorTitle("Barcode scanning disabled");
+            setErrorTitle("Quét mã vạch đang tắt");
             setErrorMessage(
-              "Your workspace does not support scanning barcodes. Contact your workspace owner to activate this feature or try scanning a Shelf QR code."
+              "Không gian làm việc chưa hỗ trợ quét mã vạch. Hãy bật tính năng mã vạch hoặc thử quét mã QR của hệ thống."
             );
             setScanMessage("");
             isNavigating.current = false;
@@ -248,7 +248,7 @@ const QRScanner = () => {
         }
 
         if (type === "samId") {
-          setScanMessage("Looking up asset...");
+          setScanMessage("Đang tìm tài sản...");
 
           const options: ResolveAssetIdFromSamIdOptions = {
             samId: value,
@@ -258,7 +258,7 @@ const QRScanner = () => {
           void resolveAssetIdFromSamId(options)
             .then((assetId) => {
               triggerSuccess();
-              setScanMessage("Redirecting to mapped asset...");
+              setScanMessage("Đang mở tài sản tương ứng...");
               void navigate(`/assets/${assetId}`);
             })
             .catch((samError) => {
@@ -269,7 +269,7 @@ const QRScanner = () => {
               );
 
               triggerError();
-              setErrorTitle(reason.title || "SAM ID lookup failed");
+              setErrorTitle(reason.title || "Không tìm thấy tài sản theo mã SAM");
               setErrorMessage(reason.message);
               setScanMessage("");
               isNavigating.current = false;
@@ -305,7 +305,7 @@ const QRScanner = () => {
 
   return (
     <>
-      <Header title="QR code scanner" hidePageDescription hideBreadcrumbs />
+      <Header title="Quét mã QR" hidePageDescription hideBreadcrumbs />
       <div
         className="-mx-4 flex flex-col overflow-hidden"
         style={{ height: `${height}px` }}
