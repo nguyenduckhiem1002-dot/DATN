@@ -395,7 +395,7 @@ export const AssetForm = ({
     count: number;
     startNumber: number;
   }>({
-    nameTemplate: bulkMode ? "Asset {i}" : "",
+    nameTemplate: bulkMode ? "Tài sản {i}" : "",
     count: 5,
     startNumber: 1,
   });
@@ -982,7 +982,7 @@ export const AssetForm = ({
                     : null,
                   assetModel: inheritableAssetModelImage,
                 }}
-                alt={`${title} main image`}
+                alt={`Ảnh chính của ${title}`}
               />
             ) : inheritableAssetModelImage ? (
               <AssetImage
@@ -995,7 +995,7 @@ export const AssetForm = ({
                   assetModel: inheritableAssetModelImage,
                 }}
                 alt={`Image from asset model ${
-                  selectedAssetModel?.name ?? "selected model"
+                  selectedAssetModel?.name ?? "mẫu tài sản đã chọn"
                 }`}
               />
             ) : null}
