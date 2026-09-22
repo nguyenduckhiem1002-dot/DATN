@@ -360,7 +360,7 @@ function BarcodeModalPricing({
             disabled={disabled}
           >
             {disabled
-              ? "Redirecting..."
+              ? "Đang chuyển hướng..."
               : selectedInterval === "year"
               ? `Đăng ký theo năm (${fmtPrice(
                   selectedPrice.unit_amount || 0,
