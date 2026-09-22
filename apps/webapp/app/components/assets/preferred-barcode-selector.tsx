@@ -64,7 +64,7 @@ function buildWorkspaceDefaultSecondary(
   barcodes: BarcodeChoice[]
 ): string {
   if (!workspacePreference) {
-    return "Follow the workspace's preferred display code setting.";
+    return "Theo cấu hình mã hiển thị ưu tiên của không gian làm việc.";
   }
 
   const prefLabel = labelForPreference(workspacePreference);
@@ -72,7 +72,7 @@ function buildWorkspaceDefaultSecondary(
   // For QR_ID / SAM_ID, every asset has the necessary data (or sequentialId
   // falls back to QR automatically) — no warning needed.
   if (!isBarcodeTypePreference(workspacePreference)) {
-    return `Currently set to ${prefLabel} for this workspace.`;
+    return `Không gian làm việc hiện đang dùng ${prefLabel}.`;
   }
 
   // For barcode-type preferences, check whether this asset has one.
@@ -81,11 +81,11 @@ function buildWorkspaceDefaultSecondary(
   );
 
   if (assetHasMatchingBarcode) {
-    return `Currently set to ${prefLabel} — this asset has one, so that's what list views will show.`;
+    return `Không gian làm việc đang dùng ${prefLabel}; tài sản này có mã phù hợp nên danh sách sẽ hiển thị mã đó.`;
   }
 
   // Fallback case — most useful warning.
-  return `Currently set to ${prefLabel}, but this asset has no ${prefLabel} barcode. List views will fall back to its QR code (add a ${prefLabel} above to fix).`;
+  return `Không gian làm việc đang dùng ${prefLabel}, nhưng tài sản này chưa có mã ${prefLabel}. Danh sách sẽ dùng mã QR thay thế; hãy thêm ${prefLabel} ở phía trên nếu muốn dùng loại mã này.`;
 }
 
 /**
@@ -147,9 +147,9 @@ export function PreferredBarcodeSelector({
     );
     return (
       <p className="text-sm text-gray-500">
-        This asset has no barcodes yet, so there's nothing to override.{" "}
-        {emptyStateSecondary} Add a barcode in the section above and save the
-        asset — it will become selectable here on your next edit.
+        Tài sản này chưa có mã vạch nên chưa thể chọn mã ghi đè.{" "}
+        {emptyStateSecondary} Hãy thêm mã vạch ở phần trên và lưu tài sản;
+        mã đó sẽ có thể chọn ở lần chỉnh sửa tiếp theo.
       </p>
     );
   }
@@ -175,14 +175,14 @@ export function PreferredBarcodeSelector({
     <div
       className="flex flex-col gap-2"
       role="radiogroup"
-      aria-label="Preferred display code for this asset"
+      aria-label="Mã hiển thị ưu tiên của tài sản"
     >
       <Option
         name={name}
         value=""
         checked={selectedId === ""}
         onSelect={setSelectedId}
-        primary="Workspace default"
+        primary="Theo mặc định không gian làm việc"
         secondary={workspaceDefaultSecondary}
         preview={workspaceDefaultPreview}
       />
@@ -197,7 +197,7 @@ export function PreferredBarcodeSelector({
           primary={bc.value}
           secondary={`${labelForPreference(
             bc.type
-          )} — overrides the workspace default for this asset`}
+           )} — ghi đè mặc định của không gian làm việc cho tài sản này`}
           // Override rows: chip preview is unambiguous — it's literally the
           // barcode that will render. workspacePreference is passed so the
           // chip's tooltip can reflect "this is an override" wording.
