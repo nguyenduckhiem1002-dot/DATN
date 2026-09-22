@@ -202,21 +202,21 @@ export default function AssetCustomFields({
   return (
     <div className="border-b pb-6">
       <div className=" border-t py-5">
-        <h2 className="mb-1 text-[18px] font-semibold">Custom Fields</h2>
+        <h2 className="mb-1 text-[18px] font-semibold">Trường tùy chỉnh</h2>
         <Button
           to="/settings/custom-fields"
           className="font-medium text-primary-600"
           target="_blank"
           variant="link"
         >
-          Manage custom fields
+          Quản lý trường tùy chỉnh
         </Button>
       </div>
       {customFields.length > 0 ? (
         <>
           {requiredFields.length > 0 && (
             <div className="border-t pt-4">
-              <h5>Required Fields</h5>
+              <h5>Trường bắt buộc</h5>
               {requiredFields.map((field, index) => (
                 <FormRow
                   key={field.id + index}
@@ -247,7 +247,7 @@ export default function AssetCustomFields({
           )}
           {optionalFields.length > 0 && (
             <div className="border-t pt-4">
-              <h5>Optional Fields</h5>
+              <h5>Trường không bắt buộc</h5>
               {optionalFields.map((field, index) => (
                 <FormRow
                   key={field.id + index}
@@ -284,9 +284,9 @@ export default function AssetCustomFields({
               <div className="mb-4 inline-flex items-center justify-center rounded-full border-8 border-solid border-gray-50 bg-gray-100 p-2 text-gray-600">
                 <SearchIcon />
               </div>
-              <h4 className="mb-6 text-base">No active custom fields</h4>
+              <h4 className="mb-6 text-base">Chưa có trường tùy chỉnh đang hoạt động</h4>
               <Button to="/settings/custom-fields/new" variant="primary">
-                Create custom fields
+                Tạo trường tùy chỉnh
               </Button>
             </div>
           </div>
@@ -394,7 +394,7 @@ function OptionSelect({
               <Search className="ml-4 size-4 text-gray-500" />
               <input
                 ref={searchInputRef}
-                placeholder={`Search ${field.name}...`}
+                placeholder={`Tìm kiếm ${field.name}...`}
                 className="border-0 px-4 py-2 pl-2 text-[14px] focus:border-0 focus:ring-0"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -404,7 +404,7 @@ function OptionSelect({
 
             {/* Options list */}
             {filteredOptions.length === 0 ? (
-              <div className="max-w-[400px] p-4">No options found</div>
+              <div className="max-w-[400px] p-4">Không tìm thấy lựa chọn phù hợp</div>
             ) : (
               filteredOptions.map((option, index) => {
                 const isSelected = value === option;
