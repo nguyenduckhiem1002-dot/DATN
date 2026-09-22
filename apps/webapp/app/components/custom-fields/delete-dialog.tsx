@@ -69,7 +69,7 @@ export function DeleteCustomFieldDialog({
           }}
         >
           <span className="flex items-center gap-2">
-            <TrashIcon /> Delete
+            <TrashIcon /> Xóa
           </span>
         </DropdownMenuItem>
       </AlertDialogTrigger>
@@ -82,26 +82,24 @@ export function DeleteCustomFieldDialog({
               <TrashIcon />
             </div>
             <AlertDialogTitle>
-              Delete "{customField.name}" custom field
+              Xóa trường tùy chỉnh "{customField.name}"
             </AlertDialogTitle>
             <AlertDialogDescription className="space-y-2">
               <p>
-                <strong>This field will be deleted.</strong> The field and all
-                its values will be removed from your assets.
+                <strong>Trường này sẽ bị xóa.</strong> Trường và toàn bộ giá trị của nó sẽ bị xóa khỏi tài sản.
               </p>
               <p>
-                <strong>Note:</strong> The field name will be available for
-                reuse after deleting.
+                <strong>Lưu ý:</strong> Sau khi xóa, bạn có thể dùng lại tên trường này.
               </p>
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <div className="mt-4 space-y-2">
             <p className="text-sm text-gray-600">
-              To confirm, type the custom field name below.
+              Để xác nhận, hãy nhập tên trường tùy chỉnh bên dưới.
             </p>
             <Input
-              label="Confirmation"
+              label="Xác nhận"
               name="confirmation"
               value={confirmation}
               onChange={(event) => {
@@ -111,7 +109,7 @@ export function DeleteCustomFieldDialog({
               required
             />
             <p className="text-sm text-gray-500">
-              Expected input: {expectedName}
+              Nội dung cần nhập: {expectedName}
             </p>
             {formError ? (
               <p className="text-sm text-error-500">{formError}</p>
@@ -121,7 +119,7 @@ export function DeleteCustomFieldDialog({
           <AlertDialogFooter className="mt-6 flex ">
             <AlertDialogCancel asChild>
               <Button type="button" variant="secondary" disabled={disabled}>
-                Cancel
+                Hủy
               </Button>
             </AlertDialogCancel>
             <Button
@@ -131,7 +129,7 @@ export function DeleteCustomFieldDialog({
               name="intent"
               value="delete"
             >
-              {disabled ? "Deleting..." : "Delete"}
+              {disabled ? "Đang xóa..." : "Xóa"}
             </Button>
           </AlertDialogFooter>
         </fetcher.Form>
