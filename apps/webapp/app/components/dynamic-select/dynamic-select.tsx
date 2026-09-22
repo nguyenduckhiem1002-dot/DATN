@@ -502,7 +502,11 @@ export default function DynamicSelect({
                 {searchQuery !== "" && items.length === 0 && (
                   <EmptyState
                     searchQuery={searchQuery}
-                    modelName={model.name}
+                    modelName={
+                      typeof contentLabel === "string"
+                        ? contentLabel.toLowerCase()
+                        : model.name
+                    }
                   />
                 )}
                 {/* Show special items only when there's no search query */}
