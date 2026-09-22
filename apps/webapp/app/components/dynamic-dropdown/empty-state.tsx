@@ -16,10 +16,10 @@ export const EmptyState = ({
 
     <div>
       <div className="text-base font-semibold text-gray-900">
-        No matching results
+        Không tìm thấy kết quả phù hợp
       </div>
       <p className="text-sm text-gray-600">
-        Your search “{searchQuery}” did not match any {modelName}.
+        Tìm kiếm “{searchQuery}” không khớp với {modelName}.
       </p>
     </div>
   </div>
