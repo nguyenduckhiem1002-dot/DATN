@@ -15,7 +15,7 @@ export function ActionsDropdown({ customField }: { customField: CustomField }) {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
         className="outline-none focus-visible:border-0"
-        aria-label="Actions Trigger"
+        aria-label="Mở menu thao tác"
       >
         <i className="inline-block px-3 py-0 text-gray-400 ">
           <VerticalDotsIcon />
@@ -35,7 +35,7 @@ export function ActionsDropdown({ customField }: { customField: CustomField }) {
             className="justify-start text-gray-700 hover:text-gray-700"
             width="full"
           >
-            Edit
+            Chỉnh sửa
           </Button>
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-gray-100" />
