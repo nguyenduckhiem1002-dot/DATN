@@ -108,8 +108,6 @@ export async function action({ context, request, params }: ActionFunctionArgs) {
     const { name, helpText, active, required, options, categories } =
       parsedData;
 
-    const field = await getCustomField({ organizationId, id });
-
     await updateCustomField({
       id,
       name,
