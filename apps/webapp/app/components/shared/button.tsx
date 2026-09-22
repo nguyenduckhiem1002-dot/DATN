@@ -272,7 +272,11 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
     // opt-out by default.
     const resolvedPrefetch = isLinkProps(props)
       ? props.prefetch ??
-        (props.to.startsWith("/") && !newTab ? "intent" : "none")
+        (typeof props.to === "string" &&
+        props.to.startsWith("/") &&
+        !newTab
+          ? "intent"
+          : "none")
       : undefined;
 
     /**
