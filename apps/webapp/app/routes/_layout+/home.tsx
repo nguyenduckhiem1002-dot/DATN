@@ -9,6 +9,7 @@
  * by-status donut, and the onboarding checklist; tile clicks navigate
  * into the corresponding index page or report.
  */
+import { lazy, Suspense } from "react";
 import { Prisma } from "@prisma/client";
 import type {
   MetaFunction,
@@ -17,16 +18,10 @@ import type {
 } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
 import AnnouncementBar from "~/components/dashboard/announcement-bar";
-import AssetsByStatusChart from "~/components/dashboard/assets-by-status-chart";
 import OnboardingChecklist from "~/components/dashboard/checklist";
-import CustodiansList from "~/components/dashboard/custodians";
-import InventoryValueChart from "~/components/dashboard/inventory-value-chart";
-import NewestAssets from "~/components/dashboard/newest-assets";
 import { ErrorContent } from "~/components/errors";
 import ActiveBookings from "~/components/home/active-bookings";
-import AssetGrowthChart from "~/components/home/asset-growth-chart";
 import KpiCards from "~/components/home/kpi-cards";
-import LocationDistribution from "~/components/home/location-distribution";
 import OverdueBookings from "~/components/home/overdue-bookings";
 import UpcomingBookings from "~/components/home/upcoming-bookings";
 import UpcomingReminders from "~/components/home/upcoming-reminders";
@@ -55,6 +50,34 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
+
+const AssetsByStatusChart = lazy(
+  () => import("~/components/dashboard/assets-by-status-chart")
+);
+const CustodiansList = lazy(
+  () => import("~/components/dashboard/custodians")
+);
+const InventoryValueChart = lazy(
+  () => import("~/components/dashboard/inventory-value-chart")
+);
+const NewestAssets = lazy(
+  () => import("~/components/dashboard/newest-assets")
+);
+const AssetGrowthChart = lazy(
+  () => import("~/components/home/asset-growth-chart")
+);
+const LocationDistribution = lazy(
+  () => import("~/components/home/location-distribution")
+);
+
+function DashboardWidgetFallback() {
+  return (
+    <div
+      className="h-72 animate-pulse rounded border border-gray-200 bg-white"
+      aria-hidden="true"
+    />
+  );
+}
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
@@ -415,9 +438,13 @@ export default function HomePage() {
           {/* Row 1: Trends & Value — wide chart + value card */}
           <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-3">
             <div className="xl:col-span-2">
-              <AssetGrowthChart />
+              <Suspense fallback={<DashboardWidgetFallback />}>
+                <AssetGrowthChart />
+              </Suspense>
             </div>
-            <InventoryValueChart />
+            <Suspense fallback={<DashboardWidgetFallback />}>
+              <InventoryValueChart />
+            </Suspense>
           </div>
 
           {/* Widget Grid — 3-column rows */}
@@ -429,14 +456,22 @@ export default function HomePage() {
 
             {/* Row 3: Reminders, Status & Locations */}
             <UpcomingReminders />
-            <AssetsByStatusChart />
-            <LocationDistribution />
+            <Suspense fallback={<DashboardWidgetFallback />}>
+              <AssetsByStatusChart />
+            </Suspense>
+            <Suspense fallback={<DashboardWidgetFallback />}>
+              <LocationDistribution />
+            </Suspense>
           </div>
 
           {/* Row 4: People & Assets — 2-column */}
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <CustodiansList />
-            <NewestAssets />
+            <Suspense fallback={<DashboardWidgetFallback />}>
+              <CustodiansList />
+            </Suspense>
+            <Suspense fallback={<DashboardWidgetFallback />}>
+              <NewestAssets />
+            </Suspense>
           </div>
         </div>
       ) : (

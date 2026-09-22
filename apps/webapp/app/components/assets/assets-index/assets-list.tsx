@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useMemo } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { m } from "framer-motion";
 import { Package } from "lucide-react";
 import { useFetcher, useFetchers, useLoaderData } from "react-router";
@@ -44,10 +44,13 @@ import { AssetIndexPagination } from "./asset-index-pagination";
 import AssetQuickActions from "./asset-quick-actions";
 import { AssetIndexFilters } from "./filters";
 import { ListItemTagsColumn } from "./list-item-tags-column";
-import AvailabilityCalendar from "../../availability-calendar/availability-calendar";
 import { ResourceTitleLink } from "../../availability-calendar/resource-title-link";
 import { CategoryBadge } from "../category-badge";
 import { useAssetAvailabilityData } from "./use-asset-availability-data";
+
+const AvailabilityCalendar = lazy(
+  () => import("../../availability-calendar/availability-calendar")
+);
 
 export const AssetsList = ({
   customEmptyStateContent,
@@ -89,17 +92,15 @@ export const AssetsList = ({
       <Th>Thẻ</Th>
       <When truthy={!isUserPage}>
         <Th className="flex items-center gap-1 whitespace-nowrap">
-          Custodian{" "}
+          Người quản lý{" "}
           <InfoTooltip
             iconClassName="size-4"
             content={
               <>
                 <h6>Bàn giao tài sản</h6>
                 <p>
-                  This column shows if a user has custody of the asset either
-                  via direct assignment or via a booking. If you see{" "}
-                  <GrayBadge>private</GrayBadge> that means you don't have the
-                  permissions to see who has custody of the asset.
+                  Cột này cho biết tài sản đang được bàn giao trực tiếp hoặc thông qua lịch đặt. Nếu hiển thị{" "}
+                  <GrayBadge>riêng tư</GrayBadge>, bạn không có quyền xem người đang quản lý tài sản.
                 </p>
               </>
             }
@@ -146,8 +147,19 @@ export const AssetsList = ({
           />
           {isAvailabilityView && shouldShowAvailabilityView ? (
             <>
-              <AvailabilityCalendar
-                resources={resources}
+              <Suspense
+                fallback={
+                  <div
+                    className="flex h-[520px] items-center justify-center gap-2 rounded border bg-white"
+                    aria-live="polite"
+                  >
+                    <Spinner />
+                    <span className="text-sm text-gray-600">Đang tải lịch...</span>
+                  </div>
+                }
+              >
+                <AvailabilityCalendar
+                  resources={resources}
                 events={events}
                 resourceLabelContent={({ resource }) => {
                   const displayCode = currentOrganization
@@ -204,13 +216,14 @@ export const AssetsList = ({
                       </div>
                     </div>
                   );
-                }}
-              />
+                  }}
+                />
+              </Suspense>
               <AssetIndexPagination />
             </>
           ) : (
             <List
-              title="Assets"
+              title="Tài sản"
               ItemComponent={modeIsSimple ? ListAssetContent : AdvancedAssetRow}
               customPagination={<AssetIndexPagination />}
               bulkActions={
@@ -305,6 +318,7 @@ export const ListAssetContent = ({
               <span className="word-break mb-1 block ">
                 <Button
                   to={`/assets/${item.id}`}
+                  prefetch="intent"
                   variant="link"
                   className="text-left font-medium text-gray-900 hover:text-gray-700"
                 >
@@ -446,7 +460,7 @@ function AdvancedModeMobileFallback() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2">
       <p className="text-center">
-        Advanced mode is currently not available on mobile.
+        Chế độ nâng cao hiện chưa hỗ trợ trên thiết bị di động.
       </p>
       <fetcher.Form
         method="post"
@@ -461,7 +475,7 @@ function AdvancedModeMobileFallback() {
         <input type="hidden" name="intent" value="changeMode" />
 
         <Button type="submit" name="mode" value="SIMPLE" disabled={disabled}>
-          Change to simple mode
+          Chuyển sang chế độ đơn giản
         </Button>
       </fetcher.Form>
     </div>
