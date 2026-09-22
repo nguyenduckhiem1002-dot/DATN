@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   isClientViewOnlyNavigation,
+  skipAppShellRevalidationOnGetNavigation,
   skipRevalidationOnClientViewChange,
 } from "./list-view-params";
 
@@ -90,5 +91,59 @@ describe("skipRevalidationOnClientViewChange", () => {
         formMethod: undefined,
       })
     ).toBe(true);
+  });
+});
+
+
+describe("skipAppShellRevalidationOnGetNavigation", () => {
+  const call = (
+    args: Partial<Parameters<typeof skipAppShellRevalidationOnGetNavigation>[0]>
+  ) =>
+    skipAppShellRevalidationOnGetNavigation({
+      currentUrl: new URL("https://app.test/assets"),
+      nextUrl: new URL("https://app.test/categories"),
+      currentParams: {},
+      nextParams: {},
+      defaultShouldRevalidate: true,
+      // why: the predicate only consumes URL, form method and default policy.
+      ...(args as any),
+    } as any);
+
+  it("skips the expensive app-shell loader on ordinary GET route navigation", () => {
+    expect(call({})).toBe(false);
+  });
+
+  it("keeps the shell cached for navigation within account details", () => {
+    expect(
+      call({
+        currentUrl: new URL("https://app.test/account-details/general"),
+        nextUrl: new URL("https://app.test/account-details/subscription"),
+      })
+    ).toBe(false);
+  });
+
+  it("revalidates when entering or leaving account details", () => {
+    expect(
+      call({
+        currentUrl: new URL("https://app.test/assets"),
+        nextUrl: new URL("https://app.test/account-details/general"),
+      })
+    ).toBe(true);
+
+    expect(
+      call({
+        currentUrl: new URL("https://app.test/account-details/general"),
+        nextUrl: new URL("https://app.test/assets"),
+      })
+    ).toBe(true);
+  });
+
+  it("revalidates after mutations", () => {
+    expect(call({ formMethod: "POST" })).toBe(true);
+  });
+
+  it("preserves explicit same-URL revalidation", () => {
+    const same = new URL("https://app.test/assets?page=2");
+    expect(call({ currentUrl: same, nextUrl: same })).toBe(true);
   });
 });
