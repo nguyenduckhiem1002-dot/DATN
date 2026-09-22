@@ -314,7 +314,7 @@ export async function action({ context, request }: LoaderFunctionArgs) {
         isNewAsset: true,
       }),
       createNote({
-        content: `Asset was created by ${actor}.`,
+        content: `Tài sản được tạo bởi ${actor}.`,
         type: "UPDATE",
         userId: authSession.userId,
         assetId: asset.id,
