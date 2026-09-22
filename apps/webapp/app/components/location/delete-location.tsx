@@ -41,7 +41,7 @@ export const DeleteLocation = ({ location, trigger }: DeleteLocationProps) => {
             className="justify-start rounded-sm px-2 py-1.5 text-sm font-medium text-gray-700 outline-none hover:bg-slate-100 hover:text-gray-700"
             width="full"
           >
-            Delete
+            Xóa
           </Button>
         )}
       </AlertDialogTrigger>
@@ -53,16 +53,14 @@ export const DeleteLocation = ({ location, trigger }: DeleteLocationProps) => {
               <TrashIcon />
             </span>
           </div>
-          <AlertDialogTitle>Delete {location.name}</AlertDialogTitle>
+          <AlertDialogTitle>Xóa {location.name}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete this Location? This action cannot be
-            undone.
+            Bạn có chắc muốn xóa vị trí này? Thao tác không thể hoàn tác.
           </AlertDialogDescription>
           {location.childCount && location.childCount > 0 ? (
             <div className="rounded border border-warning-200 bg-warning-50 p-3 text-sm text-warning-900">
-              This location has <strong>{location.childCount}</strong> child
-              {location.childCount > 1 ? " locations" : " location"}. They will
-              move to the root level if you delete this location.
+              Vị trí này có <strong>{location.childCount}</strong> vị trí con.
+              Các vị trí con sẽ được chuyển lên cấp gốc sau khi xóa.
             </div>
           ) : null}
         </AlertDialogHeader>
@@ -70,7 +68,7 @@ export const DeleteLocation = ({ location, trigger }: DeleteLocationProps) => {
           <div className="flex justify-center gap-2">
             <AlertDialogCancel asChild>
               <Button type="button" variant="secondary">
-                Cancel
+                Hủy
               </Button>
             </AlertDialogCancel>
 
@@ -81,7 +79,7 @@ export const DeleteLocation = ({ location, trigger }: DeleteLocationProps) => {
                 data-test-id="confirmdeleteLocationButton"
                 disabled={disabled}
               >
-                Delete
+                Xóa
               </Button>
             </Form>
           </div>
