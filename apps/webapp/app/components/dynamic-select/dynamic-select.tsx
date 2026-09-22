@@ -474,8 +474,8 @@ export default function DynamicSelect({
                   <Input
                     ref={searchInputRef}
                     type="text"
-                    label={`Search ${contentLabel}`}
-                    placeholder={`Search ${contentLabel}`}
+                    label={`Tìm kiếm ${contentLabel}`}
+                    placeholder={`Tìm kiếm ${contentLabel}`}
                     hideLabel
                     className="text-gray-500"
                     icon={searchIcon}
@@ -502,7 +502,11 @@ export default function DynamicSelect({
                 {searchQuery !== "" && items.length === 0 && (
                   <EmptyState
                     searchQuery={searchQuery}
-                    modelName={model.name}
+                    modelName={
+                      typeof contentLabel === "string"
+                        ? contentLabel.toLowerCase()
+                        : model.name
+                    }
                   />
                 )}
                 {/* Show special items only when there's no search query */}
