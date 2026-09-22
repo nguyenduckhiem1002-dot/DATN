@@ -171,7 +171,7 @@ export const LocationForm = ({
           truthy={hasOnSuccessFunc}
           fallback={
             <FormRow
-              rowLabel={"Name"}
+              rowLabel={"Tên"}
               className="border-b-0 pb-[10px] pt-0"
               required={zodFieldIsRequired(NewLocationFormSchema.shape.name)}
             >
@@ -186,7 +186,7 @@ export const LocationForm = ({
                 onChange={hasOnSuccessFunc ? undefined : updateName}
                 className="w-full"
                 defaultValue={name || undefined}
-                placeholder="Storage room"
+                placeholder="Ví dụ: Kho tầng 1"
                 required={zodFieldIsRequired(NewLocationFormSchema.shape.name)}
               />
             </FormRow>
@@ -203,27 +203,25 @@ export const LocationForm = ({
             onChange={hasOnSuccessFunc ? undefined : updateName}
             className="w-full"
             defaultValue={name || undefined}
-            placeholder="Storage room"
+            placeholder="Ví dụ: Kho tầng 1"
             required={zodFieldIsRequired(NewLocationFormSchema.shape.name)}
           />
         </When>
 
         <FormRow
-          rowLabel={"Parent location"}
+          rowLabel={"Vị trí cha"}
           subHeading={
             <p>
-              Optional. Nest this location under an existing one to build
-              breadcrumbs.
+              Không bắt buộc. Chọn vị trí cha để tổ chức vị trí theo dạng cây.
             </p>
           }
         >
           <div className="mb-2 block lg:hidden">
             <div className="text-sm font-medium text-gray-700">
-              Parent location
+              Vị trí cha
             </div>
             <p className="text-xs text-gray-600">
-              Optional. Nest this location under an existing one to build
-              breadcrumbs.
+              Không bắt buộc. Chọn vị trí cha để tổ chức vị trí theo dạng cây.
             </p>
           </div>
           <LocationSelect
@@ -232,7 +230,7 @@ export const LocationForm = ({
             popoverZIndexClassName={hasOnSuccessFunc ? "z-[10000]" : undefined}
             hideExtraContent={hasOnSuccessFunc}
             fieldName={zo.fields.parentId()}
-            placeholder="No parent"
+            placeholder="Không có vị trí cha"
             defaultValue={parentId ?? undefined}
             hideCurrentLocationInput
             excludeIds={excludeLocationId ? [excludeLocationId] : undefined}
@@ -242,10 +240,10 @@ export const LocationForm = ({
         <When
           truthy={hasOnSuccessFunc}
           fallback={
-            <FormRow rowLabel={"Main image"}>
+            <FormRow rowLabel={"Ảnh chính"}>
               <div>
                 <p className="hidden lg:block">
-                  Accepts PNG, JPG, JPEG, or WebP (max.4 MB)
+                  Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 4 MB)
                 </p>
                 <Input
                   disabled={disabled}
@@ -253,14 +251,14 @@ export const LocationForm = ({
                   name="image"
                   type="file"
                   onChange={validateFile}
-                  label={"Main image"}
+                  label={"Ảnh chính"}
                   hideLabel
                   error={imageError}
                   className="mt-2"
                   inputClassName="border-0 shadow-none p-0 rounded-none"
                 />
                 <p className="mt-2 lg:hidden">
-                  Accepts PNG, JPG, JPEG, or WebP (max.4 MB)
+                  Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 4 MB)
                 </p>
               </div>
             </FormRow>
@@ -272,13 +270,13 @@ export const LocationForm = ({
             name="image"
             type="file"
             onChange={validateFile}
-            label={"Main image"}
+            label={"Ảnh chính"}
             error={imageError}
             className="mt-2"
             inputClassName="border-0 shadow-none p-0 rounded-none"
           />
           <p className="hidden lg:block">
-            Accepts PNG, JPG, JPEG, or WebP (max.4 MB)
+            Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 4 MB)
           </p>
         </When>
 
@@ -286,12 +284,10 @@ export const LocationForm = ({
           truthy={hasOnSuccessFunc}
           fallback={
             <FormRow
-              rowLabel={"Address"}
+              rowLabel={"Địa chỉ"}
               subHeading={
                 <p>
-                  Will set location’s geo position to address. Make sure to add
-                  an accurate address, to ensure the map location is as accurate
-                  as possible
+                  Địa chỉ được dùng để xác định vị trí trên bản đồ. Hãy nhập địa chỉ chính xác để kết quả định vị tốt hơn.
                 </p>
               }
               className="pt-[10px]"
@@ -327,11 +323,10 @@ export const LocationForm = ({
           truthy={hasOnSuccessFunc}
           fallback={
             <FormRow
-              rowLabel="Description"
+              rowLabel="Mô tả"
               subHeading={
                 <p>
-                  This is the initial object description. It will be shown on
-                  the location page. You can always change it.
+                  Mô tả sẽ hiển thị trên trang vị trí và có thể chỉnh sửa bất cứ lúc nào.
                 </p>
               }
               required={zodFieldIsRequired(
@@ -344,7 +339,7 @@ export const LocationForm = ({
                 hideLabel
                 name={zo.fields.description()}
                 defaultValue={description || ""}
-                placeholder="Add a description for your location."
+                placeholder="Nhập mô tả cho vị trí."
                 disabled={disabled}
                 data-test-id="locationDescription"
                 className="w-full"
@@ -360,7 +355,7 @@ export const LocationForm = ({
             label="Mô tả"
             name={zo.fields.description()}
             defaultValue={description || ""}
-            placeholder="Add a description for your location."
+            placeholder="Nhập mô tả cho vị trí."
             disabled={disabled}
             data-test-id="locationDescription"
             className="w-full"
@@ -377,7 +372,7 @@ export const LocationForm = ({
         <FormRow className="border-y-0 py-2" rowLabel="">
           <div className="ml-auto">
             <Button type="submit" disabled={disabled}>
-              {disabled ? <Spinner /> : "Save"}
+              {disabled ? <Spinner /> : "Lưu"}
             </Button>
           </div>
         </FormRow>
@@ -405,11 +400,11 @@ const Actions = ({
           variant="secondary"
           disabled={disabled}
         >
-          Cancel
+          Hủy
         </Button>
       ) : (
         <Button to={referer ?? ".."} variant="secondary" disabled={disabled}>
-          Cancel
+          Hủy
         </Button>
       )}
       <AddAnother disabled={disabled} />
