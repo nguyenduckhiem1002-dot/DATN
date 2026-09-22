@@ -29,8 +29,8 @@ export default function BulkDeleteDialog() {
       type="trash"
       arrayFieldId="tagIds"
       actionUrl="/api/tags/bulk-actions"
-      title={`Delete ${totalSelected} tags`}
-      description={`Are your sure you want to delete all ${totalSelected} tags. This action cannot be undone.`}
+      title={`Xóa ${totalSelected} thẻ`}
+      description={`Bạn có chắc muốn xóa toàn bộ ${totalSelected} thẻ đã chọn? Thao tác không thể hoàn tác.`}
     >
       {({ fetcherError, disabled, handleCloseDialog }) => (
         <>
@@ -48,7 +48,7 @@ export default function BulkDeleteDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -57,7 +57,7 @@ export default function BulkDeleteDialog() {
               disabled={disabled}
               className="border-error-600 bg-error-600 hover:border-error-800 hover:bg-error-800"
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </>
