@@ -9,7 +9,7 @@
  */
 import type { Prisma } from "@prisma/client";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { data, Link, useLoaderData } from "react-router";
+import { data, Link } from "react-router";
 import { CategoryBadge } from "~/components/assets/category-badge";
 import { ActionsDropdown } from "~/components/custom-fields/actions-dropdown";
 import BulkActionsDropdown from "~/components/custom-fields/bulk-actions-dropdown";
@@ -21,9 +21,7 @@ import { Button } from "~/components/shared/button";
 import { GrayBadge } from "~/components/shared/gray-badge";
 import { Td, Th } from "~/components/table";
 import { useUserRoleHelper } from "~/hooks/user-user-role-helper";
-import {
-  getFilteredAndPaginatedCustomFields,
-} from "~/modules/custom-field/service.server";
+import { getFilteredAndPaginatedCustomFields } from "~/modules/custom-field/service.server";
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import {
   setCookie,
@@ -99,7 +97,6 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         totalPages,
         perPage,
         modelName,
-
       }),
       {
         headers: [setCookie(await userPrefs.serialize(cookie))],
@@ -113,7 +110,6 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 
 /** The custom fields list, with its create button and bulk actions. */
 export default function CustomFieldsIndexPage() {
-  useLoaderData<typeof loader>();
   const { isBaseOrSelfService } = useUserRoleHelper();
 
   return (
@@ -191,11 +187,11 @@ function CustomFieldRow({
       <Td>
         {!item.active ? (
           <Badge color="#dc2626" withDot={false}>
-            Inactive
+            Không hoạt động
           </Badge>
         ) : (
           <Badge color="#059669" withDot={false}>
-            Active
+            Đang hoạt động
           </Badge>
         )}
       </Td>
