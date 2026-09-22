@@ -22,11 +22,8 @@ import { GrayBadge } from "~/components/shared/gray-badge";
 import { Td, Th } from "~/components/table";
 import { useUserRoleHelper } from "~/hooks/user-user-role-helper";
 import {
-  countActiveCustomFields,
   getFilteredAndPaginatedCustomFields,
 } from "~/modules/custom-field/service.server";
-import { getOrganizationTierLimit } from "~/modules/tier/service.server";
-
 import { appendToMetaTitle } from "~/utils/append-to-meta-title";
 import {
   setCookie,
@@ -42,7 +39,6 @@ import {
   PermissionEntity,
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
-import { canCreateMoreCustomFields } from "~/utils/subscription.server";
 
 /** Browser tab title for the list. */
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
@@ -61,7 +57,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
   const { userId } = authSession;
 
   try {
-    const { organizationId, organizations } = await requirePermission({
+    const { organizationId } = await requirePermission({
       userId,
       request,
       entity: PermissionEntity.customField,
@@ -81,21 +77,16 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         search,
       });
 
-    const tierLimit = await getOrganizationTierLimit({
-      organizationId,
-      organizations,
-    });
-
     // Divide by the resolved page size. The raw `per_page` param is 0 whenever
     // the URL carries none.
     const totalPages = Math.ceil(totalCustomFields / perPage);
 
     const header: HeaderData = {
-      title: "Custom Fields",
+      title: "Trường tùy chỉnh",
     };
     const modelName = {
-      singular: "custom fields",
-      plural: "custom Fields",
+      singular: "trường tùy chỉnh",
+      plural: "trường tùy chỉnh",
     };
 
     return data(
@@ -108,10 +99,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
         totalPages,
         perPage,
         modelName,
-        canCreateMoreCustomFields: canCreateMoreCustomFields({
-          tierLimit,
-          totalCustomFields: await countActiveCustomFields({ organizationId }),
-        }),
+
       }),
       {
         headers: [setCookie(await userPrefs.serialize(cookie))],
@@ -125,29 +113,21 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
 
 /** The custom fields list, with its create button and bulk actions. */
 export default function CustomFieldsIndexPage() {
-  const { canCreateMoreCustomFields } = useLoaderData<typeof loader>();
+  useLoaderData<typeof loader>();
   const { isBaseOrSelfService } = useUserRoleHelper();
 
   return (
     <>
       <div className="mb-2.5 flex items-center justify-between bg-white md:rounded md:border md:border-gray-200 md:px-6 md:py-5">
-        <h2 className=" text-lg text-gray-900">Custom Fields</h2>
+        <h2 className=" text-lg text-gray-900">Trường tùy chỉnh</h2>
         <Button
           to="new"
           role="link"
-          aria-label="new custom field"
+          aria-label="Tạo trường tùy chỉnh mới"
           data-test-id="createNewCustomField"
           variant="primary"
-          disabled={
-            !canCreateMoreCustomFields
-              ? {
-                  reason:
-                    "You are not able to create more active custom fields within your current plan.",
-                }
-              : false
-          }
         >
-          New custom field
+          Trường tùy chỉnh mới
         </Button>
       </div>
       <List
@@ -155,11 +135,11 @@ export default function CustomFieldsIndexPage() {
         ItemComponent={CustomFieldRow}
         headerChildren={
           <>
-            <Th>Categories</Th>
-            <Th>Required</Th>
-            <Th>Status</Th>
-            <Th>Used on</Th>
-            <Th>Actions</Th>
+            <Th>Danh mục</Th>
+            <Th>Bắt buộc</Th>
+            <Th>Trạng thái</Th>
+            <Th>Đang dùng cho</Th>
+            <Th>Thao tác</Th>
           </>
         }
       />
@@ -193,7 +173,7 @@ function CustomFieldRow({
       <Td>
         <ItemsWithViewMore
           items={item.categories}
-          emptyMessage={<GrayBadge>All</GrayBadge>}
+          emptyMessage={<GrayBadge>Tất cả</GrayBadge>}
           renderItem={(category) => (
             <CategoryBadge
               category={category}
@@ -205,7 +185,7 @@ function CustomFieldRow({
       </Td>
       <Td>
         <span className="text-text-sm font-medium capitalize text-gray-600">
-          {item.required ? "Yes" : "No"}
+          {item.required ? "Có" : "Không"}
         </span>
       </Td>
       <Td>
@@ -221,7 +201,7 @@ function CustomFieldRow({
       </Td>
       <Td>
         <span className="text-text-sm font-medium text-gray-600">
-          {item.usageCount === 1 ? "1 asset" : `${item.usageCount} assets`}
+          {`${item.usageCount} tài sản`}
         </span>
       </Td>
       <Td>
