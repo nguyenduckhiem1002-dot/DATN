@@ -28,7 +28,7 @@ import {
 } from "~/utils/permissions/permission.data";
 import { requirePermission } from "~/utils/roles.server";
 
-const title = "New asset model";
+const title = "Mẫu tài sản mới";
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const authSession = context.getSession();
@@ -143,8 +143,8 @@ export async function action({ context, request }: LoaderFunctionArgs) {
     }
 
     sendNotification({
-      title: "Asset model created",
-      message: "Your asset model has been created successfully",
+      title: "Đã tạo mẫu tài sản",
+      message: "Mẫu tài sản đã được tạo thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
