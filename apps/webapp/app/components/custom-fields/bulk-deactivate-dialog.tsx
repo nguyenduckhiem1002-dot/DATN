@@ -32,8 +32,8 @@ export default function BulkDeactivateDialog() {
       type="deactivate"
       arrayFieldId="customFieldIds"
       actionUrl="/api/custom-fields/bulk-actions"
-      title={`Deactivate (${totalSelected}) custom fields.`}
-      description={`All selected (${totalSelected}) custom fields be deactivated on confirm.`}
+      title={`Tắt ${totalSelected} trường tùy chỉnh`}
+      description={`Sau khi xác nhận, ${totalSelected} trường đã chọn sẽ bị tắt.`}
     >
       {({ disabled, handleCloseDialog, fetcherError }) => (
         <>
@@ -51,7 +51,7 @@ export default function BulkDeactivateDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -59,7 +59,7 @@ export default function BulkDeactivateDialog() {
               width="full"
               disabled={disabled}
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </>
