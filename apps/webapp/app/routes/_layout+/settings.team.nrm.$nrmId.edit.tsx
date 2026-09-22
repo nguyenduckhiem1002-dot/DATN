@@ -53,7 +53,7 @@ export async function loader({ context, request, params }: LoaderFunctionArgs) {
     throw data(error(reason), { status: reason.status });
   }
 }
-export const meta = () => [{ title: appendToMetaTitle("Edit team member") }];
+export const meta = () => [{ title: appendToMetaTitle("Chỉnh sửa thành viên") }];
 
 export async function action({ context, request, params }: ActionFunctionArgs) {
   const authSession = context.getSession();
@@ -79,10 +79,10 @@ export async function action({ context, request, params }: ActionFunctionArgs) {
     });
 
     sendNotification({
-      title: "Success",
+      title: "Đã cập nhật",
       icon: { name: "success", variant: "success" },
       senderId: userId,
-      message: "Name of team member is edited successfully",
+      message: "Tên thành viên đã được cập nhật thành công",
     });
 
     return redirect("/settings/team/nrm");
@@ -113,7 +113,7 @@ export default function EditNrm() {
         <UserIcon />
       </div>
 
-      <h4 className="mb-5">Edit team member</h4>
+      <h4 className="mb-5">Chỉnh sửa thành viên</h4>
 
       <Form method="post" ref={zo.ref}>
         <Input
@@ -121,9 +121,9 @@ export default function EditNrm() {
           defaultValue={teamMember.name}
           name={zo.fields.name()}
           type="text"
-          label="Name"
+          label="Tên"
           className="mb-8"
-          placeholder="Enter team member’s name"
+          placeholder="Nhập tên thành viên"
           required
           error={zo.errors.name()?.message}
           disabled={disabled}
@@ -134,7 +134,7 @@ export default function EditNrm() {
           type="submit"
           disabled={disabled}
         >
-          Save
+          Lưu
         </Button>
       </Form>
       {actionData?.error && (
