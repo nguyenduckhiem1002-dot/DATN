@@ -198,7 +198,7 @@ function ConditionalDropdown() {
               >
                 <BulkUpdateDialogTrigger
                   type="start-audit"
-                  label="Create audit"
+                  label="Tạo đợt kiểm kê"
                   onClick={closeMenu}
                 />
               </DropdownMenuItem>
@@ -214,14 +214,14 @@ function ConditionalDropdown() {
               <DropdownMenuItem className="py-1 lg:p-0">
                 <BulkUpdateDialogTrigger
                   type="release-custody"
-                  label="Release custody"
+                  label="Thu hồi tài sản"
                   onClick={closeMenu}
                   disabled={
                     !allKitsInCustody || disableReleaseCustody
                       ? {
                           reason: disableReleaseCustody
-                            ? "Self service can only release their own custody."
-                            : "Some of the selected kits are not in custody",
+                            ? "Người dùng tự phục vụ chỉ có thể thu hồi tài sản do chính mình đang giữ."
+                            : "Một số bộ tài sản đã chọn hiện không được bàn giao",
                         }
                       : isLoading
                   }
@@ -230,7 +230,7 @@ function ConditionalDropdown() {
               <DropdownMenuItem className="border-b py-1 lg:p-0">
                 <BulkUpdateDialogTrigger
                   type="assign-custody"
-                  label={isSelfService ? "Take custody" : "Assign custody"}
+                  label={isSelfService ? "Nhận tài sản" : "Bàn giao tài sản"}
                   onClick={closeMenu}
                   disabled={
                     !allKitsAvailable ||
@@ -238,7 +238,7 @@ function ConditionalDropdown() {
                       ? {
                           reason: someAssetsInsideKitsCheckedOutOrInCustody
                             ? "Some of the asset(s) inside this kits are either checked out or in custody. You need to resolve that before you can assign custody."
-                            : "Some of the selected kits are not available",
+                            : "Một số bộ tài sản đã chọn không khả dụng",
                         }
                       : isLoading
                   }
@@ -269,13 +269,13 @@ function ConditionalDropdown() {
               >
                 <BulkUpdateDialogTrigger
                   type="trash"
-                  label="Delete"
+                  label="Xóa"
                   onClick={closeMenu}
                   disabled={
                     someKitsCheckedOut
                       ? {
                           reason:
-                            "Some of the selected kits are checked out. Please finish your booking first, before deleting them.",
+                            "Một số bộ tài sản đang được dùng trong lịch đặt. Hãy hoàn tất lịch đặt trước khi xóa.",
                         }
                       : isLoading
                   }
@@ -292,7 +292,7 @@ function ConditionalDropdown() {
                 width="full"
                 onClick={closeMenu}
               >
-                Close
+                Đóng
               </Button>
             </DropdownMenuItem>
           </div>
