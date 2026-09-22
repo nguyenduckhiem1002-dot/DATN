@@ -92,7 +92,7 @@ function UnlockBarcodesModalContent({
         <div className="mb-2 inline-flex size-10 items-center justify-center rounded-full border-[5px] border-solid border-primary-50 bg-primary-100 text-primary">
           <BarcodeIcon className="size-5" />
         </div>
-        <AlertDialogTitle>Unlock {BARCODE_ADDON.label}</AlertDialogTitle>
+        <AlertDialogTitle>Mở khóa {BARCODE_ADDON.label}</AlertDialogTitle>
         <AlertDialogDescription>
           {BARCODE_ADDON.subtitle}
         </AlertDialogDescription>
@@ -120,7 +120,7 @@ function UnlockBarcodesModalContent({
 
       <AlertDialogCancel asChild>
         <Button type="button" variant="secondary" width="full">
-          Close
+          Đóng
         </Button>
       </AlertDialogCancel>
     </AlertDialogContent>
@@ -136,7 +136,7 @@ export function UnlockBarcodesModal({
   triggerVariant = "secondary",
   triggerSize,
   triggerIcon,
-  triggerLabel = "Learn more",
+  triggerLabel = "Tìm hiểu thêm",
 }: {
   triggerClassName?: string;
   triggerVariant?: CommonButtonProps["variant"];
@@ -197,7 +197,7 @@ function OwnerBarcodesBanner() {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button type="button" variant="secondary" className="mt-3">
-            Learn more
+            Tìm hiểu thêm
           </Button>
         </AlertDialogTrigger>
         <UnlockBarcodesModalContent {...state} />
@@ -263,11 +263,11 @@ function BarcodeModalPricing({
                   : "text-gray-500"
               )}
             >
-              Monthly
+              Hàng tháng
             </p>
             <p className="text-lg font-semibold">
               {fmtPrice(monthlyPrice.unit_amount || 0, monthlyPrice.currency)}
-              <span className="text-xs font-normal text-gray-500">/mo</span>
+              <span className="text-xs font-normal text-gray-500">/tháng</span>
             </p>
           </button>
         )}
@@ -284,7 +284,7 @@ function BarcodeModalPricing({
           >
             {yearlyDiscount != null && yearlyDiscount > 0 && (
               <span className="absolute -top-2 rounded-full bg-primary-500 px-2 py-0.5 text-[10px] font-semibold text-white">
-                Save {yearlyDiscount}%
+                Tiết kiệm {yearlyDiscount}%
               </span>
             )}
             <p
@@ -295,7 +295,7 @@ function BarcodeModalPricing({
                   : "text-gray-500"
               )}
             >
-              Yearly
+              Hàng năm
             </p>
             <p className="text-lg font-semibold">
               {fmtPrice(
@@ -318,10 +318,9 @@ function BarcodeModalPricing({
               className="mt-0.5 shrink-0"
             />
             <span className="text-[13px] text-gray-600">
-              I understand that after the 7-day free trial, my payment method on
-              file will be automatically charged at the regular subscription
-              rate. I can cancel anytime before the trial ends to avoid being
-              charged.
+              Tôi hiểu rằng sau 7 ngày dùng thử miễn phí, phương thức thanh toán đã lưu
+              sẽ tự động bị tính phí theo mức đăng ký thông thường. Tôi có thể hủy
+              trước khi thời gian dùng thử kết thúc để tránh bị tính phí.
             </span>
           </label>
         </div>
@@ -343,7 +342,7 @@ function BarcodeModalPricing({
           >
             <span className="flex items-center gap-2">
               <SparklesIcon className="size-4" />
-              {disabled ? "Enabling..." : "Enable for free for 7 days"}
+              {disabled ? "Đang bật..." : "Dùng thử miễn phí 7 ngày"}
             </span>
           </Button>
         </actionFetcher.Form>
@@ -363,14 +362,14 @@ function BarcodeModalPricing({
             {disabled
               ? "Redirecting..."
               : selectedInterval === "year"
-              ? `Subscribe yearly (${fmtPrice(
+              ? `Đăng ký theo năm (${fmtPrice(
                   selectedPrice.unit_amount || 0,
                   selectedPrice.currency
-                )}/yr)`
-              : `Subscribe monthly (${fmtPrice(
+                )}/năm)`
+              : `Đăng ký theo tháng (${fmtPrice(
                   selectedPrice.unit_amount || 0,
                   selectedPrice.currency
-                )}/mo)`}
+                )}/tháng)`}
           </Button>
         </actionFetcher.Form>
       )}
