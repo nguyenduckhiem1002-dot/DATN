@@ -29,8 +29,8 @@ export default function BulkActivateDialog() {
       type="activate"
       arrayFieldId="customFieldIds"
       actionUrl="/api/custom-fields/bulk-actions"
-      title={`Activate (${totalSelected}) custom fields.`}
-      description={`All selected (${totalSelected}) custom fields be activated on confirm.`}
+      title={`Kích hoạt ${totalSelected} trường tùy chỉnh`}
+      description={`Sau khi xác nhận, ${totalSelected} trường đã chọn sẽ được kích hoạt.`}
     >
       {({ disabled, handleCloseDialog, fetcherError }) => (
         <>
@@ -48,7 +48,7 @@ export default function BulkActivateDialog() {
               disabled={disabled}
               onClick={handleCloseDialog}
             >
-              Cancel
+              Hủy
             </Button>
             <Button
               type="submit"
@@ -56,7 +56,7 @@ export default function BulkActivateDialog() {
               width="full"
               disabled={disabled}
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </>
