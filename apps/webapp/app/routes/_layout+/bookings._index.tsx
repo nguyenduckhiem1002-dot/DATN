@@ -49,13 +49,13 @@ import {
 import { requirePermission } from "~/utils/roles.server";
 
 export const bookingsSearchFieldTooltipText = `
-Search bookings based on different fields. Separate your keywords by a comma(,) to search with OR condition. Supported fields are: 
-- Name
-- Description
-- Tags
-- Custodian names (first or last name)
-- Asset names
-- Asset barcodes or qr code
+Tìm lịch đặt theo nhiều trường. Phân tách từ khóa bằng dấu phẩy (,) để tìm theo điều kiện HOẶC. Hỗ trợ:
+- Tên
+- Mô tả
+- Thẻ
+- Tên người giữ
+- Tên tài sản
+- Mã vạch hoặc mã QR của tài sản
 `;
 
 export type BookingsIndexLoaderData = typeof loader;
@@ -263,7 +263,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 
 export const handle = {
   name: "bookings.index",
-  breadcrumb: () => <Link to="/bookings">Bookings</Link>,
+  breadcrumb: () => <Link to="/bookings">Đặt lịch</Link>,
 };
 
 export const shouldRevalidate: ShouldRevalidateFunction = ({
@@ -340,7 +340,7 @@ export default function BookingsIndexPage({
                 data-test-id="createNewBooking"
                 prefetch="none"
               >
-                New booking
+                Lịch đặt mới
               </Button>
             }
           />
