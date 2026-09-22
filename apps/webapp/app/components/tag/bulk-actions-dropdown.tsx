@@ -111,7 +111,7 @@ function ConditionalDropdown() {
             >
               <BulkUpdateDialogTrigger
                 type="trash"
-                label="Delete"
+                label="Xóa"
                 onClick={closeMenu}
               />
             </DropdownMenuItem>
