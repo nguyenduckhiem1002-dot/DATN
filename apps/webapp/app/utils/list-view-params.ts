@@ -87,3 +87,50 @@ export const skipRevalidationOnClientViewChange: ShouldRevalidateFunction = ({
   }
   return defaultShouldRevalidate;
 };
+
+
+/**
+ * App-shell revalidation policy.
+ *
+ * The authenticated shell loader resolves user, organization, subscription,
+ * booking settings, working hours and sidebar preferences. None of those
+ * values depend on ordinary child-route navigation, so rerunning that loader
+ * for every click adds avoidable DB/service latency on top of the destination
+ * route loader.
+ *
+ * Exceptions:
+ * - mutations: shell state may have changed;
+ * - identical-URL revalidation: preserves explicit revalidator/redirect refreshes;
+ * - crossing the /account-details boundary: disabledTeamOrg intentionally
+ *   depends on whether the URL is inside account details.
+ */
+export const skipAppShellRevalidationOnGetNavigation: ShouldRevalidateFunction =
+  ({
+    currentUrl,
+    nextUrl,
+    formMethod,
+    defaultShouldRevalidate,
+  }) => {
+    if (formMethod && formMethod !== "GET") {
+      return defaultShouldRevalidate;
+    }
+
+    const isIdenticalUrl =
+      currentUrl.pathname === nextUrl.pathname &&
+      currentUrl.search === nextUrl.search &&
+      currentUrl.hash === nextUrl.hash;
+
+    if (isIdenticalUrl) {
+      return defaultShouldRevalidate;
+    }
+
+    const isAccountDetails = (url: URL) =>
+      url.pathname === "/account-details" ||
+      url.pathname.startsWith("/account-details/");
+
+    if (isAccountDetails(currentUrl) !== isAccountDetails(nextUrl)) {
+      return defaultShouldRevalidate;
+    }
+
+    return false;
+  };
