@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 interface CommandPaletteContextValue {
   open: boolean;
@@ -30,6 +30,23 @@ export function useCommandPaletteSafe() {
 
 export function CommandPaletteProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        setOpen((previous) => !previous);
+        return;
+      }
+
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const value = useMemo(
     () => ({
