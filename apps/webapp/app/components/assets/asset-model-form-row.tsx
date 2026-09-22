@@ -57,18 +57,18 @@ export function AssetModelFormRow({
 }: AssetModelFormRowProps) {
   return (
     <FormRow
-      rowLabel="Asset Model"
+      rowLabel="Mẫu tài sản"
       required={required}
       subHeading={
         <p>
-          Assign a model to group similar assets together.{" "}
+          Gán mẫu để nhóm các tài sản có đặc điểm tương tự.{" "}
           <Button
             to="/settings/asset-models/new"
             variant="link-gray"
             className="text-gray-600 underline"
             target="_blank"
           >
-            Create asset models
+            Tạo mẫu tài sản
           </Button>
         </p>
       }
@@ -81,9 +81,9 @@ export function AssetModelFormRow({
           fieldName="assetModelId"
           model={{ name: "assetModel", queryKey: "name" }}
           triggerWrapperClassName="flex flex-col !gap-0 justify-start items-start [&_.inner-label]:w-full [&_.inner-label]:text-left "
-          placeholder="Select asset model"
-          contentLabel="Asset Models"
-          label="Asset Model"
+          placeholder="Chọn mẫu tài sản"
+          contentLabel="Mẫu tài sản"
+          label="Mẫu tài sản"
           hideLabel
           initialDataKey="assetModels"
           countKey="totalAssetModels"
@@ -93,9 +93,9 @@ export function AssetModelFormRow({
           onChange={onChange}
           extraContent={({ onItemCreated, closePopover }) => (
             <InlineEntityCreationDialog
-              title="Create new asset model"
+              title="Tạo mẫu tài sản mới"
               type="assetModel"
-              buttonLabel="Create new asset model"
+              buttonLabel="Tạo mẫu tài sản mới"
               onCreated={(created) => {
                 if (created?.type !== "assetModel") return;
                 const model = created.entity;
