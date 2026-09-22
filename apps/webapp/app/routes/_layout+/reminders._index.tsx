@@ -53,7 +53,7 @@ export async function loader({ context, request }: LoaderFunctionArgs) {
       searchFieldLabel: "Tìm kiếm nhắc việc",
       searchFieldTooltip: {
         title: "Tìm kiếm nhắc việc",
-        text: "Search reminders by reminder name, message, asset name or team member name. Separate your keywords by a comma(,) to search with OR condition. For example: searching 'Laptop, maintenance' will find reminders matching any of these terms.",
+        text: "Tìm nhắc việc theo tên, nội dung, tên tài sản hoặc thành viên. Có thể phân tách nhiều từ khóa bằng dấu phẩy để tìm theo điều kiện HOẶC.",
       },
       search,
     });
@@ -96,8 +96,8 @@ export default function Reminders() {
       <Header
         subHeading={
           <>
-            To create a new reminder, navigate to the asset of your choice and
-            use <b>{"Thao tác > Đặt nhắc việc"}</b>
+            Để tạo nhắc việc mới, hãy mở tài sản cần theo dõi và chọn
+            <b>{" Thao tác > Đặt nhắc việc"}</b>
           </>
         }
       />
