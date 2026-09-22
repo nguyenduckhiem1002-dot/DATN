@@ -53,9 +53,8 @@ export default function DeleteKit({ kit, trigger }: DeleteKitProps) {
           </div>
           <AlertDialogTitle>Xóa {kit.name}</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete this kit? This action cannot be
-            undone. Deleting a kit will not delete the assets. If the kit is
-            checked out, assets will be made available again.
+            Bạn có chắc muốn xóa bộ tài sản này? Thao tác không thể hoàn tác.
+            Xóa bộ tài sản sẽ không xóa các tài sản bên trong.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
