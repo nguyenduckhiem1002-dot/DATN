@@ -324,7 +324,7 @@ function OptionSelect({
     );
   }, [field.options, searchQuery]);
 
-  const displayValue = value || `Choose ${field.name}`;
+  const displayValue = value || `Chọn ${field.name}`;
 
   // Handle option selection
   function handleOptionClick(option: string) {
