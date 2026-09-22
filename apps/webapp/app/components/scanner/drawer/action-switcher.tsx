@@ -77,7 +77,7 @@ export function ActionSwitcher() {
     if (!searchQuery) return availableActions;
 
     return availableActions.filter((action) =>
-      action.toLowerCase().includes(searchQuery.toLowerCase())
+      getActionLabel(action).toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [searchQuery, availableActions]);
 
@@ -154,7 +154,7 @@ export function ActionSwitcher() {
             )}
           >
             <ChevronRight className="ml-[2px] inline-block rotate-90" />
-            <span className="ml-2">Action: {action.toLowerCase()}</span>
+            <span className="ml-2">Thao tác: {getActionLabel(action)}</span>
           </Button>
         </PopoverTrigger>
         <PopoverPortal>
@@ -168,7 +168,7 @@ export function ActionSwitcher() {
               <Search className="ml-4 size-4 text-gray-500" />
               <input
                 ref={searchInputRef}
-                placeholder="Search action..."
+                placeholder="Tìm thao tác..."
                 className="border-0 px-4 py-2 pl-2 text-[14px] focus:border-0 focus:ring-0"
                 value={searchQuery}
                 onChange={handleSearch}
@@ -199,7 +199,7 @@ export function ActionSwitcher() {
                 onClick={() => changeAction(action)}
                 onKeyDown={handleActivationKeyPress(() => changeAction(action))}
               >
-                <span className="font-medium">{action}</span>
+                <span className="font-medium">{getActionLabel(action)}</span>
                 <span className="ml-2 font-normal text-gray-500">
                   {getActionScope(action)}
                 </span>
@@ -207,7 +207,7 @@ export function ActionSwitcher() {
             ))}
             {filteredActions.length === 0 && (
               <div className="px-4 py-2 text-[14px] text-gray-500">
-                No columns found
+                Không tìm thấy thao tác
               </div>
             )}
           </PopoverContent>
@@ -223,10 +223,23 @@ export function ActionSwitcher() {
 function getActionScope(action: ActionType) {
   switch (action) {
     case "View asset":
-      return "single";
+      return "một tài sản";
     case "Assign custody":
     case "Release custody":
     case "Update location":
-      return "bulk";
+      return "nhiều tài sản";
+  }
+}
+
+function getActionLabel(action: ActionType) {
+  switch (action) {
+    case "View asset":
+      return "Xem tài sản";
+    case "Assign custody":
+      return "Bàn giao tài sản";
+    case "Release custody":
+      return "Thu hồi tài sản";
+    case "Update location":
+      return "Cập nhật vị trí";
   }
 }
