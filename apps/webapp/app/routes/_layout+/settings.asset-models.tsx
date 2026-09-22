@@ -120,7 +120,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/settings/asset-models">Asset Models</Link>,
+  breadcrumb: () => <Link to="/settings/asset-models">Mẫu tài sản</Link>,
 };
 
 export default function AssetModelsLayout() {
