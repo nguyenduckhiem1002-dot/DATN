@@ -50,7 +50,7 @@ import {
 import { requirePermission } from "~/utils/roles.server";
 import { slugify } from "~/utils/slugify";
 
-const title = "New asset";
+const title = "Tài sản mới";
 const header = {
   title,
 };
@@ -259,8 +259,8 @@ export async function action({ context, request }: LoaderFunctionArgs) {
       });
 
       sendNotification({
-        title: "Assets created",
-        message: `${result.createdAssetIds.length} assets created.`,
+        title: "Đã tạo tài sản",
+        message: `Đã tạo ${result.createdAssetIds.length} tài sản.`,
         icon: { name: "success", variant: "success" },
         senderId: authSession.userId,
       });
@@ -341,8 +341,8 @@ export async function action({ context, request }: LoaderFunctionArgs) {
     await Promise.all(postCreationTasks);
 
     sendNotification({
-      title: "Asset created",
-      message: "Your asset has been created successfully",
+      title: "Đã tạo tài sản",
+      message: "Tài sản đã được tạo thành công",
       icon: { name: "success", variant: "success" },
       senderId: authSession.userId,
     });
@@ -378,7 +378,7 @@ export default function NewAssetPage() {
     <div className="relative">
       <Header
         title={
-          title ? title : bulkMode ? "Bulk create assets" : "Untitled Asset"
+          title ? title : bulkMode ? "Tạo tài sản hàng loạt" : "Tài sản chưa đặt tên"
         }
       />
       <div>
