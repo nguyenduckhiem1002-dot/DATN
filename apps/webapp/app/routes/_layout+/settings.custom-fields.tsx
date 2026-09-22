@@ -88,7 +88,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
 
     sendNotification({
       title: "Đã xóa trường tùy chỉnh",
-      message: `The custom field "${customField.name}" has been deleted. You can now create a new field with the same name if needed.`,
+      message: `Đã xóa trường tùy chỉnh "${customField.name}". Bạn có thể tạo trường mới với cùng tên nếu cần.`,
       icon: { name: "success", variant: "success" },
       senderId: userId,
     });
@@ -101,7 +101,7 @@ export async function action({ context, request }: ActionFunctionArgs) {
 }
 
 export const handle = {
-  breadcrumb: () => <Link to="/settings/custom-fields">Custom Fields</Link>,
+  breadcrumb: () => <Link to="/settings/custom-fields">Trường tùy chỉnh</Link>,
 };
 
 // export const shouldRevalidate = () => false;
