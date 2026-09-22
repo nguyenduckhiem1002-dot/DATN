@@ -39,7 +39,7 @@ export default function DeleteKit({ kit, trigger }: DeleteKitProps) {
             className="justify-start rounded-sm px-4 py-3 text-sm font-semibold text-gray-700 outline-none  hover:bg-slate-100 hover:text-gray-700"
             width="full"
           >
-            Delete
+            Xóa
           </Button>
         )}
       </AlertDialogTrigger>
@@ -51,7 +51,7 @@ export default function DeleteKit({ kit, trigger }: DeleteKitProps) {
               <TrashIcon />
             </span>
           </div>
-          <AlertDialogTitle>Delete {kit.name}</AlertDialogTitle>
+          <AlertDialogTitle>Xóa {kit.name}</AlertDialogTitle>
           <AlertDialogDescription>
             Are you sure you want to delete this kit? This action cannot be
             undone. Deleting a kit will not delete the assets. If the kit is
@@ -62,7 +62,7 @@ export default function DeleteKit({ kit, trigger }: DeleteKitProps) {
           <div className="flex justify-center gap-2">
             <AlertDialogCancel asChild>
               <Button type="button" variant="secondary" disabled={disabled}>
-                Cancel
+                Hủy
               </Button>
             </AlertDialogCancel>
 
@@ -76,7 +76,7 @@ export default function DeleteKit({ kit, trigger }: DeleteKitProps) {
                 className="border-error-600 bg-error-600 hover:border-error-800 hover:bg-error-800"
                 disabled={disabled}
               >
-                Delete
+                Xóa
               </Button>
             </Form>
           </div>
