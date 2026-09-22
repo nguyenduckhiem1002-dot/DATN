@@ -1084,7 +1084,7 @@ export const AssetForm = ({
                 inputClassName="border-0 shadow-none p-0 rounded-none"
               />
               <p className="mt-2 lg:hidden">
-                Accepts PNG, JPG, JPEG, or WebP (max.8 MB)
+                Chấp nhận PNG, JPG, JPEG hoặc WebP (tối đa 8 MB)
               </p>
             </div>
           </div>
@@ -1414,7 +1414,7 @@ const Actions = ({
   <>
     {/* Save button is first in DOM order so Enter key triggers it by default */}
     <Button type="submit" disabled={disabled} className="order-last">
-      Save
+      Lưu
     </Button>
 
     <ButtonGroup>
