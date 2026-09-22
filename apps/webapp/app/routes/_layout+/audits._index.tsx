@@ -45,7 +45,7 @@ import { requirePermission } from "~/utils/roles.server";
 import { resolveUserDisplayName } from "~/utils/user";
 
 const AUDIT_SORTING_OPTIONS = {
-  name: "Name",
+  name: "Tên",
   createdAt: "Ngày tạo",
   dueDate: "Hạn hoàn thành",
 } as const;
