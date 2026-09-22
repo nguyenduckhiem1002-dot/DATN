@@ -341,7 +341,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
             // get the same explanation the hover card gives everyone else.
             aria-disabled={true}
             aria-describedby={disabledReasonId}
-            prefetch={isLinkProps(props) ? props.prefetch ?? "none" : undefined}
+            prefetch={resolvedPrefetch}
             ref={ref}
             onMouseDown={(e: MouseEvent) => e.preventDefault()}
             onClick={(e: MouseEvent) => e.preventDefault()}
@@ -362,9 +362,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
                 {...newTabRel}
                 className={finalStyles}
                 aria-label={ariaLabel}
-                prefetch={
-                  isLinkProps(props) ? props.prefetch ?? "none" : undefined
-                }
+                prefetch={resolvedPrefetch}
                 ref={ref}
                 disabled={isDisabled}
                 /** In the case when the button is disabled but there is no disabled reason, we still need to handle these events */
@@ -392,7 +390,7 @@ export const Button = React.forwardRef<HTMLElement, ButtonProps>(
           {...newTabRel}
           className={finalStyles}
           aria-label={ariaLabel}
-          prefetch={isLinkProps(props) ? props.prefetch ?? "none" : undefined}
+          prefetch={resolvedPrefetch}
           ref={ref}
           disabled={isDisabled}
           /** In the case when the button is disabled but there is no disabled reason, we still need to handle these events */
